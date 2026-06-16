@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1f4e78;
+  --color-primary: #71d7f7;
   --color-secondary: #2e75b6;
   --color-accent-green: #00aa44;
   --color-accent-orange: #e07b39;
@@ -79,6 +79,6 @@
     overflow: visible;
     clip: auto;
     white-space: normal;
-    @apply bg-primary text-white z-50;
+    @apply bg-primary text-neutral-dark z-50;
   }
 }
