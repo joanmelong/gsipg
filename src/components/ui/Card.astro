@@ -1,0 +1,37 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  class?: string;
+}
+
+const { title, description, class: className = '' } = Astro.props;
+---
+
+<article
+  class={`flex flex-col overflow-hidden rounded-lg bg-white shadow-md transition duration-200 hover:shadow-xl ${className}`}
+>
+  {
+    Astro.slots.has('image') && (
+      <div class="h-48 w-full overflow-hidden">
+        <slot name="image" />
+      </div>
+    )
+  }
+  <div class="flex flex-col gap-3 p-6">
+    <h3 class="text-xl font-bold text-primary">{title}</h3>
+    {
+      description && (
+        <p class="line-clamp-3 text-sm text-neutral-text">{description}</p>
+      )
+    }
+    <slot />
+    {
+      Astro.slots.has('footer') && (
+        <div class="mt-auto self-start">
+          <slot name="footer" />
+        </div>
+      )
+    }
+  </div>
+</article>

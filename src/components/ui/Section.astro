@@ -1,0 +1,28 @@
+---
+interface Props {
+  background?: 'white' | 'neutral';
+  class?: string;
+  id?: string;
+  ariaLabel?: string;
+}
+
+const {
+  background = 'white',
+  class: className = '',
+  id,
+  ariaLabel,
+} = Astro.props;
+
+const backgroundClasses = {
+  white: 'bg-white',
+  neutral: 'bg-neutral-bg',
+};
+---
+
+<section
+  id={id}
+  aria-label={ariaLabel}
+  class={`py-12 sm:py-16 lg:py-20 ${backgroundClasses[background]} ${className}`}
+>
+  <slot />
+</section>

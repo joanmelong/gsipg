@@ -1,17 +1,72 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import Container from '../components/ui/Container.astro';
+import Section from '../components/ui/Section.astro';
+import { siteConfig } from '../config/site';
 
+const whyGsipg = [
+  {
+    title: 'Excellence Académique',
+    description:
+      'Un enseignement rigoureux et reconnu internationalement pour préparer chaque élève à la réussite.',
+  },
+  {
+    title: 'Apprentissage par l\'Aventure',
+    description:
+      'Des parcs d\'attractions éducatifs intégrés au curriculum pour apprendre en expérimentant.',
+  },
+  {
+    title: 'Développement Global',
+    description:
+      'Une approche holistique favorisant l\'épanouissement intellectuel, social, sportif et artistique.',
+  },
+  {
+    title: 'Partenaires & Certifications',
+    description:
+      'Des collaborations internationales et des certifications qui garantissent la qualité pédagogique.',
+  },
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout
+  title="Accueil"
+  description="Découvrez GSIPG : école maternelle et primaire combinant excellence académique et parcs d'attractions éducatifs uniques à Yaoundé."
+>
+  <Section background="neutral" ariaLabel="Introduction">
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <h1>Où l'Excellence Académique Rencontre l'Aventure Éducative</h1>
+        <p class="mt-4 text-lg text-neutral-text">
+          {siteConfig.description}
+        </p>
+        <div class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <Button href="/admissions" size="lg">Planifier une visite</Button>
+          <Button href="/qui-sommes-nous" variant="secondary" size="lg">
+            Découvrir notre approche
+          </Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  <Section ariaLabel="Pourquoi GSIPG">
+    <Container>
+      <div class="mb-12 text-center">
+        <h2>Pourquoi GSIPG ?</h2>
+        <p class="mx-auto mt-4 max-w-2xl text-neutral-text">
+          Deux mondes, un objectif : offrir à chaque enfant une éducation d'excellence
+          enrichie par l'expérience et le jeu réfléchi.
+        </p>
+      </div>
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+        {
+          whyGsipg.map((item) => (
+            <Card title={item.title} description={item.description} />
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
