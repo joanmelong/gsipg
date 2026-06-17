@@ -1,0 +1,110 @@
+---
+import Container from '../ui/Container.astro';
+import { curricula, curriculumPortrait, curriculumSection } from '../../data/home';
+---
+
+<section
+  class="relative overflow-hidden bg-secondary py-16 sm:py-20 lg:py-24"
+  aria-label="Les 3 cursus linguistiques"
+>
+  <!-- Motif décoratif -->
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.07]"
+    style="background-image: radial-gradient(circle, #ffffff 1.5px, transparent 1.5px); background-size: 28px 28px;"
+    aria-hidden="true"
+  ></div>
+  <div
+    class="pointer-events-none absolute inset-0 opacity-[0.04]"
+    style="background: repeating-linear-gradient(-45deg, transparent, transparent 40px, #ffffff 40px, #ffffff 41px);"
+    aria-hidden="true"
+  ></div>
+
+  <Container>
+    <div class="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16 xl:gap-20">
+      <!-- Colonne gauche : titre + liste -->
+      <div>
+        <p class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-4 w-4" aria-hidden="true">
+            <path d="M10 2a6 6 0 0 0-6 6c0 1.887-.454 3.665-1.257 5.234a.75.75 0 0 0 .515 1.06 32.94 32.94 0 0 0 3.256.508 3.5 3.5 0 0 0 6.972 0 32.933 32.933 0 0 0 3.256-.508.75.75 0 0 0 .515-1.06A11.717 11.717 0 0 1 16 8a6 6 0 0 0-6-6ZM8.05 14.943a33.54 33.54 0 0 0 3.9 0 2 2 0 0 1-3.9 0Z"></path>
+          </svg>
+          {curriculumSection.tag}
+        </p>
+
+        <h2 class="mt-5 font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-white sm:text-4xl lg:text-[2.75rem]">
+          {curriculumSection.title}
+          <span class="mt-1 block text-primary underline decoration-wavy decoration-2 underline-offset-4">
+            {curriculumSection.titleHighlight}
+          </span>
+        </h2>
+
+        <ul class="mt-10 divide-y divide-white/20" role="list">
+          {
+            curricula.map((item) => (
+              <li>
+                <details class="group curriculum-item">
+                  <summary class="flex cursor-pointer list-none items-center gap-4 py-5 marker:content-none [&::-webkit-details-marker]:hidden">
+                    <div class="min-w-0 flex-1">
+                      <span class="block font-subheading text-lg font-semibold normal-case tracking-normal text-white transition group-hover:text-primary sm:text-xl">
+                        {item.title}
+                      </span>
+                      <span class="mt-0.5 block text-sm text-white/65">{item.subtitle}</span>
+                    </div>
+                    <span
+                      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-white/35 text-white transition duration-300 group-hover:border-primary group-hover:bg-primary/20 group-open:border-primary group-open:bg-primary/25"
+                      aria-hidden="true"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="h-5 w-5 transition duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-open:rotate-45"
+                      >
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25"></path>
+                      </svg>
+                    </span>
+                  </summary>
+                  <p class="pb-5 pr-16 text-sm leading-relaxed text-white/80">{item.description}</p>
+                </details>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <!-- Colonne droite : portrait sur fond bleu clair -->
+      <div class="relative mx-auto w-full max-w-md lg:max-w-none">
+        <div class="relative">
+          <!-- Encoche décorative en haut à droite -->
+          <div
+            class="absolute -top-px right-16 z-20 h-6 w-20 rounded-b-xl bg-secondary"
+            aria-hidden="true"
+          ></div>
+
+          <div
+            class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem]"
+            style={`background-color: ${curriculumSection.frameBg}`}
+          >
+            <div class="flex aspect-[4/5] items-end justify-center px-6 pb-0 pt-10 sm:px-10 sm:pt-14">
+              <img
+                src={curriculumPortrait.src}
+                alt={curriculumPortrait.alt}
+                class="max-h-[92%] w-auto max-w-full object-contain object-bottom drop-shadow-lg"
+                loading="lazy"
+                width="520"
+                height="650"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<style>
+  .curriculum-item[open] summary span:first-of-type {
+    color: var(--color-primary);
+  }
+</style>

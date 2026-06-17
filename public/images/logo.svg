@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 48" fill="none" aria-hidden="true">
   <rect width="48" height="48" rx="8" fill="#71D7F7"/>
-  <text x="24" y="32" text-anchor="middle" fill="#1a1a1a" font-family="Montserrat, sans-serif" font-size="18" font-weight="700">G</text>
-  <text x="62" y="22" fill="#1a1a1a" font-family="Montserrat, sans-serif" font-size="16" font-weight="700">GSIPG</text>
-  <text x="62" y="38" fill="#595959" font-family="Inter, sans-serif" font-size="10">La Petite Gloria</text>
+  <text x="24" y="32" text-anchor="middle" fill="#1a1a1a" font-family="Bebas Neue, sans-serif" font-size="18">G</text>
+  <text x="62" y="22" fill="#1a1a1a" font-family="Bebas Neue, sans-serif" font-size="16">GSIPG</text>
+  <text x="62" y="38" fill="#595959" font-family="Poppins, sans-serif" font-size="10">La Petite Gloria</text>
 </svg>

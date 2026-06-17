@@ -15,11 +15,11 @@ export const siteConfig = {
 
 export const mainNav = [
   { label: 'Accueil', href: '/' },
-  { label: 'Qui Sommes-Nous', href: '/qui-sommes-nous' },
-  { label: 'Nos Niveaux', href: '/niveaux' },
+  { label: 'Vie Scolaire', href: '/vie-scolaire' },
   { label: 'Actualités', href: '/actualites' },
-  { label: 'Admissions', href: '/admissions' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Résultats', href: '/resultats' },
+  { label: 'Galerie', href: '/galerie' },
+  { label: 'À Propos', href: '/qui-sommes-nous' },
 ] as const;
 
 export const footerQuickLinks = [

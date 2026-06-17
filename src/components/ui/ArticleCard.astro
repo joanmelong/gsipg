@@ -1,0 +1,43 @@
+---
+import { formatArticleDate, type Article } from '../../data/articles';
+import Button from './Button.astro';
+
+interface Props {
+  article: Article;
+}
+
+const { article } = Astro.props;
+---
+
+<article class="flex flex-col overflow-hidden rounded-lg bg-white shadow-md transition duration-200 hover:shadow-xl">
+  <a href={`/actualites#${article.slug}`} class="block">
+    <div class="aspect-[16/10] overflow-hidden">
+      <img
+        src={article.image}
+        alt={article.imageAlt}
+        class="h-full w-full object-cover transition duration-300 hover:scale-105"
+        loading="lazy"
+        width="400"
+        height="250"
+      />
+    </div>
+  </a>
+  <div class="flex flex-1 flex-col gap-2 p-5">
+    <div class="flex items-center gap-2 text-xs text-neutral-text">
+      <time datetime={article.date}>{formatArticleDate(article.date)}</time>
+      <span aria-hidden="true">·</span>
+      <span class="rounded-full bg-primary/20 px-2 py-0.5 text-secondary">{article.category}</span>
+    </div>
+    <h3 class="text-lg">
+      <a href={`/actualites#${article.slug}`} class="text-secondary hover:text-primary">
+        {article.title}
+      </a>
+    </h3>
+    <p class="line-clamp-3 flex-1 text-sm text-neutral-text">{article.excerpt}</p>
+    <div class="mt-2">
+      <Button href={`/actualites#${article.slug}`} variant="tertiary" size="sm">
+        Lire la suite
+      </Button>
+    </div>
+  </div>
+</article>

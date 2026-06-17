@@ -131,9 +131,33 @@ const socialIcons: Record<string, string> = {
     </div>
 
     <div class="mt-8 flex flex-col gap-4 border-t border-gray-700 pt-8 text-sm text-gray-400 sm:flex-row sm:items-center sm:justify-between">
-      <p>
-        &copy; {currentYear} {siteConfig.shortName}. Tous droits réservés.
-      </p>
+      <div class="space-y-2">
+        <p>
+          &copy; {currentYear} {siteConfig.shortName}. Tous droits réservés.
+        </p>
+        <p>
+          Icons made by{' '}
+          <a
+            href="https://www.flaticon.com/authors/juicy-fish"
+            title="juicy_fish"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline transition hover:text-primary"
+          >
+            juicy_fish
+          </a>{' '}
+          from{' '}
+          <a
+            href="https://www.flaticon.com/"
+            title="Flaticon"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="underline transition hover:text-primary"
+          >
+            www.flaticon.com
+          </a>
+        </p>
+      </div>
       <nav aria-label="Liens légaux">
         <ul class="flex flex-wrap gap-4">
           {

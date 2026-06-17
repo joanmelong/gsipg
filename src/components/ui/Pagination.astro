@@ -1,0 +1,69 @@
+---
+interface Props {
+  currentPage: number;
+  totalPages: number;
+  basePath?: string;
+}
+
+const { currentPage, totalPages, basePath = '/actualites' } = Astro.props;
+
+const pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+<nav aria-label="Pagination des articles" class="mt-12 flex justify-center">
+  <ul class="flex items-center gap-2">
+    <li>
+      {
+        currentPage > 1 ? (
+          <a
+            href={`${basePath}?page=${currentPage - 1}`}
+            class="rounded-lg border border-border px-4 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+          >
+            Précédent
+          </a>
+        ) : (
+          <span class="rounded-lg border border-border px-4 py-2 text-sm text-neutral-text/50" aria-disabled="true">
+            Précédent
+          </span>
+        )
+      }
+    </li>
+    {
+      pages.map((page) => (
+        <li>
+          {page === currentPage ? (
+            <span
+              class="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white"
+              aria-current="page"
+            >
+              {page}
+            </span>
+          ) : (
+            <a
+              href={page === 1 ? basePath : `${basePath}?page=${page}`}
+              class="rounded-lg border border-border px-4 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+            >
+              {page}
+            </a>
+          )}
+        </li>
+      ))
+    }
+    <li>
+      {
+        currentPage < totalPages ? (
+          <a
+            href={`${basePath}?page=${currentPage + 1}`}
+            class="rounded-lg border border-border px-4 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+          >
+            Suivant
+          </a>
+        ) : (
+          <span class="rounded-lg border border-border px-4 py-2 text-sm text-neutral-text/50" aria-disabled="true">
+            Suivant
+          </span>
+        )
+      }
+    </li>
+  </ul>
+</nav>

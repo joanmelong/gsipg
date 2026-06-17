@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  id?: string;
+  defaultOpen?: boolean;
+}
+
+const { title, id, defaultOpen = false } = Astro.props;
+---
+
+<div id={id} class="scroll-mt-24">
+  <details class="group rounded-lg border border-border bg-white" open={defaultOpen || undefined}>
+  <summary class="flex cursor-pointer list-none items-center justify-between px-6 py-4 font-semibold text-secondary marker:content-none [&::-webkit-details-marker]:hidden">
+    <span>{title}</span>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke-width="2"
+      stroke="currentColor"
+      class="h-5 w-5 transition group-open:rotate-180"
+      aria-hidden="true"
+    >
+      <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5"></path>
+    </svg>
+  </summary>
+  <div class="border-t border-border px-6 py-4 text-neutral-text">
+    <slot />
+  </div>
+  </details>
+</div>
