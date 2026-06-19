@@ -1,0 +1,20 @@
+---
+import GalleryDomeView from '../react/GalleryDomeView';
+import { galleryDomeImages } from '../../data/gallery';
+---
+
+<section class="bg-neutral-bg py-6 sm:py-8" aria-label="Galerie photos interactive">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-4 text-center text-sm text-neutral-text sm:text-base">
+      Faites glisser horizontalement pour explorer · Cliquez sur une photo ou une vidéo (▶) pour l&apos;agrandir
+    </p>
+  </div>
+
+  <div class="relative mx-auto h-[80vh] min-h-[640px] max-h-[900px] w-full px-2 sm:px-4">
+    <GalleryDomeView client:only="react" images={galleryDomeImages}>
+      <div slot="fallback" class="flex h-full min-h-[420px] items-center justify-center text-sm text-secondary">
+        Chargement de la galerie…
+      </div>
+    </GalleryDomeView>
+  </div>
+</section>

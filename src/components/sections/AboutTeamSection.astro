@@ -1,0 +1,44 @@
+---
+import Container from '../ui/Container.astro';
+import { teamSection } from '../../data/about';
+---
+
+<section class="bg-primary/15 py-16 sm:py-20 lg:py-24" aria-labelledby="team-title">
+  <Container>
+    <div class="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+      <div class="relative">
+        <div class="overflow-hidden rounded-[2rem] shadow-xl ring-1 ring-black/5">
+          <img
+            src={teamSection.image.src}
+            alt={teamSection.image.alt}
+            class="aspect-[5/4] w-full object-cover"
+            loading="lazy"
+            width="720"
+            height="576"
+          />
+        </div>
+
+        <div
+          class="absolute -bottom-5 -right-2 max-w-[11rem] rotate-3 rounded-2xl bg-secondary px-5 py-4 text-white shadow-lg sm:-right-6 sm:max-w-xs"
+        >
+          <p class="font-subheading text-sm font-bold uppercase tracking-wide">{teamSection.badge}</p>
+          <p class="mt-1 text-xs text-white/85">Encadrement bienveillant &amp; exigeant</p>
+        </div>
+      </div>
+
+      <div>
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">Notre force</p>
+        <h2
+          id="team-title"
+          class="mt-4 font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-4xl"
+        >
+          {teamSection.title}
+        </h2>
+
+        {teamSection.paragraphs.map((paragraph) => (
+          <p class="mt-5 text-base leading-relaxed text-neutral-text">{paragraph}</p>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>
