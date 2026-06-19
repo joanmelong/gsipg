@@ -73,29 +73,21 @@ import { curricula, curriculumPortrait, curriculumSection } from '../../data/hom
         </ul>
       </div>
 
-      <!-- Colonne droite : portrait sur fond bleu clair -->
+      <!-- Colonne droite : portrait sur fond Group 5.svg -->
       <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-        <div class="relative">
-          <!-- Encoche décorative en haut à droite -->
-          <div
-            class="absolute -top-px right-16 z-20 h-6 w-20 rounded-b-xl bg-secondary"
-            aria-hidden="true"
-          ></div>
-
-          <div
-            class="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] lg:rounded-[3rem]"
-            style={`background-color: ${curriculumSection.frameBg}`}
-          >
-            <div class="flex aspect-[4/5] items-end justify-center px-6 pb-0 pt-10 sm:px-10 sm:pt-14">
-              <img
-                src={curriculumPortrait.src}
-                alt={curriculumPortrait.alt}
-                class="max-h-[92%] w-auto max-w-full object-contain object-bottom drop-shadow-lg"
-                loading="lazy"
-                width="520"
-                height="650"
-              />
-            </div>
+        <div
+          class="relative aspect-[4/5] bg-contain bg-center bg-no-repeat"
+          style={`background-image: url('${curriculumSection.frameBgImage}')`}
+        >
+          <div class="absolute inset-0 flex items-end justify-center px-8 pb-4 pt-12 sm:px-10 sm:pb-6 sm:pt-16">
+            <img
+              src={curriculumPortrait.src}
+              alt={curriculumPortrait.alt}
+              class="max-h-[88%] w-auto max-w-full object-contain object-bottom drop-shadow-lg"
+              loading="lazy"
+              width="520"
+              height="650"
+            />
           </div>
         </div>
       </div>

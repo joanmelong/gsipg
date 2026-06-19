@@ -35,62 +35,73 @@ export const vieScolaireHero = {
   ],
 } as const;
 
-export const vieScolaireSections = [
+export type VieScolaireTheme = 'white' | 'primary' | 'secondary' | 'green' | 'orange';
+
+export const vieScolaireContentSections = [
   {
     id: 'horaires',
-    title: 'Horaires',
-    items: [
-      {
-        subtitle: 'Maternelle',
-        content: '7h30 – 13h30',
-      },
-      {
-        subtitle: 'Primaire',
-        content: '7h30 – 15h30',
-      },
+    theme: 'white' as VieScolaireTheme,
+    title: 'Les Horaires & Le Rythme Scolaire',
+    badges: [
+      { label: 'Maternelle', value: '7h30 – 13h30' },
+      { label: 'Primaire', value: '7h30 – 15h30' },
     ],
+    note:
+      'Des temps de récréation de 15 min sont prévus et la pause déjeuner dure 1h à partir de midi.',
+    image: {
+      src: '/images/home/vision-1.jpg',
+      alt: 'Enfants en activité scolaire',
+    },
   },
   {
     id: 'restauration',
-    title: 'Restauration',
-    items: [
-      {
-        subtitle: 'Cantine scolaire',
-        content:
-          'Service disponible, menus équilibrés et hygiène scrupuleuse. Options végétariennes et régimes spéciaux sur demande.',
-      },
-      {
-        subtitle: 'Goûter',
-        content:
-          'Collation de l\'après-midi incluse pour la maternelle. Goûter optionnel pour le primaire.',
-      },
-    ],
+    theme: 'primary' as VieScolaireTheme,
+    title: 'Un service de restauration équilibré',
+    description:
+      'Pour les parents qui le souhaitent, un service de restauration est proposé. Les menus sont équilibrés et les conditions d\'hygiène sont scrupuleusement respectées.',
+    note:
+      'Les conditions d\'inscription sont renseignées directement à la vie scolaire par le responsable de la Restauration.',
+    image: {
+      src: '/images/home/curriculum-portrait.jpg',
+      alt: 'Repas équilibré à la cantine scolaire',
+    },
   },
   {
     id: 'transports',
-    title: 'Transports',
-    items: [
-      {
-        subtitle: 'Bus scolaire',
-        content:
-          'Un car de transport scolaire assure les trajets selon le lieu de résidence. Chauffeurs formés et protocole de sécurité strict.',
-      },
-    ],
+    theme: 'green' as VieScolaireTheme,
+    title: 'Des trajets scolaires en toute sérénité',
+    description:
+      'Un car de transport assure le déplacement des enfants qui ne peuvent pas être accompagnés par leurs parents. Il suffit d\'inscrire l\'enfant au service de transport.',
+    note:
+      'Les tarifs y sont renseignés à la direction et prennent en compte le lieu de résidence de l\'enfant (Yaoundé IV).',
+    image: {
+      src: '/images/home/hero-slide-2.jpg',
+      alt: 'Transport scolaire sécurisé',
+    },
   },
   {
     id: 'inscriptions',
-    title: 'Inscriptions',
-    items: [
-      {
-        subtitle: 'Calendrier',
-        content:
-          'Inscriptions ouvertes toute l\'année selon places disponibles. Rentrée principale en septembre, entrées échelonnées possibles.',
-      },
-      {
-        subtitle: 'Dossier requis',
-        content:
-          'Acte de naissance, carnet de vaccination, bulletins précédents (si applicable), photo d\'identité et formulaire de demande complété.',
-      },
-    ],
+    theme: 'orange' as VieScolaireTheme,
+    title: 'Préparez la rentrée de votre enfant',
+    highlight: 'Les inscriptions démarrent la deuxième semaine du mois de juillet.',
+    description:
+      'Tous les renseignements se font à la direction de l\'école. Les frais prennent en compte les frais d\'inscription et les frais de scolarité.',
+    bonus: 'Une tenue scolaire est offerte pour chaque enfant à son inscription.',
+    image: {
+      src: '/images/home/hero-slide-1.jpg',
+      alt: 'Élève prêt pour la rentrée',
+    },
   },
 ] as const;
+
+/** @deprecated Utiliser vieScolaireContentSections */
+export const vieScolaireSections = vieScolaireContentSections.map((section) => ({
+  id: section.id,
+  title: section.title,
+  items: [
+    {
+      subtitle: section.title,
+      content: section.description ?? section.highlight ?? '',
+    },
+  ],
+}));

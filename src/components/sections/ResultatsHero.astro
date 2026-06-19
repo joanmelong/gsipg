@@ -1,0 +1,53 @@
+---
+import Container from '../ui/Container.astro';
+import { resultsHero } from '../../data/results';
+---
+
+<section
+  class="relative flex min-h-[52vh] items-end overflow-hidden sm:min-h-[58vh] lg:min-h-[62vh]"
+  aria-label="Nos résultats scolaires"
+>
+  <img
+    src={resultsHero.image.src}
+    alt={resultsHero.image.alt}
+    class="absolute inset-0 h-full w-full object-cover object-top"
+    loading="eager"
+    fetchpriority="high"
+    width="1920"
+    height="1080"
+  />
+
+  <!-- Dégradé bleu sous la courbe (limite délimitée sur maquette) -->
+  <svg
+    class="pointer-events-none absolute inset-0 h-full w-full"
+    viewBox="0 0 100 100"
+    preserveAspectRatio="none"
+    aria-hidden="true"
+  >
+    <defs>
+      <linearGradient id="results-hero-gradient" x1="0%" y1="100%" x2="100%" y2="30%">
+        <stop offset="0%" stop-color="#2e75b6" stop-opacity="0.97" />
+        <stop offset="55%" stop-color="#2e75b6" stop-opacity="0.9" />
+        <stop offset="100%" stop-color="#2e75b6" stop-opacity="0.82" />
+      </linearGradient>
+    </defs>
+    <path
+      fill="url(#results-hero-gradient)"
+      d="M 0 40 C 14 72, 36 98, 50 96 C 64 94, 86 58, 100 47 L 100 100 L 0 100 Z"
+    ></path>
+  </svg>
+
+  <Container class="relative z-10 grid grid-cols-1 pb-12 pt-12 sm:pb-16 sm:pt-16 md:grid-cols-12 lg:pb-20">
+    <div class="max-w-xl text-left md:col-span-7 md:col-start-1 lg:col-span-6 lg:max-w-2xl">
+      <h1
+        class="font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-white sm:text-4xl lg:text-[2.75rem]"
+      >
+        {resultsHero.title}
+      </h1>
+
+      <p class="mt-4 text-sm leading-relaxed text-white/95 sm:mt-5 sm:text-base">
+        {resultsHero.subtitle}
+      </p>
+    </div>
+  </Container>
+</section>

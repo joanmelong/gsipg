@@ -31,7 +31,7 @@ export const curriculumSection = {
   tag: 'Nos cursus',
   title: 'Découvrez nos',
   titleHighlight: 'sections linguistiques',
-  frameBg: '#EBF8FF',
+  frameBgImage: '/images/home/Group 5.svg',
 } as const;
 
 export const curricula = [

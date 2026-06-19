@@ -1,11 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import VieScolaireHero from '../../components/sections/VieScolaireHero.astro';
-import Container from '../../components/ui/Container.astro';
-import Section from '../../components/ui/Section.astro';
-import Accordion from '../../components/ui/Accordion.astro';
-import Button from '../../components/ui/Button.astro';
-import { vieScolaireSections } from '../../data/vie-scolaire';
+import VieScolaireSections from '../../components/sections/VieScolaireSections.astro';
 ---
 
 <BaseLayout
@@ -13,47 +9,18 @@ import { vieScolaireSections } from '../../data/vie-scolaire';
   description="Horaires, restauration, transports et inscriptions : tout savoir sur la vie quotidienne au GSIPG à Yaoundé."
 >
   <VieScolaireHero />
-
-  <Section ariaLabel="Informations pratiques" class="!pt-14 sm:!pt-16 lg:!pt-20">
-    <Container>
-      <div class="mx-auto max-w-3xl space-y-4">
-        {
-          vieScolaireSections.map((section, index) => (
-            <Accordion title={section.title} id={section.id} defaultOpen={index === 0}>
-              <div class="space-y-4">
-                {section.items.map((item) => (
-                  <div>
-                    <h3 class="font-subheading text-base font-semibold normal-case tracking-normal text-secondary">
-                      {item.subtitle}
-                    </h3>
-                    <p class="mt-1">{item.content}</p>
-                  </div>
-                ))}
-              </div>
-            </Accordion>
-          ))
-        }
-      </div>
-      <div class="mt-10 text-center">
-        <Button href="#inscriptions">Inscriptions & Renseignements</Button>
-      </div>
-    </Container>
-  </Section>
+  <VieScolaireSections />
 </BaseLayout>
 
 <script>
-  function openHashSection() {
+  function scrollToHashSection() {
     const hash = window.location.hash.slice(1);
     if (!hash) return;
-    const wrapper = document.getElementById(hash);
-    const details = wrapper?.querySelector('details');
-    if (details) {
-      details.open = true;
-      wrapper?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
+    const target = document.getElementById(hash);
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  openHashSection();
-  window.addEventListener('hashchange', openHashSection);
-  document.addEventListener('astro:page-load', openHashSection);
+  scrollToHashSection();
+  window.addEventListener('hashchange', scrollToHashSection);
+  document.addEventListener('astro:page-load', scrollToHashSection);
 </script>

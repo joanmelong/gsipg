@@ -9,32 +9,51 @@ interface Props {
 const { article } = Astro.props;
 ---
 
-<article class="flex flex-col overflow-hidden rounded-lg bg-white shadow-md transition duration-200 hover:shadow-xl">
-  <a href={`/actualites#${article.slug}`} class="block">
-    <div class="aspect-[16/10] overflow-hidden">
+<article
+  class="article-card group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-border/60 transition duration-300 hover:shadow-md"
+>
+  <a
+    href={`/actualites#${article.slug}`}
+    class="article-card-image block w-full overflow-hidden"
+    tabindex="-1"
+    aria-hidden="true"
+  >
+    <div class="article-card-image-wrap aspect-[16/10] overflow-hidden">
       <img
         src={article.image}
         alt={article.imageAlt}
-        class="h-full w-full object-cover transition duration-300 hover:scale-105"
+        class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
         loading="lazy"
         width="400"
         height="250"
       />
     </div>
   </a>
-  <div class="flex flex-1 flex-col gap-2 p-5">
-    <div class="flex items-center gap-2 text-xs text-neutral-text">
+
+  <div class="article-card-body flex flex-1 flex-col gap-3 p-5 sm:p-6">
+    <div class="flex items-center gap-2 text-sm text-neutral-text">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.75"
+        class="h-4 w-4 shrink-0 text-secondary"
+        aria-hidden="true"
+      >
+        <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+        <line x1="16" y1="2" x2="16" y2="6" />
+        <line x1="8" y1="2" x2="8" y2="6" />
+        <line x1="3" y1="10" x2="21" y2="10" />
+      </svg>
       <time datetime={article.date}>{formatArticleDate(article.date)}</time>
-      <span aria-hidden="true">·</span>
-      <span class="rounded-full bg-primary/20 px-2 py-0.5 text-secondary">{article.category}</span>
     </div>
-    <h3 class="text-lg">
-      <a href={`/actualites#${article.slug}`} class="text-secondary hover:text-primary">
-        {article.title}
-      </a>
-    </h3>
-    <p class="line-clamp-3 flex-1 text-sm text-neutral-text">{article.excerpt}</p>
-    <div class="mt-2">
+
+    <p class="line-clamp-3 flex-1 text-sm leading-relaxed text-neutral-text sm:text-base">
+      {article.excerpt}
+    </p>
+
+    <div>
       <Button href={`/actualites#${article.slug}`} variant="tertiary" size="sm">
         Lire la suite
       </Button>

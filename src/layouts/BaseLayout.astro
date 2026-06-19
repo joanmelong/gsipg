@@ -9,9 +9,10 @@ interface Props {
   description: string;
   ogImage?: string;
   noIndex?: boolean;
+  elevatedHeader?: boolean;
 }
 
-const { title, description, ogImage = '/images/logo.svg', noIndex = false } = Astro.props;
+const { title, description, ogImage = '/images/logo.svg', noIndex = false, elevatedHeader = false } = Astro.props;
 
 const pageTitle = formatPageTitle(title);
 const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href;
@@ -70,7 +71,7 @@ const organizationSchema = {
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main" class="sr-only sr-only-focusable">Aller au contenu</a>
-    <Header />
+    <Header elevated={elevatedHeader} />
     <main id="main" class="flex-1">
       <slot />
     </main>

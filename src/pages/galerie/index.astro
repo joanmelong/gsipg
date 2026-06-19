@@ -1,27 +1,14 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import Container from '../../components/ui/Container.astro';
-import Section from '../../components/ui/Section.astro';
-import PageHeader from '../../components/ui/PageHeader.astro';
-import GalleryGrid from '../../components/sections/GalleryGrid.astro';
+import GalleryHero from '../../components/sections/GalleryHero.astro';
+import GalleryDome from '../../components/sections/GalleryDome.astro';
 ---
 
 <BaseLayout
   title="Galerie"
   description="Photos de la vie scolaire, des parcs éducatifs, des événements et des activités sportives au GSIPG."
+  elevatedHeader
 >
-  <Section background="neutral" ariaLabel="Introduction">
-    <Container>
-      <PageHeader
-        title="Galerie"
-        subtitle="Revivez les moments forts du GSIPG : apprentissage, jeux, événements et sport."
-      />
-    </Container>
-  </Section>
-
-  <Section ariaLabel="Galerie photos">
-    <Container>
-      <GalleryGrid />
-    </Container>
-  </Section>
+  <GalleryHero />
+  <GalleryDome />
 </BaseLayout>

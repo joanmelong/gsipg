@@ -1,0 +1,142 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import PageHeader from '../ui/PageHeader.astro';
+import ArticleCard from '../ui/ArticleCard.astro';
+import {
+  ARTICLE_FILTER_CATEGORIES,
+  getSortedArticles,
+} from '../../data/articles';
+
+const sortedArticles = getSortedArticles();
+---
+
+<Section background="neutral" ariaLabel="Actualités">
+  <Container>
+    <PageHeader
+      title="Les actualités de La Petite Gloria"
+      subtitle="Retrouvez les moments forts, les projets et la vie quotidienne de nos élèves."
+    />
+
+    <div
+      class="mt-10 flex flex-wrap items-center justify-center gap-2 sm:gap-3"
+      role="group"
+      aria-label="Filtrer les articles par catégorie"
+    >
+      {
+        ARTICLE_FILTER_CATEGORIES.map((category, index) => (
+          <button
+            type="button"
+            data-filter={category}
+            class:list={[
+              'rounded-full px-4 py-2 text-sm font-medium transition duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary',
+              index === 0
+                ? 'bg-secondary text-white shadow-sm'
+                : 'bg-white text-secondary ring-1 ring-border hover:bg-primary/15',
+            ]}
+            aria-pressed={index === 0 ? 'true' : 'false'}
+          >
+            {category}
+          </button>
+        ))
+      }
+    </div>
+
+    <ul
+      id="articles-grid"
+      class="mt-10 grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8"
+    >
+      {
+        sortedArticles.map((article, index) => (
+          <li
+            class:list={[
+              'article-item',
+              index === 0 && 'is-featured md:col-span-2',
+            ]}
+            data-article-category={article.category}
+          >
+            <ArticleCard article={article} />
+          </li>
+        ))
+      }
+    </ul>
+
+    <p id="articles-empty" class="mt-10 hidden text-center text-neutral-text">
+      Aucun article dans cette catégorie pour le moment.
+    </p>
+  </Container>
+</Section>
+
+<style>
+  @media (min-width: 768px) {
+    .is-featured :global(.article-card) {
+      flex-direction: row;
+      align-items: stretch;
+    }
+
+    .is-featured :global(.article-card-image) {
+      width: 50%;
+    }
+
+    .is-featured :global(.article-card-image-wrap) {
+      aspect-ratio: auto;
+      height: 100%;
+      min-height: 260px;
+    }
+
+    .is-featured :global(.article-card-body) {
+      width: 50%;
+      justify-content: center;
+    }
+  }
+</style>
+
+<script>
+  function initArticleFilters() {
+    const grid = document.getElementById('articles-grid');
+    const emptyMessage = document.getElementById('articles-empty');
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
+    const items = grid?.querySelectorAll<HTMLElement>('.article-item');
+
+    if (!grid || !items?.length || !filterButtons.length) return;
+
+    const inactiveClasses = ['bg-white', 'text-secondary', 'ring-1', 'ring-border', 'hover:bg-primary/15'];
+    const activeClasses = ['bg-secondary', 'text-white', 'shadow-sm'];
+
+    function setButtonState(button: HTMLButtonElement, active: boolean) {
+      button.setAttribute('aria-pressed', active ? 'true' : 'false');
+      button.classList.remove(...inactiveClasses, ...activeClasses);
+      button.classList.add(...(active ? activeClasses : inactiveClasses));
+    }
+
+    function updateFeatured() {
+      const visibleItems = [...items].filter((item) => !item.classList.contains('hidden'));
+
+      items.forEach((item) => {
+        item.classList.remove('is-featured', 'md:col-span-2');
+      });
+
+      visibleItems[0]?.classList.add('is-featured', 'md:col-span-2');
+      emptyMessage?.classList.toggle('hidden', visibleItems.length > 0);
+    }
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const filter = button.dataset.filter ?? 'Tout';
+
+        filterButtons.forEach((btn) => setButtonState(btn, btn === button));
+
+        items.forEach((item) => {
+          const category = item.dataset.articleCategory;
+          const show = filter === 'Tout' || category === filter;
+          item.classList.toggle('hidden', !show);
+        });
+
+        updateFeatured();
+      });
+    });
+  }
+
+  initArticleFilters();
+  document.addEventListener('astro:page-load', initArticleFilters);
+</script>
