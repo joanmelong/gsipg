@@ -10,7 +10,7 @@ export default function GalleryDomeView({ images }: GalleryDomeViewProps) {
       <DomeGallery
         images={images}
         fit={0.8}
-        minRadius={600}
+        minRadius={280}
         maxVerticalRotationDeg={0}
         segments={34}
         dragDampening={2}

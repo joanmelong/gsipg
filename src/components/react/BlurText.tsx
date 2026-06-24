@@ -7,23 +7,21 @@ interface BlurTextProps {
   as?: 'h1' | 'h2' | 'p' | 'span';
 }
 
-/** Inspiré de React Bits BlurText — révélation caractère par caractère */
+/** Texte visible par défaut, animation blur optionnelle si JS actif */
 export default function BlurText({
   text,
   className = '',
   delay = 40,
   as: Tag = 'h1',
 }: BlurTextProps) {
-  const [visibleCount, setVisibleCount] = useState(0);
-  const reduced =
-    typeof window !== 'undefined' &&
-    window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const [visibleCount, setVisibleCount] = useState(text.length);
+  const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
-    if (reduced) {
-      setVisibleCount(text.length);
-      return;
-    }
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    setAnimate(true);
+    setVisibleCount(0);
 
     let i = 0;
     const id = window.setInterval(() => {
@@ -33,7 +31,15 @@ export default function BlurText({
     }, delay);
 
     return () => window.clearInterval(id);
-  }, [text, delay, reduced]);
+  }, [text, delay]);
+
+  if (!animate) {
+    return (
+      <Tag className={className}>
+        {text}
+      </Tag>
+    );
+  }
 
   return (
     <Tag className={className} aria-label={text}>

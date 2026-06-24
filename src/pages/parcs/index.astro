@@ -1,0 +1,98 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Button from '../../components/ui/Button.astro';
+import Breadcrumb from '../../components/ui/Breadcrumb.astro';
+import CtaSection from '../../components/sections/CtaSection.astro';
+import { parcs, parcsHero, parcsCta } from '../../data/parcs';
+
+const breadcrumbItems = [
+  { label: 'Accueil', href: '/' },
+  { label: 'Parcs éducatifs', href: '/parcs' },
+];
+---
+
+<BaseLayout
+  title="Parcs éducatifs"
+  description="Découvrez les parcs d'attractions éducatifs du GSIPG à Yaoundé : sciences, aventure, créativité et nature au service de l'apprentissage."
+>
+  <section class="relative overflow-hidden bg-secondary py-16 sm:py-20 lg:py-24" aria-label="Introduction parcs">
+    <Container class="relative">
+      <Breadcrumb items={breadcrumbItems} class="mb-6 text-white/80 [&_a]:text-white/90 [&_a:hover]:text-white" />
+      <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+        <div class="max-w-xl">
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            {parcsHero.tag}
+          </p>
+          <h1 class="mt-4 font-subheading text-3xl font-bold normal-case leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+            {parcsHero.title}
+          </h1>
+          <p class="mt-5 text-base leading-relaxed text-white/85">
+            {parcsHero.subtitle}
+          </p>
+        </div>
+        <div class="flex justify-center lg:justify-end">
+          <img
+            src={parcsHero.image.src}
+            alt={parcsHero.image.alt}
+            class="w-full max-w-lg rounded-3xl shadow-2xl ring-1 ring-white/20"
+            loading="eager"
+            width="600"
+            height="400"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <Section ariaLabel="Nos parcs éducatifs">
+    <Container>
+      <div class="grid grid-cols-1 gap-10 lg:gap-14">
+        {
+          parcs.map((parc, index) => (
+            <article
+              id={parc.id}
+              class="scroll-mt-28 grid grid-cols-1 items-center gap-8 overflow-hidden rounded-3xl bg-neutral-bg p-6 sm:p-8 lg:grid-cols-2 lg:gap-12"
+            >
+              <div class:list={[index % 2 === 1 && 'lg:order-2']}>
+                <img
+                  src={parc.image}
+                  alt={parc.imageAlt}
+                  class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
+                  loading="lazy"
+                  width="600"
+                  height="450"
+                />
+              </div>
+              <div class:list={[index % 2 === 1 && 'lg:order-1']}>
+                <p class="text-xs font-semibold uppercase tracking-wide text-secondary">{parc.ageRange}</p>
+                <h2 class="mt-2 font-subheading text-2xl font-bold normal-case text-secondary">{parc.title}</h2>
+                <p class="mt-4 text-neutral-text">{parc.description}</p>
+                <ul class="mt-5 flex flex-wrap gap-2">
+                  {parc.benefits.map((benefit) => (
+                    <li class="rounded-full bg-white px-3 py-1 text-xs font-medium text-secondary shadow-sm ring-1 ring-border">
+                      {benefit}
+                    </li>
+                  ))}
+                </ul>
+                <div class="mt-6">
+                  <Button href="/galerie" variant="secondary" size="sm">
+                    Voir en images
+                  </Button>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <CtaSection
+    title={parcsCta.title}
+    description={parcsCta.description}
+    buttonLabel={parcsCta.buttonLabel}
+    buttonHref={parcsCta.buttonHref}
+  />
+</BaseLayout>

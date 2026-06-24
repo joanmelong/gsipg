@@ -1,0 +1,43 @@
+---
+interface Props {
+  url: string;
+  title: string;
+}
+
+const { url, title } = Astro.props;
+const encodedUrl = encodeURIComponent(url);
+const encodedTitle = encodeURIComponent(title);
+---
+
+<div class="flex flex-wrap items-center gap-3">
+  <span class="text-sm font-semibold text-neutral-dark">Partager :</span>
+  <div class="flex flex-wrap gap-2">
+    <a
+      href={`https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border border-border px-3 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+      aria-label="Partager sur Facebook"
+    >
+      Facebook
+    </a>
+    <a
+      href={`https://wa.me/?text=${encodedTitle}%20${encodedUrl}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border border-border px-3 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+      aria-label="Partager sur WhatsApp"
+    >
+      WhatsApp
+    </a>
+    <a
+      href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="rounded-lg border border-border px-3 py-2 text-sm text-secondary transition hover:bg-neutral-bg"
+      aria-label="Partager sur LinkedIn"
+    >
+      LinkedIn
+    </a>
+  </div>
+</div>

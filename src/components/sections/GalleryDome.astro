@@ -1,5 +1,6 @@
 ---
 import GalleryDomeView from '../react/GalleryDomeView';
+import GalleryGrid from './GalleryGrid.astro';
 import { galleryDomeImages } from '../../data/gallery';
 ---
 
@@ -11,10 +12,29 @@ import { galleryDomeImages } from '../../data/gallery';
   </div>
 
   <div class="relative mx-auto h-[80vh] min-h-[640px] max-h-[900px] w-full px-2 sm:px-4">
-    <GalleryDomeView client:only="react" images={galleryDomeImages}>
-      <div slot="fallback" class="flex h-full min-h-[420px] items-center justify-center text-sm text-secondary">
-        Chargement de la galerie…
-      </div>
-    </GalleryDomeView>
+    <GalleryDomeView client:visible images={galleryDomeImages} />
+  </div>
+
+  <div id="gallery-grid-fallback" class="hidden border-t border-border">
+    <GalleryGrid />
   </div>
 </section>
+
+<script>
+  function checkGalleryDome() {
+    const island = document.querySelector('[aria-label="Galerie photos interactive"] astro-island');
+    const fallback = document.getElementById('gallery-grid-fallback');
+    if (!fallback) return;
+
+    window.setTimeout(() => {
+      const islandEmpty = island && island.children.length === 0;
+      const islandError = island?.getAttribute('data-hydration-error') === 'true';
+      if (islandEmpty || islandError) {
+        fallback.classList.remove('hidden');
+      }
+    }, 5000);
+  }
+
+  checkGalleryDome();
+  document.addEventListener('astro:page-load', checkGalleryDome);
+</script>

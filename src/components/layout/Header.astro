@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={item.href}
             class:list={[
-              'text-sm font-medium transition duration-200 hover:text-secondary',
+              'nav-link text-sm font-medium transition duration-200 hover:text-secondary',
               isActiveNav(item.href, currentPath)
                 ? 'text-secondary'
                 : 'text-neutral-dark',

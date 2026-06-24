@@ -10,9 +10,17 @@ interface Props {
   ogImage?: string;
   noIndex?: boolean;
   elevatedHeader?: boolean;
+  ogType?: string;
 }
 
-const { title, description, ogImage = '/images/logo.svg', noIndex = false, elevatedHeader = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/images/logo.svg',
+  noIndex = false,
+  elevatedHeader = false,
+  ogType = 'website',
+} = Astro.props;
 
 const pageTitle = formatPageTitle(title);
 const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href;
@@ -54,7 +62,7 @@ const organizationSchema = {
       rel="stylesheet"
     />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -68,6 +76,7 @@ const organizationSchema = {
     <meta name="twitter:image" content={new URL(ogImage, siteConfig.url).href} />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main" class="sr-only sr-only-focusable">Aller au contenu</a>

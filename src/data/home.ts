@@ -68,7 +68,7 @@ export const curriculumPortrait = {
 
 export const visionContent = {
   tag: 'Notre vision',
-  title: 'Notre approche : fondée sur la',
+  title: 'Notre approche : fondée sur l\'',
   titleHighlight: 'excellence',
   intro:
     "Notre équipe pédagogique se propose de former et d'accompagner vos enfants afin de les aider à atteindre les objectifs dans les différents apprentissages.",

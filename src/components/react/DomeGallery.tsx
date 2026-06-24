@@ -520,6 +520,7 @@ export default function DomeGallery({
       overlay.style.transition = `transform ${enlargeTransitionMs}ms ease, opacity ${enlargeTransitionMs}ms ease`;
       overlay.style.borderRadius = openedImageBorderRadius;
       overlay.style.overflow = 'hidden';
+      overlay.style.pointerEvents = 'auto';
       overlay.style.background = '#0f0f0f';
       overlay.style.boxShadow = '0 10px 30px rgba(0,0,0,.35)';
 
@@ -951,6 +952,11 @@ export default function DomeGallery({
       max-width: 96vw;
       max-height: 88vh;
       flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    .enlarge {
+      pointer-events: auto;
     }
 
     body.dg-scroll-lock {
@@ -1049,7 +1055,7 @@ export default function DomeGallery({
           ref={mainRef}
           className="absolute inset-0 grid select-none place-items-center overflow-hidden bg-transparent"
           style={{
-            touchAction: 'pan-y',
+            touchAction: 'none',
             WebkitUserSelect: 'none',
           }}
         >
@@ -1206,7 +1212,7 @@ export default function DomeGallery({
             />
             <div
               ref={frameRef}
-              className="viewer-frame flex"
+              className="viewer-frame pointer-events-none flex"
               style={{ borderRadius: `var(--enlarge-radius, ${openedImageBorderRadius})` }}
             />
           </div>

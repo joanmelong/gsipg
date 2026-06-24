@@ -19,11 +19,13 @@ export const mainNav = [
   { label: 'Actualités', href: '/actualites' },
   { label: 'Résultats', href: '/resultats' },
   { label: 'Galerie', href: '/galerie' },
+  { label: 'Parcs', href: '/parcs' },
   { label: 'À Propos', href: '/qui-sommes-nous' },
 ] as const;
 
 export const footerQuickLinks = [
   { label: 'Qui sommes-nous', href: '/qui-sommes-nous' },
+  { label: 'Parcs éducatifs', href: '/parcs' },
   { label: 'Nos niveaux', href: '/niveaux' },
   { label: 'Actualités', href: '/actualites' },
   { label: 'Contact', href: '/qui-sommes-nous#contact' },

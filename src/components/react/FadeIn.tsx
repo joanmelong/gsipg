@@ -18,7 +18,7 @@ const offsets: Record<Direction, string> = {
   none: 'none',
 };
 
-/** Inspiré de React Bits FadeContent / AnimatedContent */
+/** Contenu visible par défaut (SSR + no-JS), animation si React charge */
 export default function FadeIn({
   children,
   className = '',
@@ -27,7 +27,7 @@ export default function FadeIn({
   duration = 600,
 }: FadeInProps) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
+  const [visible, setVisible] = useState(true);
 
   useEffect(() => {
     const el = ref.current;
@@ -38,25 +38,40 @@ export default function FadeIn({
       return;
     }
 
+    const rect = el.getBoundingClientRect();
+    const inView = rect.top < window.innerHeight * 0.92 && rect.bottom > 0;
+
+    if (!inView) {
+      setVisible(false);
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
         window.setTimeout(() => setVisible(true), delay);
         observer.disconnect();
       },
-      { threshold: 0.12, rootMargin: '0px 0px -40px 0px' },
+      { threshold: 0.08, rootMargin: '0px 0px -20px 0px' },
     );
 
     observer.observe(el);
+
+    if (inView) {
+      window.setTimeout(() => setVisible(true), delay);
+      observer.disconnect();
+    }
+
     return () => observer.disconnect();
   }, [delay]);
 
-  const style: CSSProperties = {
-    opacity: visible ? 1 : 0,
-    transform: visible ? 'none' : offsets[direction],
-    transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
-    willChange: visible ? 'auto' : 'opacity, transform',
-  };
+  const style: CSSProperties = visible
+    ? { opacity: 1, transform: 'none' }
+    : {
+        opacity: 0,
+        transform: offsets[direction],
+        transition: `opacity ${duration}ms ease, transform ${duration}ms ease`,
+        willChange: 'opacity, transform',
+      };
 
   return (
     <div ref={ref} className={className} style={style}>

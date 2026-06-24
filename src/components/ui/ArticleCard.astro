@@ -13,7 +13,7 @@ const { article } = Astro.props;
   class="article-card group flex h-full flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-border/60 transition duration-300 hover:shadow-md"
 >
   <a
-    href={`/actualites#${article.slug}`}
+    href={`/actualites/${article.slug}`}
     class="article-card-image block w-full overflow-hidden"
     tabindex="-1"
     aria-hidden="true"
@@ -54,7 +54,7 @@ const { article } = Astro.props;
     </p>
 
     <div>
-      <Button href={`/actualites#${article.slug}`} variant="tertiary" size="sm">
+      <Button href={`/actualites/${article.slug}`} variant="tertiary" size="sm">
         Lire la suite
       </Button>
     </div>
