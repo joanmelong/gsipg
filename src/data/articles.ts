@@ -110,6 +110,36 @@ export const articles: Article[] = [
     imageAlt: 'Spectacle de Noël des élèves du GSIPG',
     category: 'Événements',
   },
+  {
+    slug: 'sortie-parc-educatif',
+    title: 'Sortie au parc éducatif',
+    excerpt:
+      'Les élèves de CE1 ont exploré le parc des sciences en plein air. Une journée riche en découvertes et en apprentissages expérientiels.',
+    date: '2024-11-05',
+    image: '/images/articles/article-10.svg',
+    imageAlt: 'Élèves lors d\'une sortie au parc éducatif',
+    category: 'Primaire',
+  },
+  {
+    slug: 'journee-sportive',
+    title: 'Journée sportive inter-classes',
+    excerpt:
+      'Course, relais et jeux collectifs : nos élèves ont célébré l\'esprit d\'équipe lors de la grande journée sportive annuelle.',
+    date: '2024-03-22',
+    image: '/images/articles/article-11.svg',
+    imageAlt: 'Élèves participant à la journée sportive du GSIPG',
+    category: 'Événements',
+  },
+  {
+    slug: 'ceremonie-merite',
+    title: 'Cérémonie du mérite scolaire',
+    excerpt:
+      'Remise des prix d\'excellence aux meilleurs élèves de chaque niveau. Félicitations à tous les lauréats pour leur travail et leur persévérance.',
+    date: '2024-07-10',
+    image: '/images/articles/article-12.svg',
+    imageAlt: 'Remise des prix lors de la cérémonie du mérite',
+    category: 'Primaire',
+  },
 ];
 
 export function getSortedArticles(): Article[] {

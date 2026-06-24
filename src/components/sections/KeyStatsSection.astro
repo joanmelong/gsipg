@@ -1,74 +1,37 @@
 ---
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
+import CountUp from '../react/CountUp';
+import FadeIn from '../react/FadeIn';
 import { keyStats } from '../../data/home';
 ---
 
 <Section background="neutral" ariaLabel="Chiffres clés et réussite">
   <Container>
-    <div class="mb-12 text-center">
+    <FadeIn client:visible className="mb-12 text-center">
       <h2>Chiffres clés & réussite</h2>
       <p class="mx-auto mt-4 max-w-2xl text-neutral-text">
         Des résultats qui témoignent de notre engagement pour l'excellence de chaque élève.
       </p>
-    </div>
+    </FadeIn>
 
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
       {
-        keyStats.map((stat) => (
-          <div class="rounded-2xl bg-white p-6 text-center shadow-md">
-            <p class="font-display text-5xl text-secondary lg:text-6xl" data-counter={stat.value} data-suffix={stat.suffix}>
-              0{stat.suffix}
+        keyStats.map((stat, index) => (
+          <FadeIn client:visible delay={index * 100} className="rounded-2xl bg-white p-6 text-center shadow-md">
+            <p class="font-display text-5xl text-secondary lg:text-6xl">
+              <CountUp
+                client:visible
+                value={stat.value}
+                suffix={stat.suffix}
+                className=""
+              />
             </p>
             <h3 class="mt-3 text-base font-semibold">{stat.label}</h3>
             <p class="mt-1 text-sm text-neutral-text">{stat.detail}</p>
-          </div>
+          </FadeIn>
         ))
       }
     </div>
   </Container>
 </Section>
-
-<script>
-  function animateCounters() {
-    const counters = document.querySelectorAll('[data-counter]');
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const target = Number(el.dataset.counter);
-          const suffix = el.dataset.suffix ?? '';
-
-          if (prefersReduced || Number.isNaN(target)) {
-            el.textContent = `${target}${suffix}`;
-            observer.unobserve(el);
-            return;
-          }
-
-          const duration = 1500;
-          const start = performance.now();
-
-          const tick = (now: number) => {
-            const progress = Math.min((now - start) / duration, 1);
-            const eased = 1 - Math.pow(1 - progress, 3);
-            const current = Math.round(target * eased);
-            el.textContent = `${current}${suffix}`;
-            if (progress < 1) requestAnimationFrame(tick);
-          };
-
-          requestAnimationFrame(tick);
-          observer.unobserve(el);
-        });
-      },
-      { threshold: 0.4 },
-    );
-
-    counters.forEach((counter) => observer.observe(counter));
-  }
-
-  animateCounters();
-  document.addEventListener('astro:page-load', animateCounters);
-</script>

@@ -121,7 +121,8 @@ const iconBoxClasses =
         <div class="relative min-h-[280px] overflow-hidden rounded-2xl bg-neutral-bg sm:min-h-[340px] lg:min-h-[420px]">
           <iframe
             title={`Carte — ${aboutContact.address}`}
-            src={aboutContact.mapsEmbedUrl}
+            data-map-iframe
+            data-src={aboutContact.mapsEmbedUrl}
             class="absolute inset-0 h-full w-full border-0"
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
@@ -136,6 +137,10 @@ const iconBoxClasses =
           data-contact-email={aboutContact.email.display}
           novalidate
         >
+          <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+            <label for="contact-website">Site web</label>
+            <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+          </div>
           <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
             <div>
               <label for="contact-first-name" class="mb-2 block text-sm font-medium text-neutral-dark">
@@ -192,6 +197,31 @@ const iconBoxClasses =
 </section>
 
 <script>
+  function setupLazyMap() {
+    const iframe = document.querySelector<HTMLIFrameElement>('[data-map-iframe]');
+    if (!iframe || iframe.src) return;
+
+    const loadMap = () => {
+      const src = iframe.dataset.src;
+      if (src) iframe.src = src;
+    };
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            loadMap();
+            observer.disconnect();
+          }
+        },
+        { rootMargin: '200px' },
+      );
+      observer.observe(iframe);
+    } else {
+      loadMap();
+    }
+  }
+
   function setupContactForm() {
     const form = document.getElementById('about-contact-form');
     if (!form || form.dataset.bound === 'true') return;
@@ -201,6 +231,8 @@ const iconBoxClasses =
 
     form.addEventListener('submit', (event) => {
       event.preventDefault();
+
+      if ((form.querySelector('[name="website"]') as HTMLInputElement)?.value) return;
 
       const data = new FormData(form);
       const firstName = String(data.get('firstName') ?? '').trim();
@@ -227,9 +259,11 @@ const iconBoxClasses =
     target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
+  setupLazyMap();
   setupContactForm();
   scrollToContactHash();
   document.addEventListener('astro:page-load', () => {
+    setupLazyMap();
     setupContactForm();
     scrollToContactHash();
   });

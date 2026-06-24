@@ -1,0 +1,94 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+
+const inputClasses =
+  'w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-neutral-dark placeholder:text-neutral-text/60 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary';
+
+const partnershipTypes = [
+  'Sponsoring événementiel',
+  'Partenariat pédagogique',
+  'Fournisseur / prestataire',
+  'Autre',
+] as const;
+---
+
+<Section background="neutral" ariaLabel="Demande de partenariat">
+  <Container>
+    <div class="mx-auto max-w-2xl">
+      <h2 class="text-center">Demande de partenariat</h2>
+      <p class="mt-4 text-center text-neutral-text">
+        Entreprises et organisations : proposez une collaboration avec le GSIPG.
+      </p>
+
+      <form
+        id="partnership-form"
+        class="mt-8 space-y-5 rounded-2xl bg-white p-6 shadow-md sm:p-8"
+        aria-label="Formulaire de partenariat"
+        data-contact-email="admin@education-lms.com"
+        novalidate
+      >
+        <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+          <label for="partnership-website">Site web</label>
+          <input id="partnership-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label for="partnership-company" class="mb-2 block text-sm font-medium">Entreprise *</label>
+            <input id="partnership-company" name="company" type="text" required class={inputClasses} />
+          </div>
+          <div>
+            <label for="partnership-contact" class="mb-2 block text-sm font-medium">Contact *</label>
+            <input id="partnership-contact" name="contact" type="text" required class={inputClasses} />
+          </div>
+        </div>
+
+        <div>
+          <label for="partnership-type" class="mb-2 block text-sm font-medium">Type de partenariat *</label>
+          <select id="partnership-type" name="type" required class={inputClasses}>
+            <option value="">Sélectionnez</option>
+            {partnershipTypes.map((type) => <option value={type}>{type}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label for="partnership-description" class="mb-2 block text-sm font-medium">Description *</label>
+          <textarea id="partnership-description" name="description" rows="4" required class={`${inputClasses} resize-y`}></textarea>
+        </div>
+
+        <Button type="submit" class="w-full">Envoyer la demande</Button>
+      </form>
+    </div>
+  </Container>
+</Section>
+
+<script>
+  function setupPartnershipForm() {
+    const form = document.getElementById('partnership-form');
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    const email = form.dataset.contactEmail ?? '';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      if ((form.querySelector('[name="website"]') as HTMLInputElement)?.value) return;
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
+      const subject = encodeURIComponent(`Partenariat GSIPG — ${data.get('company')}`);
+      const body = encodeURIComponent(
+        `Entreprise : ${data.get('company')}\nContact : ${data.get('contact')}\nType : ${data.get('type')}\n\nDescription :\n${data.get('description')}`,
+      );
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    });
+  }
+
+  setupPartnershipForm();
+  document.addEventListener('astro:page-load', setupPartnershipForm);
+</script>

@@ -1,5 +1,7 @@
 ---
 import Button from '../ui/Button.astro';
+import BlurText from '../react/BlurText';
+import FadeIn from '../react/FadeIn';
 import { heroConfig } from '../../data/home';
 ---
 
@@ -36,17 +38,18 @@ import { heroConfig } from '../../data/home';
 
   <div class="relative z-20 mx-auto w-full max-w-7xl px-6 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
     <div class="max-w-xl pl-4 sm:pl-6 md:max-w-2xl">
-      <h1
-        class="font-subheading text-2xl font-bold normal-case leading-tight tracking-normal text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.75rem]"
-      >
-        {heroConfig.title}
-      </h1>
+      <BlurText
+        client:load
+        text={heroConfig.title}
+        as="h1"
+        className="font-subheading text-2xl font-bold normal-case leading-tight tracking-normal text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.75rem]"
+      />
 
-      <p class="mt-4 max-w-lg text-sm leading-relaxed text-white/90 sm:text-base md:mt-5">
-        {heroConfig.subtitle}
-      </p>
+      <FadeIn client:visible delay={200} className="mt-4 max-w-lg text-sm leading-relaxed text-white/90 sm:text-base md:mt-5">
+        <p>{heroConfig.subtitle}</p>
+      </FadeIn>
 
-      <div class="mt-8 md:mt-10">
+      <FadeIn client:visible delay={400} className="mt-8 md:mt-10">
         <Button
           href={heroConfig.ctaHref}
           size="lg"
@@ -54,7 +57,7 @@ import { heroConfig } from '../../data/home';
         >
           {heroConfig.ctaLabel}
         </Button>
-      </div>
+      </FadeIn>
     </div>
   </div>
 </section>

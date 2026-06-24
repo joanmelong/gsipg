@@ -1,8 +1,13 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AdmissionsSection from '../../components/sections/AdmissionsSection.astro';
+import PartnershipSection from '../../components/sections/PartnershipSection.astro';
 ---
 
-<StubPage
+<BaseLayout
   title="Admissions & Inscriptions"
   description="Informations et démarches d'inscription au GSIPG : maternelle et primaire à Yaoundé."
-/>
+>
+  <AdmissionsSection />
+  <PartnershipSection />
+</BaseLayout>

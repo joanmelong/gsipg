@@ -1,9 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
+import TrustBanner from '../components/sections/TrustBanner.astro';
 import CurriculumSection from '../components/sections/CurriculumSection.astro';
 import VisionSection from '../components/sections/VisionSection.astro';
+import KeyStatsSection from '../components/sections/KeyStatsSection.astro';
 import VieScolairePreview from '../components/sections/VieScolairePreview.astro';
+import TestimonialsSection from '../components/sections/TestimonialsSection.astro';
+import CtaSection from '../components/sections/CtaSection.astro';
+import NewsletterSection from '../components/sections/NewsletterSection.astro';
+import { homeCta } from '../data/home';
 ---
 
 <BaseLayout
@@ -11,7 +17,17 @@ import VieScolairePreview from '../components/sections/VieScolairePreview.astro'
   description="GSIPG — Offrez à votre enfant une éducation internationale d'excellence à Yaoundé. Crèche, maternelle et primaire en sections francophone, anglophone et bilingue."
 >
   <Hero />
+  <TrustBanner />
   <VisionSection />
   <CurriculumSection />
+  <KeyStatsSection />
   <VieScolairePreview />
+  <TestimonialsSection />
+  <CtaSection
+    title={homeCta.title}
+    description={homeCta.description}
+    buttonLabel={homeCta.buttonLabel}
+    buttonHref={homeCta.buttonHref}
+  />
+  <NewsletterSection />
 </BaseLayout>

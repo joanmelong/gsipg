@@ -140,6 +140,41 @@ export const keyStats = [
   { value: 2, suffix: '', label: 'Enseignants par classe', detail: 'Section Bilingue Fifty-Fifty' },
 ] as const;
 
+export const testimonials = [
+  {
+    quote:
+      "Notre fils a gagné en confiance et en curiosité depuis son entrée au GSIPG. L'approche bilingue et les activités ludiques font toute la différence.",
+    author: 'Marie Nkodo',
+    role: 'Parent — Section Bilingue, CE1',
+  },
+  {
+    quote:
+      "Une équipe à l'écoute, des résultats excellents et un cadre sécurisant. Nous recommandons vivement La Petite Gloria aux familles de Yaoundé.",
+    author: 'Jean-Pierre Abega',
+    role: 'Parent — Section Francophone, CM2',
+  },
+  {
+    quote:
+      "Mon enfant adore aller à l'école ! Les parcs éducatifs et les sorties pédagogiques rendent l'apprentissage vivant et motivant.",
+    author: 'Sarah Etoa',
+    role: 'Parent — Section Anglophone, Class 4',
+  },
+  {
+    quote:
+      "Le suivi personnalisé et la rigueur académique nous ont convaincus. Notre fille a brillamment réussi son entrée en 6ème.",
+    author: 'Pauline Mengue',
+    role: 'Parent — Section Francophone, CM2',
+  },
+] as const;
+
+export const homeCta = {
+  title: 'Rejoignez la communauté GSIPG',
+  description:
+    'Inscriptions ouvertes pour la rentrée 2025-2026. Places limitées — planifiez votre visite dès maintenant.',
+  buttonLabel: 'Demander une inscription',
+  buttonHref: '/admissions',
+} as const;
+
 /** @deprecated Utiliser vieScolairePreview.cards */
 export const vieScolaireShortcuts = vieScolairePreview.cards.map((card) => ({
   title: card.title,

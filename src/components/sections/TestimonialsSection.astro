@@ -1,0 +1,136 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import TestimonialCard from '../ui/TestimonialCard.astro';
+import { testimonials } from '../../data/home';
+---
+
+<Section background="neutral" ariaLabel="Témoignages parents">
+  <Container>
+    <div class="mb-10 text-center">
+      <h2>Ce que disent les parents</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-neutral-text">
+        La confiance de nos familles est notre plus belle récompense.
+      </p>
+    </div>
+
+    <div class="relative" data-testimonials-carousel>
+      <div class="overflow-hidden rounded-2xl" data-testimonials-track-wrap>
+        <ul
+          class="flex transition-transform duration-500 ease-out"
+          data-testimonials-track
+          role="list"
+        >
+          {
+            testimonials.map((item) => (
+              <li class="w-full shrink-0 px-1 sm:px-2" data-testimonial-slide>
+                <TestimonialCard quote={item.quote} author={item.author} role={item.role} />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+
+      <div class="mt-6 flex items-center justify-center gap-4">
+        <button
+          type="button"
+          class="rounded-full border border-border bg-white p-2 text-secondary transition hover:bg-neutral-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+          aria-label="Témoignage précédent"
+          data-testimonial-prev
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5"></path>
+          </svg>
+        </button>
+
+        <div class="flex gap-2" role="tablist" aria-label="Sélection du témoignage" data-testimonial-dots></div>
+
+        <button
+          type="button"
+          class="rounded-full border border-border bg-white p-2 text-secondary transition hover:bg-neutral-bg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+          aria-label="Témoignage suivant"
+          data-testimonial-next
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-5 w-5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </Container>
+</Section>
+
+<script>
+  function initTestimonialsCarousel() {
+    const root = document.querySelector('[data-testimonials-carousel]');
+    if (!root || root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    const track = root.querySelector<HTMLElement>('[data-testimonials-track]');
+    const slides = root.querySelectorAll('[data-testimonial-slide]');
+    const dotsContainer = root.querySelector('[data-testimonial-dots]');
+    const prevBtn = root.querySelector('[data-testimonial-prev]');
+    const nextBtn = root.querySelector('[data-testimonial-next]');
+
+    if (!track || !slides.length || !dotsContainer) return;
+
+    let current = 0;
+    let timer: ReturnType<typeof setInterval> | null = null;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    slides.forEach((_, index) => {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className =
+        'h-2.5 w-2.5 rounded-full transition ' +
+        (index === 0 ? 'bg-secondary scale-110' : 'bg-border hover:bg-secondary/50');
+      dot.setAttribute('aria-label', `Témoignage ${index + 1}`);
+      dot.setAttribute('aria-selected', index === 0 ? 'true' : 'false');
+      dot.addEventListener('click', () => goTo(index));
+      dotsContainer.appendChild(dot);
+    });
+
+    const dots = dotsContainer.querySelectorAll('button');
+
+    function goTo(index: number) {
+      current = (index + slides.length) % slides.length;
+      track!.style.transform = `translateX(-${current * 100}%)`;
+      dots.forEach((dot, i) => {
+        dot.classList.toggle('bg-secondary', i === current);
+        dot.classList.toggle('scale-110', i === current);
+        dot.classList.toggle('bg-border', i !== current);
+        dot.setAttribute('aria-selected', i === current ? 'true' : 'false');
+      });
+    }
+
+    function startAutoplay() {
+      if (reduced) return;
+      stopAutoplay();
+      timer = setInterval(() => goTo(current + 1), 4000);
+    }
+
+    function stopAutoplay() {
+      if (timer) clearInterval(timer);
+      timer = null;
+    }
+
+    prevBtn?.addEventListener('click', () => {
+      goTo(current - 1);
+      startAutoplay();
+    });
+    nextBtn?.addEventListener('click', () => {
+      goTo(current + 1);
+      startAutoplay();
+    });
+
+    root.addEventListener('mouseenter', stopAutoplay);
+    root.addEventListener('mouseleave', startAutoplay);
+    root.addEventListener('focusin', stopAutoplay);
+    root.addEventListener('focusout', startAutoplay);
+
+    startAutoplay();
+  }
+
+  initTestimonialsCarousel();
+  document.addEventListener('astro:page-load', initTestimonialsCarousel);
+</script>

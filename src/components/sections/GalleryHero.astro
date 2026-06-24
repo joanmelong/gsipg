@@ -1,5 +1,7 @@
 ---
 import Container from '../ui/Container.astro';
+import BlurText from '../react/BlurText';
+import FadeIn from '../react/FadeIn';
 import { galleryHero } from '../../data/gallery';
 ---
 
@@ -19,15 +21,16 @@ import { galleryHero } from '../../data/gallery';
       </div>
 
       <div class="text-center lg:text-left">
-        <h1
-          class="font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-4xl lg:text-[2.75rem]"
-        >
-          {galleryHero.title}
-        </h1>
+        <BlurText
+          client:visible
+          text={galleryHero.title}
+          as="h1"
+          className="font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-4xl lg:text-[2.75rem]"
+        />
 
-        <p class="mt-4 text-base leading-relaxed text-secondary/85 sm:mt-5 sm:text-lg">
-          {galleryHero.subtitle}
-        </p>
+        <FadeIn client:visible delay={150} className="mt-4 text-base leading-relaxed text-secondary/85 sm:mt-5 sm:text-lg">
+          <p>{galleryHero.subtitle}</p>
+        </FadeIn>
       </div>
     </div>
   </Container>

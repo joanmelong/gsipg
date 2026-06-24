@@ -9,6 +9,8 @@ import {
 } from '../../data/articles';
 
 const sortedArticles = getSortedArticles();
+const ARTICLES_PER_PAGE = 6;
+const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE);
 ---
 
 <Section background="neutral" ariaLabel="Actualités">
@@ -52,8 +54,10 @@ const sortedArticles = getSortedArticles();
             class:list={[
               'article-item',
               index === 0 && 'is-featured md:col-span-2',
+              index >= ARTICLES_PER_PAGE && 'hidden',
             ]}
             data-article-category={article.category}
+            data-article-index={index}
           >
             <ArticleCard article={article} />
           </li>
@@ -64,6 +68,20 @@ const sortedArticles = getSortedArticles();
     <p id="articles-empty" class="mt-10 hidden text-center text-neutral-text">
       Aucun article dans cette catégorie pour le moment.
     </p>
+
+    {
+      totalPages > 1 && (
+        <nav
+          id="articles-pagination"
+          aria-label="Pagination des articles"
+          class="mt-12 flex justify-center"
+          data-total-pages={totalPages}
+          data-per-page={ARTICLES_PER_PAGE}
+        >
+          <ul class="flex items-center gap-2" data-pagination-list></ul>
+        </nav>
+      )
+    }
   </Container>
 </Section>
 
@@ -92,13 +110,22 @@ const sortedArticles = getSortedArticles();
 </style>
 
 <script>
+  const ARTICLES_PER_PAGE = 6;
+
   function initArticleFilters() {
     const grid = document.getElementById('articles-grid');
     const emptyMessage = document.getElementById('articles-empty');
     const filterButtons = document.querySelectorAll<HTMLButtonElement>('[data-filter]');
     const items = grid?.querySelectorAll<HTMLElement>('.article-item');
+    const paginationNav = document.getElementById('articles-pagination');
 
     if (!grid || !items?.length || !filterButtons.length) return;
+
+    let currentPage = 1;
+    let currentFilter = 'Tout';
+    const totalPages = paginationNav
+      ? Number(paginationNav.dataset.totalPages ?? 1)
+      : 1;
 
     const inactiveClasses = ['bg-white', 'text-secondary', 'ring-1', 'ring-border', 'hover:bg-primary/15'];
     const activeClasses = ['bg-secondary', 'text-white', 'shadow-sm'];
@@ -109,32 +136,96 @@ const sortedArticles = getSortedArticles();
       button.classList.add(...(active ? activeClasses : inactiveClasses));
     }
 
-    function updateFeatured() {
-      const visibleItems = [...items].filter((item) => !item.classList.contains('hidden'));
+    function getVisibleItems() {
+      return [...items].filter((item) => {
+        const category = item.dataset.articleCategory;
+        const matchesFilter = currentFilter === 'Tout' || category === currentFilter;
+        return matchesFilter;
+      });
+    }
 
-      items.forEach((item) => {
-        item.classList.remove('is-featured', 'md:col-span-2');
+    function renderPagination() {
+      if (!paginationNav) return;
+      const list = paginationNav.querySelector('[data-pagination-list]');
+      if (!list) return;
+      list.innerHTML = '';
+
+      const visibleCount = getVisibleItems().length;
+      const pages = Math.max(1, Math.ceil(visibleCount / ARTICLES_PER_PAGE));
+      if (pages <= 1) {
+        paginationNav.classList.add('hidden');
+        return;
+      }
+      paginationNav.classList.remove('hidden');
+
+      const addBtn = (label: string, page: number, disabled: boolean, current = false) => {
+        const li = document.createElement('li');
+        if (disabled) {
+          li.innerHTML = `<span class="rounded-lg border border-border px-4 py-2 text-sm text-neutral-text/50" aria-disabled="true">${label}</span>`;
+        } else if (current) {
+          li.innerHTML = `<span class="rounded-lg bg-secondary px-4 py-2 text-sm font-semibold text-white" aria-current="page">${label}</span>`;
+        } else {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'rounded-lg border border-border px-4 py-2 text-sm text-secondary transition hover:bg-neutral-bg';
+          btn.textContent = label;
+          btn.addEventListener('click', () => {
+            currentPage = page;
+            applyView();
+          });
+          li.appendChild(btn);
+        }
+        list.appendChild(li);
+      };
+
+      addBtn('Précédent', currentPage - 1, currentPage <= 1);
+      for (let p = 1; p <= pages; p++) addBtn(String(p), p, false, p === currentPage);
+      addBtn('Suivant', currentPage + 1, currentPage >= pages);
+    }
+
+    function updateFeatured() {
+      const visibleItems = getVisibleItems().filter((_, i) => {
+        const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+        const end = start + ARTICLES_PER_PAGE;
+        return i >= start && i < end;
       });
 
+      items.forEach((item) => item.classList.remove('is-featured', 'md:col-span-2'));
       visibleItems[0]?.classList.add('is-featured', 'md:col-span-2');
-      emptyMessage?.classList.toggle('hidden', visibleItems.length > 0);
+      emptyMessage?.classList.toggle('hidden', getVisibleItems().length > 0);
+    }
+
+    function applyView() {
+      const visible = getVisibleItems();
+      const start = (currentPage - 1) * ARTICLES_PER_PAGE;
+      const end = start + ARTICLES_PER_PAGE;
+
+      items.forEach((item) => {
+        const category = item.dataset.articleCategory;
+        const matchesFilter = currentFilter === 'Tout' || category === currentFilter;
+        if (!matchesFilter) {
+          item.classList.add('hidden');
+          return;
+        }
+        const indexInVisible = visible.indexOf(item);
+        const onPage = indexInVisible >= start && indexInVisible < end;
+        item.classList.toggle('hidden', !onPage);
+      });
+
+      updateFeatured();
+      renderPagination();
     }
 
     filterButtons.forEach((button) => {
       button.addEventListener('click', () => {
-        const filter = button.dataset.filter ?? 'Tout';
-
+        currentFilter = button.dataset.filter ?? 'Tout';
+        currentPage = 1;
         filterButtons.forEach((btn) => setButtonState(btn, btn === button));
-
-        items.forEach((item) => {
-          const category = item.dataset.articleCategory;
-          const show = filter === 'Tout' || category === filter;
-          item.classList.toggle('hidden', !show);
-        });
-
-        updateFeatured();
+        applyView();
       });
     });
+
+    applyView();
   }
 
   initArticleFilters();

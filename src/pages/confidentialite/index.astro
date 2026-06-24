@@ -1,8 +1,47 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import { siteConfig } from '../../config/site';
 ---
 
-<StubPage
+<BaseLayout
   title="Politique de confidentialité"
   description="Politique de confidentialité et protection des données personnelles du site GSIPG."
-/>
+>
+  <Section>
+    <Container>
+      <h1>Politique de confidentialité</h1>
+      <div class="mt-8 max-w-3xl space-y-6 text-neutral-text">
+        <section>
+          <h2 class="text-secondary">Collecte des données</h2>
+          <p>
+            {siteConfig.shortName} collecte uniquement les données que vous nous communiquez volontairement
+            via nos formulaires de contact et d'inscription (nom, email, téléphone, message).
+          </p>
+        </section>
+        <section>
+          <h2 class="text-secondary">Utilisation des données</h2>
+          <p>
+            Ces informations sont utilisées exclusivement pour répondre à vos demandes, traiter les
+            inscriptions et vous informer de nos actualités si vous y avez consenti.
+          </p>
+        </section>
+        <section>
+          <h2 class="text-secondary">Vos droits</h2>
+          <p>
+            Conformément à la réglementation en vigueur, vous disposez d'un droit d'accès, de rectification
+            et de suppression de vos données. Contactez-nous à {siteConfig.contact.email}.
+          </p>
+        </section>
+        <section>
+          <h2 class="text-secondary">Cookies</h2>
+          <p>
+            Ce site n'utilise pas de cookies de tracking publicitaire. Seuls des cookies techniques
+            essentiels au fonctionnement peuvent être déposés par l'hébergeur.
+          </p>
+        </section>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

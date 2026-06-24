@@ -113,7 +113,7 @@ const socialIcons: Record<string, string> = {
         <p class="mb-4 text-sm text-gray-300">
           Recevez nos actualités et événements directement par email.
         </p>
-        <form class="space-y-3" aria-label="Inscription newsletter">
+        <form id="footer-newsletter-form" class="space-y-3" aria-label="Inscription newsletter" novalidate>
           <label for="newsletter-email" class="sr-only">Adresse email</label>
           <input
             id="newsletter-email"
@@ -123,6 +123,7 @@ const socialIcons: Record<string, string> = {
             required
             class="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary"
           />
+          <p id="footer-newsletter-feedback" class="hidden text-xs" role="status"></p>
           <Button type="submit" size="sm" class="w-full">
             S'abonner
           </Button>
@@ -150,3 +151,31 @@ const socialIcons: Record<string, string> = {
     </div>
   </Container>
 </footer>
+
+<script>
+  function setupFooterNewsletter() {
+    const form = document.getElementById('footer-newsletter-form');
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    const feedback = document.getElementById('footer-newsletter-feedback');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('[name="email"]');
+      if (!input?.checkValidity()) {
+        input?.reportValidity();
+        return;
+      }
+      if (feedback) {
+        feedback.textContent = 'Merci ! Vous êtes inscrit à notre newsletter.';
+        feedback.className = 'text-xs text-primary';
+        feedback.classList.remove('hidden');
+      }
+      form.reset();
+    });
+  }
+
+  setupFooterNewsletter();
+  document.addEventListener('astro:page-load', setupFooterNewsletter);
+</script>

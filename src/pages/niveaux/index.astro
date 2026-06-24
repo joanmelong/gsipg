@@ -1,8 +1,57 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import Card from '../../components/ui/Card.astro';
+import Button from '../../components/ui/Button.astro';
+import { curricula } from '../../data/home';
 ---
 
-<StubPage
+<BaseLayout
   title="Nos Niveaux d'Enseignement"
-  description="Explorez les programmes maternelle et primaire du GSIPG : curricula, pédagogie et débouchés."
-/>
+  description="Découvrez les programmes maternelle et primaire du GSIPG : sections francophone, anglophone et bilingue Fifty-Fifty à Yaoundé."
+>
+  <Section ariaLabel="Nos niveaux">
+    <Container>
+      <div class="mx-auto max-w-3xl text-center">
+        <h1>Nos niveaux d'enseignement</h1>
+        <p class="mt-4 text-neutral-text">
+          De la crèche au primaire, le GSIPG propose trois sections linguistiques pour accompagner
+          chaque enfant vers la réussite scolaire et l'épanouissement personnel.
+        </p>
+      </div>
+
+      <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-3">
+        {
+          curricula.map((curriculum) => (
+            <Card title={curriculum.title} description={curriculum.description}>
+              <p class="text-sm font-semibold text-secondary">{curriculum.subtitle}</p>
+              <p class="mt-2 text-2xl" aria-hidden="true">{curriculum.flag}</p>
+            </Card>
+          ))
+        }
+      </div>
+
+      <div id="maternelle" class="mt-16 scroll-mt-28 rounded-2xl bg-neutral-bg p-8 sm:p-10">
+        <h2 class="text-secondary">Maternelle (3 – 5 ans)</h2>
+        <p class="mt-4 text-neutral-text">
+          Éveil, socialisation et premiers apprentissages dans un cadre bienveillant. Nos classes de
+          maternelle accueillent les tout-petits en petits groupes, avec une attention particulière
+          portée aux langues, à la motricité et à l'autonomie.
+        </p>
+      </div>
+
+      <div id="primaire" class="mt-8 scroll-mt-28 rounded-2xl bg-white p-8 shadow-md sm:p-10">
+        <h2 class="text-secondary">Primaire (6 – 11 ans)</h2>
+        <p class="mt-4 text-neutral-text">
+          Un enseignement rigoureux préparant aux examens nationaux (CEP, entrée en 6ème). L'intégration
+          progressive du numérique, les projets interdisciplinaires et les parcs éducatifs enrichissent
+          le parcours de chaque élève.
+        </p>
+        <div class="mt-6">
+          <Button href="/resultats">Voir nos résultats</Button>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

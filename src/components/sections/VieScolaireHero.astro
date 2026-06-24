@@ -1,5 +1,7 @@
 ---
 import Container from '../ui/Container.astro';
+import BlurText from '../react/BlurText';
+import FadeIn from '../react/FadeIn';
 import { vieScolaireHero } from '../../data/vie-scolaire';
 ---
 
@@ -20,17 +22,22 @@ import { vieScolaireHero } from '../../data/vie-scolaire';
     <div class="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-10">
       <!-- Texte -->
       <div class="max-w-xl">
-        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
-          {vieScolaireHero.tag}
-        </p>
+        <FadeIn client:visible>
+          <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
+            {vieScolaireHero.tag}
+          </p>
+        </FadeIn>
 
-        <h1 class="mt-4 font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-white sm:text-4xl lg:text-[2.75rem]">
-          {vieScolaireHero.title}
-        </h1>
+        <BlurText
+          client:visible
+          text={vieScolaireHero.title}
+          as="h1"
+          className="mt-4 font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-white sm:text-4xl lg:text-[2.75rem]"
+        />
 
-        <p class="mt-5 text-sm leading-relaxed text-white/85 sm:text-base">
-          {vieScolaireHero.subtitle}
-        </p>
+        <FadeIn client:visible delay={200} className="mt-5 text-sm leading-relaxed text-white/85 sm:text-base">
+          <p>{vieScolaireHero.subtitle}</p>
+        </FadeIn>
       </div>
 
       <!-- Visuel droit -->
