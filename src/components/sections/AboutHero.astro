@@ -3,58 +3,36 @@ import Container from '../ui/Container.astro';
 import { aboutHero } from '../../data/about';
 ---
 
-<section class="relative overflow-hidden bg-neutral-bg py-12 sm:py-16 lg:py-20" aria-label="Introduction à propos">
-  <div
-    class="pointer-events-none absolute -left-16 top-8 h-48 w-48 rotate-[-18deg] rounded-[3rem] bg-primary/35 sm:h-64 sm:w-64"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="pointer-events-none absolute right-0 top-1/3 h-32 w-40 rotate-12 rounded-[2.5rem] bg-secondary/15 sm:h-44 sm:w-52"
-    aria-hidden="true"
-  ></div>
-  <div
-    class="pointer-events-none absolute bottom-0 left-1/4 h-24 w-32 -rotate-6 rounded-[2rem] bg-accent-orange/20"
-    aria-hidden="true"
-  ></div>
+<section
+  class="relative flex min-h-[50vh] items-center overflow-hidden sm:min-h-[55vh] lg:min-h-[60vh]"
+  aria-label="Introduction"
+>
+  <div class="absolute inset-0" aria-hidden="true">
+    <img
+      src={aboutHero.background.src}
+      alt=""
+      class="h-full w-full object-cover object-center"
+      loading="eager"
+      fetchpriority="high"
+      width="1920"
+      height="1080"
+    />
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(to right, rgb(46 117 182 / 0.95) 0%, rgb(46 117 182 / 0.88) 22%, rgb(46 117 182 / 0.65) 45%, rgb(46 117 182 / 0.35) 65%, rgb(46 117 182 / 0.15) 80%, transparent 92%);"
+    ></div>
+  </div>
 
-  <Container class="relative">
-    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-12 lg:gap-8">
-      <div class="lg:col-span-5 xl:col-span-4">
-        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-secondary">À propos</p>
-        <h1
-          class="mt-4 font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-4xl lg:text-[2.75rem]"
-        >
-          {aboutHero.title}
-        </h1>
-        <p class="mt-5 max-w-lg text-base leading-relaxed text-neutral-text sm:text-lg">
-          {aboutHero.subtitle}
-        </p>
-      </div>
-
-      <div class="relative lg:col-span-7 lg:col-start-6 xl:col-span-8">
-        <div
-          class="pointer-events-none absolute -right-4 top-6 h-28 w-24 rotate-12 rounded-3xl bg-primary/25 sm:h-36 sm:w-32"
-          aria-hidden="true"
-        ></div>
-        <div
-          class="pointer-events-none absolute bottom-8 left-0 h-20 w-28 -rotate-6 rounded-3xl bg-secondary/10"
-          aria-hidden="true"
-        ></div>
-
-        <div class="relative z-10 flex justify-center lg:justify-end">
-          <div class="relative rounded-[2.5rem] bg-gradient-to-br from-primary/30 via-white to-secondary/10 p-6 shadow-[0_24px_60px_rgba(46,117,182,0.15)] sm:p-10">
-            <img
-              src={aboutHero.illustration.src}
-              alt={aboutHero.illustration.alt}
-              class="mx-auto h-auto w-full max-w-xs object-contain sm:max-w-sm lg:max-w-md"
-              loading="eager"
-              fetchpriority="high"
-              width="420"
-              height="420"
-            />
-          </div>
-        </div>
-      </div>
+  <Container class="relative z-10 py-12 sm:py-16 lg:py-20">
+    <div class="max-w-xl pl-2 sm:pl-4 md:max-w-2xl">
+      <h1
+        class="font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-white drop-shadow-md sm:text-4xl lg:text-[2.75rem]"
+      >
+        {aboutHero.title}
+      </h1>
+      <p class="mt-5 max-w-lg text-base leading-relaxed text-white/90 sm:text-lg">
+        {aboutHero.subtitle}
+      </p>
     </div>
   </Container>
 </section>

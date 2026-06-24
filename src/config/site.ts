@@ -26,7 +26,7 @@ export const footerQuickLinks = [
   { label: 'Qui sommes-nous', href: '/qui-sommes-nous' },
   { label: 'Nos niveaux', href: '/niveaux' },
   { label: 'Actualités', href: '/actualites' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Contact', href: '/qui-sommes-nous#contact' },
 ] as const;
 
 export const footerLevels = [
@@ -72,6 +72,7 @@ export function formatPageTitle(pageTitle: string): string {
 }
 
 export function isActiveNav(href: string, pathname: string): boolean {
-  if (href === '/') return pathname === '/';
-  return pathname.startsWith(href);
+  const path = href.split('#')[0];
+  if (path === '/') return pathname === '/';
+  return pathname.startsWith(path);
 }

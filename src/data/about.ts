@@ -2,9 +2,9 @@ export const aboutHero = {
   title: 'Qui sommes-nous ?',
   subtitle:
     "Découvrez l'histoire, les valeurs et l'équipe dévouée derrière la réussite de vos enfants.",
-  illustration: {
-    src: '/images/gallery/student.svg',
-    alt: 'Illustration éducative — élève du GSIPG',
+  background: {
+    src: '/images/about/about.jpg',
+    alt: 'Bâtiment du Groupe Scolaire International La Petite Gloria à Yaoundé',
   },
 } as const;
 
@@ -37,8 +37,8 @@ export const teamSection = {
 } as const;
 
 export const aboutContact = {
-  title: 'Contactez-nous',
-  subtitle: 'Messamendongo, Yaoundé IV — nous sommes à votre écoute.',
+  badge: 'Contactez-nous',
+  title: 'Contactez-nous et dites-nous comment nous pouvons vous aider.',
   phones: [
     { label: 'Ligne principale', href: 'tel:+237699918562', display: '(+237) 699 91 85 62' },
     { label: 'Ligne secondaire', href: 'tel:+237677242815', display: '(+237) 677 24 28 15' },
@@ -46,12 +46,25 @@ export const aboutContact = {
   email: {
     href: 'mailto:admin@education-lms.com',
     display: 'admin@education-lms.com',
+    label: 'Adresse email',
+    iconSrc: '/images/contact_us/mesage.png',
   },
+  phoneLabel: 'Téléphone',
+  phoneIconSrc: '/images/contact_us/call.png',
+  officeLabel: 'Notre établissement',
+  officeIconSrc: '/images/contact_us/pin.png',
   hours: [
     { days: 'Lundi – Vendredi', time: '8h à 17h' },
     { days: 'Samedi', time: '10h à 15h' },
   ],
   address: 'Messamendongo, Yaoundé IV, Cameroun',
+  form: {
+    firstNameLabel: 'Prénom',
+    lastNameLabel: 'Nom',
+    messageLabel: 'Message',
+    messagePlaceholder: 'Écrivez votre message…',
+    submitLabel: 'Envoyer',
+  },
   mapsQuery: 'Messamendongo Yaoundé IV, Cameroun',
   mapsDirectionsUrl:
     'https://www.google.com/maps/dir/?api=1&destination=Messamendongo+Yaound%C3%A9+IV,+Cameroun',

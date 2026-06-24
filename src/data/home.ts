@@ -3,7 +3,7 @@ export const heroConfig = {
   subtitle:
     'Crèche, maternelle et primaire à Yaoundé — sections francophone, anglophone et bilingue Fifty-Fifty.',
   ctaLabel: 'Renseignement',
-  ctaHref: '/contact',
+  ctaHref: '/qui-sommes-nous#contact',
   slides: [
     {
       src: '/images/home/hero-slide-1.jpg',
