@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useCallback } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useGesture } from '@use-gesture/react';
 
 type MediaItem =
@@ -284,6 +284,9 @@ export default function DomeGallery({
   const openStartedAtRef = useRef(0);
   const lastDragEndAt = useRef(0);
   const captureGestureRef = useRef(false);
+  const [isEnlarged, setIsEnlarged] = useState(false);
+  const [activeSegments, setActiveSegments] = useState(segments);
+  const activeSegmentsRef = useRef(segments);
 
   const scrollLockedRef = useRef(false);
   const lockScroll = useCallback(() => {
@@ -298,7 +301,7 @@ export default function DomeGallery({
     document.body.classList.remove('dg-scroll-lock');
   }, []);
 
-  const items = useMemo(() => buildItems(images, segments), [images, segments]);
+  const items = useMemo(() => buildItems(images, activeSegments), [images, activeSegments]);
 
   const applyTransform = (xDeg: number, yDeg: number) => {
     const el = sphereRef.current;
@@ -339,13 +342,23 @@ export default function DomeGallery({
           basis = aspect >= 1.3 ? w : minDim;
       }
 
-      let radius = basis * fit;
-      const heightGuard = h * 1.35;
+      const mobile = w < 640;
+      const effectiveFit = mobile ? fit * 1.38 : fit;
+      let radius = basis * effectiveFit;
+      const heightGuard = mobile ? h * 1.6 : h * 1.35;
       radius = Math.min(radius, heightGuard);
       radius = clamp(radius, minRadius, maxRadius);
       lockedRadiusRef.current = Math.round(radius);
 
-      const viewerPad = Math.max(6, Math.round(minDim * padFactor));
+      const targetSegments = mobile ? Math.max(24, Math.floor(segments * 0.76)) : segments;
+      if (targetSegments !== activeSegmentsRef.current) {
+        activeSegmentsRef.current = targetSegments;
+        setActiveSegments(targetSegments);
+      }
+
+      const viewerPad = mobile
+        ? Math.max(4, Math.round(minDim * 0.02))
+        : Math.max(6, Math.round(minDim * padFactor));
       const enlargeW = Math.round(Math.min(w * 0.96, 980));
       const enlargeH = Math.round(Math.min(h * 0.88, 860));
       root.style.setProperty('--radius', `${lockedRadiusRef.current}px`);
@@ -399,6 +412,7 @@ export default function DomeGallery({
     openedImageBorderRadius,
     openedImageWidth,
     openedImageHeight,
+    segments,
   ]);
 
   useEffect(() => {
@@ -467,7 +481,7 @@ export default function DomeGallery({
       const sizeX = getDataNumber(parent, 'sizeX', 2);
       const sizeY = getDataNumber(parent, 'sizeY', 2);
 
-      const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, segments);
+      const parentRot = computeItemBaseRotation(offsetX, offsetY, sizeX, sizeY, activeSegmentsRef.current);
       const parentY = normalizeAngle(parentRot.rotateY);
       const globalY = normalizeAngle(rotationRef.current.y);
       let rotY = -(parentY + globalY) % 360;
@@ -556,6 +570,7 @@ export default function DomeGallery({
         overlay.style.opacity = '1';
         overlay.style.transform = 'translate(0px, 0px) scale(1, 1)';
         rootRef.current?.setAttribute('data-enlarging', 'true');
+        setIsEnlarged(true);
       }, 16);
 
       const wantsResize = openedImageWidth || openedImageHeight;
@@ -598,10 +613,149 @@ export default function DomeGallery({
       openedImageBorderRadius,
       openedImageHeight,
       openedImageWidth,
-      segments,
       unlockScroll,
     ],
   );
+
+  const closeEnlarged = useCallback(() => {
+    if (performance.now() - openStartedAtRef.current < 250) return;
+    const el = focusedElRef.current;
+    if (!el) return;
+    const parent = el.parentElement as HTMLElement;
+    const overlay = viewerRef.current?.querySelector('.enlarge') as HTMLElement | null;
+    if (!overlay) return;
+
+    const refDiv = parent.querySelector('.item__image--reference');
+
+    const originalPos = originalTilePositionRef.current;
+    if (!originalPos) {
+      pauseVideo(overlay.querySelector('video'));
+      overlay.remove();
+      refDiv?.remove();
+      parent.style.setProperty('--rot-y-delta', '0deg');
+      parent.style.setProperty('--rot-x-delta', '0deg');
+      el.style.visibility = '';
+      el.style.zIndex = '0';
+      focusedElRef.current = null;
+      rootRef.current?.removeAttribute('data-enlarging');
+      openingRef.current = false;
+      setIsEnlarged(false);
+      return;
+    }
+
+    const currentRect = overlay.getBoundingClientRect();
+    const rootRect = rootRef.current!.getBoundingClientRect();
+
+    const originalPosRelativeToRoot = {
+      left: originalPos.left - rootRect.left,
+      top: originalPos.top - rootRect.top,
+      width: originalPos.width,
+      height: originalPos.height,
+    };
+
+    const overlayRelativeToRoot = {
+      left: currentRect.left - rootRect.left,
+      top: currentRect.top - rootRect.top,
+      width: currentRect.width,
+      height: currentRect.height,
+    };
+
+    const animatingOverlay = document.createElement('div');
+    animatingOverlay.className = 'enlarge-closing';
+    animatingOverlay.style.cssText = `
+      position: absolute;
+      left: ${overlayRelativeToRoot.left}px;
+      top: ${overlayRelativeToRoot.top}px;
+      width: ${overlayRelativeToRoot.width}px;
+      height: ${overlayRelativeToRoot.height}px;
+      z-index: 9999;
+      border-radius: ${openedImageBorderRadius};
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,.35);
+      transition: all ${enlargeTransitionMs}ms ease-out;
+      pointer-events: none;
+      margin: 0;
+      transform: none;
+      filter: ${grayscale ? 'grayscale(1)' : 'none'};
+    `;
+
+    const originalMedia = overlay.querySelector('video, img');
+    pauseVideo(originalMedia);
+    const clonedMedia = cloneMediaForClosing(originalMedia, parent, grayscale, 'contain');
+    if (clonedMedia) {
+      animatingOverlay.appendChild(clonedMedia);
+    }
+
+    overlay.remove();
+    rootRef.current!.appendChild(animatingOverlay);
+
+    void animatingOverlay.getBoundingClientRect();
+
+    requestAnimationFrame(() => {
+      animatingOverlay.style.left = `${originalPosRelativeToRoot.left}px`;
+      animatingOverlay.style.top = `${originalPosRelativeToRoot.top}px`;
+      animatingOverlay.style.width = `${originalPosRelativeToRoot.width}px`;
+      animatingOverlay.style.height = `${originalPosRelativeToRoot.height}px`;
+      animatingOverlay.style.opacity = '0';
+    });
+
+    const cleanup = () => {
+      pauseVideo(animatingOverlay.querySelector('video'));
+      animatingOverlay.remove();
+      originalTilePositionRef.current = null;
+
+      refDiv?.remove();
+      parent.style.transition = 'none';
+      el.style.transition = 'none';
+
+      parent.style.setProperty('--rot-y-delta', '0deg');
+      parent.style.setProperty('--rot-x-delta', '0deg');
+
+      requestAnimationFrame(() => {
+        el.style.visibility = '';
+        el.style.opacity = '0';
+        el.style.zIndex = '0';
+        focusedElRef.current = null;
+        rootRef.current?.removeAttribute('data-enlarging');
+        setIsEnlarged(false);
+
+        requestAnimationFrame(() => {
+          parent.style.transition = '';
+          el.style.transition = 'opacity 300ms ease-out';
+
+          requestAnimationFrame(() => {
+            el.style.opacity = '1';
+            setTimeout(() => {
+              el.style.transition = '';
+              el.style.opacity = '';
+              openingRef.current = false;
+              if (!draggingRef.current && rootRef.current?.getAttribute('data-enlarging') !== 'true') {
+                document.body.classList.remove('dg-scroll-lock');
+              }
+            }, 300);
+          });
+        });
+      });
+    };
+
+    animatingOverlay.addEventListener('transitionend', cleanup, { once: true });
+  }, [enlargeTransitionMs, grayscale, openedImageBorderRadius]);
+
+  useEffect(() => {
+    const scrim = scrimRef.current;
+    if (!scrim) return;
+
+    scrim.addEventListener('click', closeEnlarged);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeEnlarged();
+    };
+    window.addEventListener('keydown', onKey);
+
+    return () => {
+      scrim.removeEventListener('click', closeEnlarged);
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [closeEnlarged]);
 
   useGesture(
     {
@@ -740,144 +894,6 @@ export default function DomeGallery({
     },
     { target: mainRef, eventOptions: { passive: false } },
   );
-
-  useEffect(() => {
-    const scrim = scrimRef.current;
-    if (!scrim) return;
-
-    const close = () => {
-      if (performance.now() - openStartedAtRef.current < 250) return;
-      const el = focusedElRef.current;
-      if (!el) return;
-      const parent = el.parentElement as HTMLElement;
-      const overlay = viewerRef.current?.querySelector('.enlarge') as HTMLElement | null;
-      if (!overlay) return;
-
-      const refDiv = parent.querySelector('.item__image--reference');
-
-      const originalPos = originalTilePositionRef.current;
-      if (!originalPos) {
-        pauseVideo(overlay.querySelector('video'));
-        overlay.remove();
-        refDiv?.remove();
-        parent.style.setProperty('--rot-y-delta', '0deg');
-        parent.style.setProperty('--rot-x-delta', '0deg');
-        el.style.visibility = '';
-        el.style.zIndex = '0';
-        focusedElRef.current = null;
-        rootRef.current?.removeAttribute('data-enlarging');
-        openingRef.current = false;
-        return;
-      }
-
-      const currentRect = overlay.getBoundingClientRect();
-      const rootRect = rootRef.current!.getBoundingClientRect();
-
-      const originalPosRelativeToRoot = {
-        left: originalPos.left - rootRect.left,
-        top: originalPos.top - rootRect.top,
-        width: originalPos.width,
-        height: originalPos.height,
-      };
-
-      const overlayRelativeToRoot = {
-        left: currentRect.left - rootRect.left,
-        top: currentRect.top - rootRect.top,
-        width: currentRect.width,
-        height: currentRect.height,
-      };
-
-      const animatingOverlay = document.createElement('div');
-      animatingOverlay.className = 'enlarge-closing';
-      animatingOverlay.style.cssText = `
-        position: absolute;
-        left: ${overlayRelativeToRoot.left}px;
-        top: ${overlayRelativeToRoot.top}px;
-        width: ${overlayRelativeToRoot.width}px;
-        height: ${overlayRelativeToRoot.height}px;
-        z-index: 9999;
-        border-radius: ${openedImageBorderRadius};
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,.35);
-        transition: all ${enlargeTransitionMs}ms ease-out;
-        pointer-events: none;
-        margin: 0;
-        transform: none;
-        filter: ${grayscale ? 'grayscale(1)' : 'none'};
-      `;
-
-      const originalMedia = overlay.querySelector('video, img');
-      pauseVideo(originalMedia);
-      const clonedMedia = cloneMediaForClosing(originalMedia, parent, grayscale, 'contain');
-      if (clonedMedia) {
-        animatingOverlay.appendChild(clonedMedia);
-      }
-
-      overlay.remove();
-      rootRef.current!.appendChild(animatingOverlay);
-
-      void animatingOverlay.getBoundingClientRect();
-
-      requestAnimationFrame(() => {
-        animatingOverlay.style.left = `${originalPosRelativeToRoot.left}px`;
-        animatingOverlay.style.top = `${originalPosRelativeToRoot.top}px`;
-        animatingOverlay.style.width = `${originalPosRelativeToRoot.width}px`;
-        animatingOverlay.style.height = `${originalPosRelativeToRoot.height}px`;
-        animatingOverlay.style.opacity = '0';
-      });
-
-      const cleanup = () => {
-        pauseVideo(animatingOverlay.querySelector('video'));
-        animatingOverlay.remove();
-        originalTilePositionRef.current = null;
-
-        refDiv?.remove();
-        parent.style.transition = 'none';
-        el.style.transition = 'none';
-
-        parent.style.setProperty('--rot-y-delta', '0deg');
-        parent.style.setProperty('--rot-x-delta', '0deg');
-
-        requestAnimationFrame(() => {
-          el.style.visibility = '';
-          el.style.opacity = '0';
-          el.style.zIndex = '0';
-          focusedElRef.current = null;
-          rootRef.current?.removeAttribute('data-enlarging');
-
-          requestAnimationFrame(() => {
-            parent.style.transition = '';
-            el.style.transition = 'opacity 300ms ease-out';
-
-            requestAnimationFrame(() => {
-              el.style.opacity = '1';
-              setTimeout(() => {
-                el.style.transition = '';
-                el.style.opacity = '';
-                openingRef.current = false;
-                if (!draggingRef.current && rootRef.current?.getAttribute('data-enlarging') !== 'true') {
-                  document.body.classList.remove('dg-scroll-lock');
-                }
-              }, 300);
-            });
-          });
-        });
-      };
-
-      animatingOverlay.addEventListener('transitionend', cleanup, { once: true });
-    };
-
-    scrim.addEventListener('click', close);
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close();
-    };
-    window.addEventListener('keydown', onKey);
-
-    return () => {
-      scrim.removeEventListener('click', close);
-      window.removeEventListener('keydown', onKey);
-    };
-  }, [enlargeTransitionMs, openedImageBorderRadius, grayscale]);
 
   useEffect(() => {
     return () => {
@@ -1032,6 +1048,78 @@ export default function DomeGallery({
       text-transform: uppercase;
       pointer-events: none;
     }
+
+    .enlarge-close {
+      position: absolute;
+      top: calc(var(--viewer-pad) + 6px);
+      right: calc(var(--viewer-pad) + 6px);
+      z-index: 45;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 9999px;
+      background: rgba(15, 15, 15, 0.72);
+      color: #fff;
+      font-size: 26px;
+      line-height: 1;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+      transition: opacity 0.25s ease, background 0.2s ease, transform 0.2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .enlarge-close:hover {
+      background: rgba(15, 15, 15, 0.92);
+      transform: scale(1.05);
+    }
+
+    .enlarge-close:focus-visible {
+      outline: 2px solid #71d7f7;
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 640px) {
+      .item__image {
+        inset: 4px !important;
+      }
+
+      .item__video-overlay {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.4) 0%, transparent 22%);
+      }
+
+      .item__media-badge {
+        left: auto;
+        top: auto;
+        right: 4px;
+        bottom: 4px;
+        transform: none;
+        min-width: 18px;
+        width: 18px;
+        height: 18px;
+        font-size: 7px;
+        padding-left: 1px;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
+      }
+
+      .item__media-label {
+        display: none;
+      }
+
+      .item__image--video {
+        box-shadow: inset 0 0 0 2px rgba(220, 38, 38, 0.85);
+      }
+
+      .enlarge-close {
+        top: calc(var(--viewer-pad) + 2px);
+        right: calc(var(--viewer-pad) + 2px);
+        width: 38px;
+        height: 38px;
+        font-size: 24px;
+      }
+    }
   `;
 
   return (
@@ -1042,8 +1130,8 @@ export default function DomeGallery({
         className="sphere-root relative h-full w-full"
         style={
           {
-            ['--segments-x']: segments,
-            ['--segments-y']: segments,
+            ['--segments-x']: activeSegments,
+            ['--segments-y']: activeSegments,
             ['--overlay-blur-color']: overlayBlurColor,
             ['--tile-radius']: imageBorderRadius,
             ['--enlarge-radius']: openedImageBorderRadius,
@@ -1202,6 +1290,23 @@ export default function DomeGallery({
             className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
             style={{ padding: 'var(--viewer-pad)' }}
           >
+            <button
+              type="button"
+              className="enlarge-close"
+              aria-label="Fermer"
+              aria-hidden={!isEnlarged}
+              tabIndex={isEnlarged ? 0 : -1}
+              style={{
+                opacity: isEnlarged ? 1 : 0,
+                pointerEvents: isEnlarged ? 'auto' : 'none',
+              }}
+              onClick={(e) => {
+                e.stopPropagation();
+                closeEnlarged();
+              }}
+            >
+              ×
+            </button>
             <div
               ref={scrimRef}
               className="scrim pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500"
