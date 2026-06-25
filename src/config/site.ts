@@ -15,18 +15,20 @@ export const siteConfig = {
 
 export const mainNav = [
   { label: 'Accueil', href: '/' },
-  { label: 'Qui Sommes-Nous', href: '/qui-sommes-nous' },
-  { label: 'Nos Niveaux', href: '/niveaux' },
+  { label: 'Vie Scolaire', href: '/vie-scolaire' },
   { label: 'Actualités', href: '/actualites' },
-  { label: 'Admissions', href: '/admissions' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Résultats', href: '/resultats' },
+  { label: 'Galerie', href: '/galerie' },
+  { label: 'Parcs', href: '/parcs' },
+  { label: 'À Propos', href: '/qui-sommes-nous' },
 ] as const;
 
 export const footerQuickLinks = [
   { label: 'Qui sommes-nous', href: '/qui-sommes-nous' },
+  { label: 'Parcs éducatifs', href: '/parcs' },
   { label: 'Nos niveaux', href: '/niveaux' },
   { label: 'Actualités', href: '/actualites' },
-  { label: 'Contact', href: '/contact' },
+  { label: 'Contact', href: '/qui-sommes-nous#contact' },
 ] as const;
 
 export const footerLevels = [
@@ -72,6 +74,7 @@ export function formatPageTitle(pageTitle: string): string {
 }
 
 export function isActiveNav(href: string, pathname: string): boolean {
-  if (href === '/') return pathname === '/';
-  return pathname.startsWith(href);
+  const path = href.split('#')[0];
+  if (path === '/') return pathname === '/';
+  return pathname.startsWith(path);
 }

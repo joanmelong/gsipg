@@ -1,0 +1,37 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import CountUp from '../react/CountUp';
+import FadeIn from '../react/FadeIn';
+import { keyStats } from '../../data/home';
+---
+
+<Section background="neutral" ariaLabel="Chiffres clés et réussite">
+  <Container>
+    <FadeIn client:visible className="mb-12 text-center">
+      <h2>Chiffres clés & réussite</h2>
+      <p class="mx-auto mt-4 max-w-2xl text-neutral-text">
+        Des résultats qui témoignent de notre engagement pour l'excellence de chaque élève.
+      </p>
+    </FadeIn>
+
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        keyStats.map((stat, index) => (
+          <FadeIn client:visible delay={index * 100} className="rounded-2xl bg-white p-6 text-center shadow-md">
+            <p class="font-display text-5xl text-secondary lg:text-6xl">
+              <CountUp
+                client:visible
+                value={stat.value}
+                suffix={stat.suffix}
+                className=""
+              />
+            </p>
+            <h3 class="mt-3 text-base font-semibold">{stat.label}</h3>
+            <p class="mt-1 text-sm text-neutral-text">{stat.detail}</p>
+          </FadeIn>
+        ))
+      }
+    </div>
+  </Container>
+</Section>

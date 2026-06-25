@@ -1,8 +1,20 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import AboutHero from '../../components/sections/AboutHero.astro';
+import AboutDirectorSection from '../../components/sections/AboutDirectorSection.astro';
+import AboutValuesSection from '../../components/sections/AboutValuesSection.astro';
+import AboutTeamSection from '../../components/sections/AboutTeamSection.astro';
+import AboutContactSection from '../../components/sections/AboutContactSection.astro';
 ---
 
-<StubPage
-  title="Qui Sommes-Nous"
-  description="Découvrez l'histoire, la mission et les valeurs du Groupe Scolaire International La Petite Gloria à Yaoundé."
-/>
+<BaseLayout
+  title="Qui sommes-nous"
+  description="Découvrez l'histoire, les valeurs, l'équipe pédagogique et les coordonnées du Groupe Scolaire International La Petite Gloria à Yaoundé."
+  elevatedHeader
+>
+  <AboutHero />
+  <AboutDirectorSection />
+  <AboutValuesSection />
+  <AboutTeamSection />
+  <AboutContactSection />
+</BaseLayout>

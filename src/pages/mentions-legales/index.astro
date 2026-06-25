@@ -1,8 +1,41 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import { siteConfig } from '../../config/site';
 ---
 
-<StubPage
+<BaseLayout
   title="Mentions légales"
   description="Mentions légales du site web du Groupe Scolaire International La Petite Gloria (GSIPG)."
-/>
+>
+  <Section>
+    <Container>
+      <h1>Mentions légales</h1>
+      <div class="prose-neutral mt-8 max-w-3xl space-y-6 text-neutral-text">
+        <section>
+          <h2 class="text-secondary">Éditeur du site</h2>
+          <p>
+            {siteConfig.name} ({siteConfig.shortName})<br />
+            {siteConfig.contact.address}<br />
+            Email : {siteConfig.contact.email}<br />
+            Téléphone : {siteConfig.contact.phone}
+          </p>
+        </section>
+        <section>
+          <h2 class="text-secondary">Hébergement</h2>
+          <p>
+            Ce site est hébergé par Vercel Inc., 440 N Barranca Ave #4133, Covina, CA 91723, États-Unis.
+          </p>
+        </section>
+        <section>
+          <h2 class="text-secondary">Propriété intellectuelle</h2>
+          <p>
+            L'ensemble des contenus (textes, images, logos, vidéos) présents sur ce site est protégé par
+            le droit d'auteur. Toute reproduction sans autorisation écrite préalable est interdite.
+          </p>
+        </section>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>

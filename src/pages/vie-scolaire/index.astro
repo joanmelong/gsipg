@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import VieScolaireHero from '../../components/sections/VieScolaireHero.astro';
+import VieScolaireSections from '../../components/sections/VieScolaireSections.astro';
+---
+
+<BaseLayout
+  title="Vie Scolaire"
+  description="Horaires, restauration, transports et inscriptions : tout savoir sur la vie quotidienne au GSIPG à Yaoundé."
+>
+  <VieScolaireHero />
+  <VieScolaireSections />
+</BaseLayout>
+
+<script>
+  function scrollToHashSection() {
+    const hash = window.location.hash.slice(1);
+    if (!hash) return;
+    const target = document.getElementById(hash);
+    target?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  scrollToHashSection();
+  window.addEventListener('hashchange', scrollToHashSection);
+  document.addEventListener('astro:page-load', scrollToHashSection);
+</script>

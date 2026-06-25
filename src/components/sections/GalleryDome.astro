@@ -1,0 +1,40 @@
+---
+import GalleryDomeView from '../react/GalleryDomeView';
+import GalleryGrid from './GalleryGrid.astro';
+import { galleryDomeImages } from '../../data/gallery';
+---
+
+<section class="bg-neutral-bg py-6 sm:py-8" aria-label="Galerie photos interactive">
+  <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <p class="mb-4 text-center text-sm text-neutral-text sm:text-base">
+      Faites glisser horizontalement pour explorer · Cliquez sur une photo ou une vidéo (▶) pour l&apos;agrandir
+    </p>
+  </div>
+
+  <div class="relative mx-auto h-[85vh] min-h-[520px] max-h-[900px] w-full px-1 sm:h-[80vh] sm:min-h-[640px] sm:px-4">
+    <GalleryDomeView client:visible images={galleryDomeImages} />
+  </div>
+
+  <div id="gallery-grid-fallback" class="hidden border-t border-border">
+    <GalleryGrid />
+  </div>
+</section>
+
+<script>
+  function checkGalleryDome() {
+    const island = document.querySelector('[aria-label="Galerie photos interactive"] astro-island');
+    const fallback = document.getElementById('gallery-grid-fallback');
+    if (!fallback) return;
+
+    window.setTimeout(() => {
+      const islandEmpty = island && island.children.length === 0;
+      const islandError = island?.getAttribute('data-hydration-error') === 'true';
+      if (islandEmpty || islandError) {
+        fallback.classList.remove('hidden');
+      }
+    }, 5000);
+  }
+
+  checkGalleryDome();
+  document.addEventListener('astro:page-load', checkGalleryDome);
+</script>

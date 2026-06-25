@@ -1,0 +1,155 @@
+---
+import { galleryCategories, galleryImages } from '../../data/gallery';
+---
+
+<div>
+  <div
+    class="mb-8 flex flex-wrap justify-center gap-2"
+    role="tablist"
+    aria-label="Filtrer par catégorie"
+  >
+    {
+      galleryCategories.map((category, index) => (
+        <button
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          data-gallery-tab={category}
+          class:list={[
+            'rounded-full px-4 py-2 text-sm font-medium transition',
+            index === 0
+              ? 'bg-secondary text-white'
+              : 'bg-neutral-bg text-secondary hover:bg-primary/30',
+          ]}
+        >
+          {category}
+        </button>
+      ))
+    }
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6" data-gallery-grid>
+    {
+      galleryImages.map((image) => (
+        <button
+          type="button"
+          class="group relative aspect-square overflow-hidden rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary"
+          data-gallery-item
+          data-category={image.category}
+          data-src={image.src}
+          data-caption={image.caption}
+          data-alt={image.alt}
+          aria-label={`Voir : ${image.caption}`}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+            loading="lazy"
+            width="400"
+            height="400"
+          />
+          <span class="absolute inset-x-0 bottom-0 bg-secondary/80 px-3 py-2 text-left text-xs text-white opacity-0 transition group-hover:opacity-100">
+            {image.caption}
+          </span>
+        </button>
+      ))
+    }
+  </div>
+
+  <div
+    class="fixed inset-0 z-[100] hidden items-center justify-center bg-black/90 p-4"
+    data-lightbox
+    role="dialog"
+    aria-modal="true"
+    aria-label="Aperçu de l'image"
+  >
+    <button
+      type="button"
+      class="absolute right-4 top-4 rounded-lg p-2 text-white hover:bg-white/10"
+      aria-label="Fermer"
+      data-lightbox-close
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-8 w-8">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <figure class="max-h-[90vh] max-w-4xl">
+      <img src="" alt="" class="max-h-[80vh] w-auto rounded-lg object-contain" data-lightbox-img />
+      <figcaption class="mt-4 text-center text-white" data-lightbox-caption></figcaption>
+    </figure>
+  </div>
+</div>
+
+<script>
+  function setupGallery() {
+    const tabs = document.querySelectorAll('[data-gallery-tab]');
+    const items = document.querySelectorAll('[data-gallery-item]');
+    const lightbox = document.querySelector('[data-lightbox]');
+    const lightboxImg = document.querySelector('[data-lightbox-img]') as HTMLImageElement | null;
+    const lightboxCaption = document.querySelector('[data-lightbox-caption]');
+    const closeBtn = document.querySelector('[data-lightbox-close]');
+
+    if (!lightbox || !lightboxImg || !lightboxCaption) return;
+
+    const filterCategory = (category: string) => {
+      tabs.forEach((tab) => {
+        const isActive = tab.getAttribute('data-gallery-tab') === category;
+        tab.setAttribute('aria-selected', String(isActive));
+        tab.classList.toggle('bg-secondary', isActive);
+        tab.classList.toggle('text-white', isActive);
+        tab.classList.toggle('bg-neutral-bg', !isActive);
+        tab.classList.toggle('text-secondary', !isActive);
+      });
+
+      items.forEach((item) => {
+        const itemCategory = item.getAttribute('data-category');
+        const show = category === 'Tous' || itemCategory === category;
+        (item as HTMLElement).style.display = show ? '' : 'none';
+      });
+    };
+
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        filterCategory(tab.getAttribute('data-gallery-tab') ?? 'Tous');
+      });
+    });
+
+    const openLightbox = (src: string, alt: string, caption: string) => {
+      lightboxImg.src = src;
+      lightboxImg.alt = alt;
+      lightboxCaption.textContent = caption;
+      lightbox.classList.remove('hidden');
+      lightbox.classList.add('flex');
+      document.body.classList.add('overflow-hidden');
+    };
+
+    const closeLightbox = () => {
+      lightbox.classList.add('hidden');
+      lightbox.classList.remove('flex');
+      lightboxImg.src = '';
+      document.body.classList.remove('overflow-hidden');
+    };
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        openLightbox(
+          item.getAttribute('data-src') ?? '',
+          item.getAttribute('data-alt') ?? '',
+          item.getAttribute('data-caption') ?? '',
+        );
+      });
+    });
+
+    closeBtn?.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) closeLightbox();
+    });
+  }
+
+  setupGallery();
+  document.addEventListener('astro:page-load', setupGallery);
+</script>

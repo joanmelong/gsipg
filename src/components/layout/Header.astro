@@ -1,10 +1,20 @@
 ---
 import { mainNav, siteConfig, isActiveNav } from '../../config/site';
 
+interface Props {
+  elevated?: boolean;
+}
+
+const { elevated = false } = Astro.props;
 const currentPath = Astro.url.pathname;
 ---
 
-<header class="sticky top-0 z-50 bg-white shadow-sm">
+<header
+  class:list={[
+    'sticky top-0 z-50 bg-white',
+    elevated ? 'shadow-[0_4px_20px_rgba(0,0,0,0.08)]' : 'shadow-sm',
+  ]}
+>
   <div class="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
     <a href="/" class="flex shrink-0 items-center gap-2 rounded-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary">
       <img
@@ -22,7 +32,7 @@ const currentPath = Astro.url.pathname;
           <a
             href={item.href}
             class:list={[
-              'text-sm font-medium transition duration-200 hover:text-secondary',
+              'nav-link text-sm font-medium transition duration-200 hover:text-secondary',
               isActiveNav(item.href, currentPath)
                 ? 'text-secondary'
                 : 'text-neutral-dark',

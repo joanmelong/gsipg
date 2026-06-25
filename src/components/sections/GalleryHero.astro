@@ -1,0 +1,31 @@
+---
+import Container from '../ui/Container.astro';
+import { galleryHero } from '../../data/gallery';
+---
+
+<section class="bg-white py-10 sm:py-12 lg:py-14" aria-label="Introduction galerie">
+  <Container>
+    <div class="grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-12 xl:gap-16">
+      <div class="flex justify-center lg:justify-start">
+        <img
+          src={galleryHero.illustration.src}
+          alt={galleryHero.illustration.alt}
+          class="h-auto w-full max-w-xs object-contain sm:max-w-sm lg:max-w-md"
+          loading="eager"
+          fetchpriority="high"
+          width="420"
+          height="420"
+        />
+      </div>
+
+      <div class="text-center lg:text-left">
+        <h1 class="font-subheading text-3xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-4xl lg:text-[2.75rem]">
+          {galleryHero.title}
+        </h1>
+        <p class="mt-4 text-base leading-relaxed text-secondary/85 sm:mt-5 sm:text-lg">
+          {galleryHero.subtitle}
+        </p>
+      </div>
+    </div>
+  </Container>
+</section>

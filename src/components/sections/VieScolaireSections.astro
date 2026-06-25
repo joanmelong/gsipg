@@ -1,0 +1,128 @@
+---
+import Container from '../ui/Container.astro';
+import { vieScolaireContentSections, type VieScolaireTheme } from '../../data/vie-scolaire';
+
+const themeClasses: Record<
+  VieScolaireTheme,
+  { section: string; title: string; text: string; badge: string; note: string }
+> = {
+  white: {
+    section: 'bg-white',
+    title: 'text-secondary',
+    text: 'text-neutral-text',
+    badge: 'bg-neutral-bg text-secondary shadow-sm ring-1 ring-border',
+    note: 'border-border bg-neutral-bg text-neutral-text',
+  },
+  primary: {
+    section: 'bg-primary/20',
+    title: 'text-secondary',
+    text: 'text-neutral-text',
+    badge: 'bg-white text-secondary shadow-sm',
+    note: 'border-primary/40 bg-white/70 text-neutral-text',
+  },
+  secondary: {
+    section: 'bg-secondary',
+    title: 'text-white',
+    text: 'text-white/90',
+    badge: 'bg-white/15 text-white backdrop-blur-sm',
+    note: 'border-white/25 bg-white/10 text-white/90',
+  },
+  green: {
+    section: 'bg-accent-green/15',
+    title: 'text-accent-green',
+    text: 'text-neutral-text',
+    badge: 'bg-white text-accent-green shadow-sm',
+    note: 'border-accent-green/30 bg-white/80 text-neutral-text',
+  },
+  orange: {
+    section: 'bg-accent-orange/15',
+    title: 'text-accent-orange',
+    text: 'text-neutral-text',
+    badge: 'bg-white text-accent-orange shadow-sm',
+    note: 'border-accent-orange/35 bg-white/80 text-neutral-text',
+  },
+};
+---
+
+{
+  vieScolaireContentSections.map((section, index) => {
+    const imageLeft = index % 2 === 0;
+    const theme = themeClasses[section.theme];
+
+    return (
+      <section
+        id={section.id}
+        class={`scroll-mt-28 py-14 sm:py-16 lg:py-20 ${theme.section}`}
+        aria-labelledby={`${section.id}-title`}
+      >
+        <Container>
+          <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16">
+            <!-- Image -->
+            <div
+              class:list={[
+                'relative',
+                imageLeft ? 'lg:order-1' : 'lg:order-2',
+              ]}
+            >
+              <div class="overflow-hidden rounded-3xl shadow-xl ring-1 ring-black/5">
+                <img
+                  src={section.image.src}
+                  alt={section.image.alt}
+                  class="aspect-[4/3] w-full object-cover lg:aspect-[5/4]"
+                  loading="lazy"
+                  width="600"
+                  height="480"
+                />
+              </div>
+            </div>
+
+            <!-- Texte -->
+            <div class:list={[imageLeft ? 'lg:order-2' : 'lg:order-1']}>
+              <h2
+                id={`${section.id}-title`}
+                class={`font-subheading text-2xl font-bold normal-case tracking-normal sm:text-3xl lg:text-4xl ${theme.title}`}
+              >
+                {section.title}
+              </h2>
+
+              {'highlight' in section && section.highlight && (
+                <p class={`mt-5 text-lg font-semibold leading-snug sm:text-xl ${theme.title}`}>
+                  {section.highlight}
+                </p>
+              )}
+
+              {'description' in section && section.description && (
+                <p class={`mt-4 leading-relaxed ${theme.text}`}>{section.description}</p>
+              )}
+
+              {'badges' in section && section.badges && (
+                <div class="mt-8 flex flex-wrap gap-4">
+                  {section.badges.map((badge) => (
+                    <div class={`rounded-2xl px-6 py-4 ${theme.badge}`}>
+                      <span class="block text-xs font-semibold uppercase tracking-wider opacity-75">
+                        {badge.label}
+                      </span>
+                      <span class="mt-1 block font-subheading text-xl font-bold">{badge.value}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {'bonus' in section && section.bonus && (
+                <div class={`mt-6 inline-flex rounded-2xl px-5 py-3 text-sm font-semibold ${theme.badge}`}>
+                  {section.bonus}
+                </div>
+              )}
+
+              {'note' in section && section.note && (
+                <p class={`mt-6 rounded-2xl border px-5 py-4 text-sm leading-relaxed ${theme.note}`}>
+                  {section.note}
+                </p>
+              )}
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  })
+}

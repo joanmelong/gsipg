@@ -1,0 +1,38 @@
+---
+interface BreadcrumbItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+---
+
+<nav aria-label="Fil d'Ariane" class={`text-sm ${className}`}>
+  <ol class="flex flex-wrap items-center gap-1.5">
+    {
+      items.map((item, index) => (
+        <li class="flex items-center gap-1.5">
+          {index > 0 && (
+            <span class="text-neutral-text/50" aria-hidden="true">
+              /
+            </span>
+          )}
+          {index === items.length - 1 ? (
+            <span class="font-medium" aria-current="page">
+              {item.label}
+            </span>
+          ) : (
+            <a href={item.href} class="transition hover:text-secondary hover:underline">
+              {item.label}
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ol>
+</nav>

@@ -1,0 +1,132 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import Button from '../ui/Button.astro';
+
+const inputClasses =
+  'w-full rounded-xl border border-border bg-white px-4 py-3 text-sm text-neutral-dark placeholder:text-neutral-text/60 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary';
+
+const levels = [
+  'Crèche',
+  'Maternelle',
+  'CP / Class 1',
+  'CE1 / Class 2',
+  'CE2 / Class 3',
+  'CM1 / Class 4',
+  'CM2 / Class 5',
+  'Class 6',
+] as const;
+---
+
+<Section ariaLabel="Admissions et inscriptions">
+  <Container>
+    <div class="mx-auto max-w-3xl text-center">
+      <h1>Admissions & Inscriptions</h1>
+      <p class="mt-4 text-neutral-text">
+        Complétez le formulaire ci-dessous pour une demande d'inscription ou de renseignement.
+        Notre équipe admissions vous recontactera sous 48 heures ouvrées.
+      </p>
+    </div>
+
+    <div class="mx-auto mt-12 max-w-2xl rounded-2xl bg-neutral-bg p-6 shadow-md sm:p-10">
+      <form
+        id="admissions-form"
+        class="space-y-5"
+        aria-label="Formulaire d'inscription"
+        data-contact-email="admin@education-lms.com"
+        novalidate
+      >
+        <!-- Honeypot anti-spam -->
+        <div class="absolute -left-[9999px] h-0 w-0 overflow-hidden" aria-hidden="true">
+          <label for="admissions-website">Site web</label>
+          <input id="admissions-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label for="admissions-first-name" class="mb-2 block text-sm font-medium">Prénom *</label>
+            <input id="admissions-first-name" name="firstName" type="text" required autocomplete="given-name" class={inputClasses} />
+          </div>
+          <div>
+            <label for="admissions-last-name" class="mb-2 block text-sm font-medium">Nom *</label>
+            <input id="admissions-last-name" name="lastName" type="text" required autocomplete="family-name" class={inputClasses} />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+          <div>
+            <label for="admissions-email" class="mb-2 block text-sm font-medium">Email *</label>
+            <input id="admissions-email" name="email" type="email" required autocomplete="email" class={inputClasses} />
+          </div>
+          <div>
+            <label for="admissions-phone" class="mb-2 block text-sm font-medium">Téléphone *</label>
+            <input id="admissions-phone" name="phone" type="tel" required autocomplete="tel" class={inputClasses} />
+          </div>
+        </div>
+
+        <div>
+          <label for="admissions-level" class="mb-2 block text-sm font-medium">Niveau souhaité *</label>
+          <select id="admissions-level" name="level" required class={inputClasses}>
+            <option value="">Sélectionnez un niveau</option>
+            {levels.map((level) => <option value={level}>{level}</option>)}
+          </select>
+        </div>
+
+        <div>
+          <label for="admissions-message" class="mb-2 block text-sm font-medium">Message (optionnel)</label>
+          <textarea id="admissions-message" name="message" rows="4" class={`${inputClasses} resize-y`} placeholder="Précisez vos questions ou la date de visite souhaitée…"></textarea>
+        </div>
+
+        <p id="admissions-feedback" class="hidden text-sm" role="alert"></p>
+
+        <Button type="submit" size="lg" class="w-full">Envoyer ma demande</Button>
+      </form>
+    </div>
+  </Container>
+</Section>
+
+<script>
+  function setupAdmissionsForm() {
+    const form = document.getElementById('admissions-form') as HTMLFormElement | null;
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    const feedback = document.getElementById('admissions-feedback');
+    const email = form.dataset.contactEmail ?? '';
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+
+      if ((form.querySelector('[name="website"]') as HTMLInputElement)?.value) return;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const data = new FormData(form);
+      const firstName = String(data.get('firstName') ?? '').trim();
+      const lastName = String(data.get('lastName') ?? '').trim();
+      const userEmail = String(data.get('email') ?? '').trim();
+      const phone = String(data.get('phone') ?? '').trim();
+      const level = String(data.get('level') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+
+      const subject = encodeURIComponent(`Inscription GSIPG — ${firstName} ${lastName}`);
+      const body = encodeURIComponent(
+        `Demande d'inscription\n\nPrénom : ${firstName}\nNom : ${lastName}\nEmail : ${userEmail}\nTéléphone : ${phone}\nNiveau : ${level}\n\nMessage :\n${message || '(aucun)'}`,
+      );
+
+      window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+
+      if (feedback) {
+        feedback.textContent = 'Votre client mail va s\'ouvrir. Merci pour votre demande !';
+        feedback.className = 'text-sm text-accent-green';
+        feedback.classList.remove('hidden');
+      }
+    });
+  }
+
+  setupAdmissionsForm();
+  document.addEventListener('astro:page-load', setupAdmissionsForm);
+</script>

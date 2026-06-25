@@ -1,0 +1,64 @@
+---
+import Container from '../ui/Container.astro';
+import { directorSection } from '../../data/about';
+---
+
+<section class="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24" aria-labelledby="director-title">
+  <div
+    class="pointer-events-none absolute inset-y-0 left-0 w-1/3 opacity-30"
+    style="background-image: radial-gradient(circle, #71d7f7 1.5px, transparent 1.5px); background-size: 22px 22px;"
+    aria-hidden="true"
+  ></div>
+
+  <Container>
+    <div class="relative grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-10 xl:gap-16">
+      <div class="relative lg:col-span-5 lg:col-start-1 xl:col-span-4">
+        <div
+          class="pointer-events-none absolute -left-6 top-8 z-0 h-full w-[88%] rotate-[-4deg] rounded-[2.5rem] bg-primary/20"
+          aria-hidden="true"
+        ></div>
+        <div class="relative z-10 -rotate-2 lg:-rotate-3">
+          <img
+            src={directorSection.portrait.src}
+            alt={directorSection.portrait.alt}
+            class="mx-auto w-full max-w-sm object-cover drop-shadow-2xl lg:max-w-none"
+            style="clip-path: polygon(8% 0%, 100% 4%, 92% 100%, 0% 96%);"
+            loading="lazy"
+            width="480"
+            height="560"
+          />
+        </div>
+        <div class="relative z-20 -mt-6 ml-4 max-w-xs rounded-2xl bg-secondary px-5 py-4 text-white shadow-lg sm:ml-8">
+          <p class="font-subheading text-lg font-bold normal-case">{directorSection.name}</p>
+          <p class="mt-1 text-sm text-white/85">{directorSection.role}</p>
+        </div>
+      </div>
+
+      <div class="lg:col-span-7 lg:col-start-6 xl:col-span-8">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">Mot de la directrice</p>
+        <h2
+          id="director-title"
+          class="mt-4 font-subheading text-2xl font-bold normal-case leading-snug tracking-normal text-neutral-dark sm:text-3xl lg:text-4xl"
+        >
+          Une école tournée vers l&apos;avenir de vos enfants
+        </h2>
+
+        <p class="mt-6 text-base leading-relaxed text-neutral-text">{directorSection.schoolDescription}</p>
+
+        <blockquote class="relative mt-10 border-none pl-0">
+          <span
+            class="pointer-events-none absolute -left-1 -top-6 font-heading text-7xl leading-none text-primary/30"
+            aria-hidden="true"
+          >
+            &ldquo;
+          </span>
+          <p class="relative text-lg font-medium italic leading-relaxed text-secondary sm:text-xl sm:leading-relaxed">
+            {directorSection.welcomeQuote}
+          </p>
+        </blockquote>
+
+        <p class="mt-8 text-base leading-relaxed text-neutral-text">{directorSection.vision}</p>
+      </div>
+    </div>
+  </Container>
+</section>

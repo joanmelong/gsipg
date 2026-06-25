@@ -1,8 +1,11 @@
 ---
-import StubPage from '../../layouts/StubPage.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticlesSection from '../../components/sections/ArticlesSection.astro';
 ---
 
-<StubPage
-  title="Actualités & Animations"
-  description="Suivez les actualités, événements et animations du GSIPG à Yaoundé."
-/>
+<BaseLayout
+  title="Actualités"
+  description="Suivez les actualités, événements et projets pédagogiques du GSIPG à Yaoundé."
+>
+  <ArticlesSection />
+</BaseLayout>

@@ -1,0 +1,71 @@
+---
+import Container from '../ui/Container.astro';
+import Section from '../ui/Section.astro';
+import { vieScolairePreview } from '../../data/home';
+
+const icons: Record<string, string> = {
+  clock: 'M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z',
+  utensils: 'M12 8.25v-1.5m0 1.5c-1.355 0-2.697.056-4.024.166C6.845 8.51 6 9.473 6 10.608v2.513m6-4.87c1.355 0 2.697.055 4.024.165C17.155 8.51 18 9.473 18 10.608v2.513m-3-4.87v-1.5m-3 1.5v-1.5m12 9.75l-1.5.75H3.75l-1.5-.75m19.5 0l-1.5-1.5H3.75l-1.5 1.5m19.5 0v.75a.75.75 0 0 1-.75.75H4.5a.75.75 0 0 1-.75-.75v-.75',
+  bus: 'M8.25 18.75a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 0 1-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 0 1-3 0m3 0a1.5 1.5 0 0 0-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 0 0-3.213-9.193 2.056 2.056 0 0 0-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 0 0-10.026 0 1.106 1.106 0 0 0-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12',
+};
+---
+
+<Section ariaLabel="Aperçu vie scolaire">
+  <Container>
+    <div class="mb-12 text-center">
+      <span class="inline-block rounded-full bg-primary/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-secondary">
+        {vieScolairePreview.tag}
+      </span>
+      <h2 class="mt-4 font-subheading text-3xl font-bold normal-case tracking-normal text-secondary sm:text-4xl">
+        {vieScolairePreview.title}
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 gap-8 md:grid-cols-3">
+      {
+        vieScolairePreview.cards.map((item) => (
+          <a
+            href={item.href}
+            class="group flex flex-col rounded-3xl border border-border/60 bg-white p-8 shadow-[0_8px_30px_rgba(46,117,182,0.08)] transition duration-300 hover:scale-[1.03] hover:border-primary hover:shadow-[0_16px_40px_rgba(46,117,182,0.15)]"
+          >
+            <span
+              class="flex h-14 w-14 items-center justify-center rounded-2xl bg-secondary/10 text-secondary transition duration-300 group-hover:bg-secondary group-hover:text-white"
+              aria-hidden="true"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="h-7 w-7"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d={icons[item.icon]}></path>
+              </svg>
+            </span>
+            <h3 class="mt-6 font-subheading text-lg font-semibold normal-case tracking-normal text-neutral-dark">{item.title}</h3>
+            <p class="mt-3 flex-1 text-sm leading-relaxed text-neutral-text">{item.summary}</p>
+            <span class="mt-6 inline-flex items-center gap-1 text-sm font-semibold text-secondary transition group-hover:gap-2 group-hover:text-accent-green">
+              En savoir plus
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5"></path>
+              </svg>
+            </span>
+          </a>
+        ))
+      }
+    </div>
+
+    <p class="mt-12 text-center">
+      <a
+        href="/vie-scolaire"
+        class="inline-flex items-center gap-2 font-semibold text-secondary underline-offset-4 transition hover:text-primary hover:underline"
+      >
+        Voir toute la vie scolaire
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="h-4 w-4" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
+        </svg>
+      </a>
+    </p>
+  </Container>
+</Section>

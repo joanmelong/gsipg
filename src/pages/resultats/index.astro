@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Section from '../../components/ui/Section.astro';
+import ResultatsHero from '../../components/sections/ResultatsHero.astro';
+import ResultatsConclusion from '../../components/sections/ResultatsConclusion.astro';
+import { stats, examResults } from '../../data/results';
+---
+
+<BaseLayout
+  title="Résultats Scolaires"
+  description="Découvrez les performances et taux de réussite des élèves du GSIPG aux examens nationaux."
+>
+  <ResultatsHero />
+
+  <Section ariaLabel="Statistiques clés">
+    <Container>
+      <h2 class="text-center">Performances en chiffres</h2>
+      <div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          stats.map((stat) => (
+            <div class="rounded-xl bg-neutral-bg p-6 text-center">
+              <p class="font-display text-4xl text-secondary md:text-5xl">{stat.value}</p>
+              <h3 class="mt-2 text-base">{stat.label}</h3>
+              <p class="mt-1 text-sm text-neutral-text">{stat.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </Section>
+
+  <Section background="neutral" ariaLabel="Résultats aux examens">
+    <Container>
+      <h2 class="text-center">Résultats aux examens nationaux</h2>
+      <div class="mt-10 overflow-x-auto">
+        <table class="w-full min-w-[480px] border-collapse text-left">
+          <thead>
+            <tr class="border-b-2 border-secondary bg-white">
+              <th class="px-4 py-3 font-semibold text-secondary" scope="col">Niveau</th>
+              <th class="px-4 py-3 font-semibold text-secondary" scope="col">Admis</th>
+              <th class="px-4 py-3 font-semibold text-secondary" scope="col">Présentés</th>
+              <th class="px-4 py-3 font-semibold text-secondary" scope="col">Taux</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              examResults.map((row) => (
+                <tr class="border-b border-border bg-white">
+                  <td class="px-4 py-3">{row.level}</td>
+                  <td class="px-4 py-3">{row.admitted}</td>
+                  <td class="px-4 py-3">{row.total}</td>
+                  <td class="px-4 py-3 font-semibold text-accent-green">{row.rate}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+    </Container>
+  </Section>
+
+  <ResultatsConclusion />
+</BaseLayout>

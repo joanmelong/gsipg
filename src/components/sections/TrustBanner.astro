@@ -1,0 +1,24 @@
+---
+import { trustBannerItems } from '../../data/home';
+---
+
+<div
+  class="bg-secondary py-4 text-white"
+  role="region"
+  aria-label="Points forts de l'établissement"
+>
+  <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 text-center sm:px-6 lg:px-8">
+    {
+      trustBannerItems.map((item, index) => (
+        <>
+          <span class="text-sm font-medium tracking-wide sm:text-base">{item}</span>
+          {index < trustBannerItems.length - 1 && (
+            <span class="hidden text-primary sm:inline" aria-hidden="true">
+              +
+            </span>
+          )}
+        </>
+      ))
+    }
+  </div>
+</div>

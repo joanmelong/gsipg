@@ -25,18 +25,18 @@ const socialIcons: Record<string, string> = {
 };
 ---
 
-<footer class="bg-gray-900 text-white">
+<footer class="bg-gray-900 text-white [&_h2]:font-subheading [&_h2]:text-lg [&_h2]:font-semibold [&_h2]:normal-case [&_h2]:tracking-normal [&_h2]:text-white">
   <Container class="py-12 md:py-16">
     <div class="grid grid-cols-1 gap-8 md:grid-cols-4 lg:grid-cols-5">
       <div>
-        <h2 class="mb-4 text-lg font-bold text-white">Liens rapides</h2>
+        <h2 class="mb-4">Liens rapides</h2>
         <ul class="space-y-2">
           {
             footerQuickLinks.map((link) => (
               <li>
                 <a
                   href={link.href}
-                  class="text-gray-300 transition hover:text-primary"
+                  class="font-subheading text-sm font-medium text-gray-300 transition hover:text-primary"
                 >
                   {link.label}
                 </a>
@@ -47,14 +47,14 @@ const socialIcons: Record<string, string> = {
       </div>
 
       <div>
-        <h2 class="mb-4 text-lg font-bold text-white">Niveaux</h2>
+        <h2 class="mb-4">Niveaux</h2>
         <ul class="space-y-2">
           {
             footerLevels.map((link) => (
               <li>
                 <a
                   href={link.href}
-                  class="text-gray-300 transition hover:text-primary"
+                  class="font-subheading text-sm font-medium text-gray-300 transition hover:text-primary"
                 >
                   {link.label}
                 </a>
@@ -65,15 +65,15 @@ const socialIcons: Record<string, string> = {
       </div>
 
       <div>
-        <h2 class="mb-4 text-lg font-bold text-white">Contact</h2>
+        <h2 class="mb-4">Contact</h2>
         <ul class="space-y-3 text-gray-300">
           <li>
-            <a href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`} class="transition hover:text-primary">
+            <a href={`tel:${siteConfig.contact.phone.replace(/\s/g, '')}`} class="font-subheading text-sm font-medium transition hover:text-primary">
               {siteConfig.contact.phone}
             </a>
           </li>
           <li>
-            <a href={`mailto:${siteConfig.contact.email}`} class="transition hover:text-primary">
+            <a href={`mailto:${siteConfig.contact.email}`} class="font-subheading text-sm font-medium transition hover:text-primary">
               {siteConfig.contact.email}
             </a>
           </li>
@@ -83,7 +83,7 @@ const socialIcons: Record<string, string> = {
       </div>
 
       <div>
-        <h2 class="mb-4 text-lg font-bold text-white">Réseaux sociaux</h2>
+        <h2 class="mb-4">Réseaux sociaux</h2>
         <div class="flex gap-4">
           {
             socialLinks.map((social) => (
@@ -109,11 +109,11 @@ const socialIcons: Record<string, string> = {
       </div>
 
       <div>
-        <h2 class="mb-4 text-lg font-bold text-white">Rester informé</h2>
+        <h2 class="mb-4">Rester informé</h2>
         <p class="mb-4 text-sm text-gray-300">
           Recevez nos actualités et événements directement par email.
         </p>
-        <form class="space-y-3" aria-label="Inscription newsletter">
+        <form id="footer-newsletter-form" class="space-y-3" aria-label="Inscription newsletter" novalidate>
           <label for="newsletter-email" class="sr-only">Adresse email</label>
           <input
             id="newsletter-email"
@@ -123,6 +123,7 @@ const socialIcons: Record<string, string> = {
             required
             class="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white placeholder:text-gray-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-secondary"
           />
+          <p id="footer-newsletter-feedback" class="hidden text-xs" role="status"></p>
           <Button type="submit" size="sm" class="w-full">
             S'abonner
           </Button>
@@ -139,7 +140,7 @@ const socialIcons: Record<string, string> = {
           {
             legalLinks.map((link) => (
               <li>
-                <a href={link.href} class="transition hover:text-primary">
+                <a href={link.href} class="font-subheading text-sm font-medium transition hover:text-primary">
                   {link.label}
                 </a>
               </li>
@@ -150,3 +151,31 @@ const socialIcons: Record<string, string> = {
     </div>
   </Container>
 </footer>
+
+<script>
+  function setupFooterNewsletter() {
+    const form = document.getElementById('footer-newsletter-form');
+    if (!form || form.dataset.bound === 'true') return;
+    form.dataset.bound = 'true';
+
+    const feedback = document.getElementById('footer-newsletter-feedback');
+
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const input = form.querySelector<HTMLInputElement>('[name="email"]');
+      if (!input?.checkValidity()) {
+        input?.reportValidity();
+        return;
+      }
+      if (feedback) {
+        feedback.textContent = 'Merci ! Vous êtes inscrit à notre newsletter.';
+        feedback.className = 'text-xs text-primary';
+        feedback.classList.remove('hidden');
+      }
+      form.reset();
+    });
+  }
+
+  setupFooterNewsletter();
+  document.addEventListener('astro:page-load', setupFooterNewsletter);
+</script>

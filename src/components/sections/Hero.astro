@@ -1,0 +1,83 @@
+---
+import Button from '../ui/Button.astro';
+import BlurText from '../react/BlurText';
+import FadeIn from '../react/FadeIn';
+import { heroConfig } from '../../data/home';
+---
+
+<section
+  class="relative flex min-h-[58vh] items-center overflow-hidden"
+  aria-label="Introduction"
+>
+  <!-- Fond : succession d'images -->
+  <div class="absolute inset-0" data-hero-bg aria-hidden="true">
+    {
+      heroConfig.slides.map((slide, index) => (
+        <img
+          src={slide.src}
+          alt=""
+          class:list={[
+            'absolute inset-0 h-full w-full object-cover transition-opacity duration-1000',
+            index === 0 ? 'opacity-100' : 'opacity-0',
+          ]}
+          data-hero-bg-slide={index}
+          loading={index === 0 ? 'eager' : 'lazy'}
+          fetchpriority={index === 0 ? 'high' : 'auto'}
+          width="1920"
+          height="1080"
+        />
+      ))
+    }
+    <!-- Dégradé horizontal : bleu opaque à gauche → transparent à droite -->
+    <div
+      class="absolute inset-0"
+      style="background: linear-gradient(to right, rgb(46 117 182 / 0.98) 0%, rgb(46 117 182 / 0.92) 18%, rgb(46 117 182 / 0.72) 38%, rgb(46 117 182 / 0.38) 58%, rgb(46 117 182 / 0.12) 72%, transparent 85%);"
+      aria-hidden="true"
+    ></div>
+  </div>
+
+  <div class="relative z-20 mx-auto w-full max-w-7xl px-6 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-20">
+    <div class="max-w-xl pl-4 sm:pl-6 md:max-w-2xl">
+      <BlurText
+        client:load
+        text={heroConfig.title}
+        as="h1"
+        className="font-subheading text-2xl font-bold normal-case leading-tight tracking-normal text-white drop-shadow-md sm:text-3xl md:text-4xl lg:text-[2.75rem]"
+      />
+
+      <FadeIn client:visible delay={200} className="mt-4 max-w-lg text-sm leading-relaxed text-white/90 sm:text-base md:mt-5">
+        <p>{heroConfig.subtitle}</p>
+      </FadeIn>
+
+      <FadeIn client:visible delay={400} className="mt-8 md:mt-10">
+        <Button
+          href={heroConfig.ctaHref}
+          size="lg"
+          class="rounded-full !bg-accent-orange px-8 text-white shadow-lg hover:!bg-accent-orange/90"
+        >
+          {heroConfig.ctaLabel}
+        </Button>
+      </FadeIn>
+    </div>
+  </div>
+</section>
+
+<script>
+  function setupHeroBackground() {
+    const container = document.querySelector('[data-hero-bg]');
+    if (!container) return;
+
+    const slides = container.querySelectorAll('[data-hero-bg-slide]');
+    if (slides.length <= 1) return;
+
+    let current = 0;
+    setInterval(() => {
+      slides[current].classList.replace('opacity-100', 'opacity-0');
+      current = (current + 1) % slides.length;
+      slides[current].classList.replace('opacity-0', 'opacity-100');
+    }, 5000);
+  }
+
+  setupHeroBackground();
+  document.addEventListener('astro:page-load', setupHeroBackground);
+</script>

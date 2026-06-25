@@ -9,9 +9,18 @@ interface Props {
   description: string;
   ogImage?: string;
   noIndex?: boolean;
+  elevatedHeader?: boolean;
+  ogType?: string;
 }
 
-const { title, description, ogImage = '/images/logo.svg', noIndex = false } = Astro.props;
+const {
+  title,
+  description,
+  ogImage = '/images/logo.svg',
+  noIndex = false,
+  elevatedHeader = false,
+  ogType = 'website',
+} = Astro.props;
 
 const pageTitle = formatPageTitle(title);
 const canonicalUrl = new URL(Astro.url.pathname, siteConfig.url).href;
@@ -49,11 +58,11 @@ const organizationSchema = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@600;700&family=Poppins:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
 
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
@@ -67,10 +76,11 @@ const organizationSchema = {
     <meta name="twitter:image" content={new URL(ogImage, siteConfig.url).href} />
 
     <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+    <slot name="head" />
   </head>
   <body class="flex min-h-screen flex-col">
     <a href="#main" class="sr-only sr-only-focusable">Aller au contenu</a>
-    <Header />
+    <Header elevated={elevatedHeader} />
     <main id="main" class="flex-1">
       <slot />
     </main>

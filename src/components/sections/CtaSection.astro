@@ -1,0 +1,36 @@
+---
+import Container from '../ui/Container.astro';
+import Button from '../ui/Button.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  buttonLabel: string;
+  buttonHref: string;
+  background?: 'secondary' | 'accent-green';
+}
+
+const {
+  title,
+  description,
+  buttonLabel,
+  buttonHref,
+  background = 'secondary',
+} = Astro.props;
+
+const bgClass = background === 'secondary' ? 'bg-secondary' : 'bg-accent-green';
+---
+
+<section class={`${bgClass} py-16 text-white sm:py-20`} aria-label="Appel à l'action">
+  <Container>
+    <div class="mx-auto max-w-2xl text-center">
+      <h2 class="text-white">{title}</h2>
+      <p class="mt-4 text-lg text-white/90">{description}</p>
+      <div class="mt-8">
+        <Button href={buttonHref} size="lg" class="!bg-white !text-secondary hover:!bg-neutral-bg">
+          {buttonLabel}
+        </Button>
+      </div>
+    </div>
+  </Container>
+</section>
