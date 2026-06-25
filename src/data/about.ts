@@ -125,7 +125,6 @@ export const team = [
 ] as const;
 
 export const certifications = [
-  { name: 'Cambridge English', logo: '/images/certifications/cambridge.svg' },
   { name: 'UNESCO Associated Schools', logo: '/images/certifications/unesco.svg' },
-  { name: "Ministère de l'Éducation (Cameroun)", logo: '/images/certifications/mineduc.svg' },
+  { name: "Ministère de l'Éducation de base (MINEDUB)", logo: '/images/certifications/mineduc.svg' },
 ] as const;
