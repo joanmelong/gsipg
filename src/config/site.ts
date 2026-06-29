@@ -19,7 +19,7 @@ export const mainNav = [
   { label: 'Actualités', href: '/actualites' },
   { label: 'Résultats', href: '/resultats' },
   { label: 'Galerie', href: '/galerie' },
-  { label: 'Parcs', href: '/parcs' },
+  { label: 'Loisirs', href: '/parcs' },
   { label: 'À Propos', href: '/qui-sommes-nous' },
 ] as const;
 
