@@ -41,7 +41,7 @@ export const aboutContact = {
   title: 'Contactez-nous et dites-nous comment nous pouvons vous aider.',
   phones: [
     { label: 'Ligne principale', href: 'tel:+237699918562', display: '(+237) 699 91 85 62' },
-    { label: 'Ligne secondaire', href: 'tel:+237677242815', display: '(+237) 677 24 28 15' },
+    { label: 'Ligne secondaire', href: 'tel:+237670677002', display: '(+237) 670 67 70 02' },
   ],
   email: {
     href: 'mailto:admin@education-lms.com',

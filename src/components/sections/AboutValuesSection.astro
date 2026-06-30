@@ -2,7 +2,7 @@
 import Container from '../ui/Container.astro';
 import Section from '../ui/Section.astro';
 import Card from '../ui/Card.astro';
-import { values, certifications } from '../../data/about';
+import { values } from '../../data/about';
 ---
 
 <Section ariaLabel="Nos valeurs fondamentales">
@@ -23,30 +23,3 @@ import { values, certifications } from '../../data/about';
   </Container>
 </Section>
 
-<Section background="neutral" ariaLabel="Certifications et accréditations">
-  <Container>
-    <div class="mb-10 text-center">
-      <h2>Certifications & partenaires</h2>
-      <p class="mx-auto mt-4 max-w-2xl text-neutral-text">
-        Des reconnaissances qui attestent de la qualité de notre enseignement.
-      </p>
-    </div>
-    <ul class="flex flex-wrap items-center justify-center gap-10 sm:gap-14">
-      {
-        certifications.map((cert) => (
-          <li class="flex flex-col items-center gap-3 text-center">
-            <img
-              src={cert.logo}
-              alt={`Logo ${cert.name}`}
-              class="h-16 w-auto object-contain opacity-80 grayscale transition hover:opacity-100 hover:grayscale-0 sm:h-20"
-              loading="lazy"
-              width="80"
-              height="80"
-            />
-            <span class="max-w-[140px] text-xs font-medium text-neutral-text">{cert.name}</span>
-          </li>
-        ))
-      }
-    </ul>
-  </Container>
-</Section>

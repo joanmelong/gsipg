@@ -6,7 +6,7 @@ export const siteConfig = {
   url: 'https://gsipg.com',
   locale: 'fr_CM',
   contact: {
-    phone: '+237 6 99 00 00 00',
+    phone: '+237 6 99 91 85 62',
     email: 'contact@gsipg.com',
     address: 'Yaoundé, Cameroun',
     hours: 'Lun – Ven : 7h30 – 17h00',
