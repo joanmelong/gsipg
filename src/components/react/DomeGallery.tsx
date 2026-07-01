@@ -1143,7 +1143,7 @@ export default function DomeGallery({
           ref={mainRef}
           className="absolute inset-0 grid select-none place-items-center overflow-hidden bg-transparent"
           style={{
-            touchAction: 'none',
+            touchAction: 'pan-y',
             WebkitUserSelect: 'none',
           }}
         >

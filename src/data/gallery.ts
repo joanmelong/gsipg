@@ -147,9 +147,6 @@ const loadCategoryMedia = (category: GalleryCategoryDefinition) => {
   const dir = join(GALLERY_DIR, category.folder);
   const imageFiles = listFiles(dir, IMAGE_EXTENSIONS);
   const videoFiles = listFiles(dir, VIDEO_EXTENSIONS);
-  const firstPoster =
-    imageFiles[0] ? publicAsset(category.folder, imageFiles[0]) : category.previewImage || fallbackPreview;
-
   const images = imageFiles.map<GalleryImage>((file, index) => ({
     id: `${category.id}-img-${String(index + 1).padStart(3, '0')}`,
     src: publicAsset(category.folder, file),
@@ -163,7 +160,6 @@ const loadCategoryMedia = (category: GalleryCategoryDefinition) => {
     id: `${category.id}-vid-${String(index + 1).padStart(3, '0')}`,
     type: 'video',
     src: publicAsset(category.folder, file),
-    poster: firstPoster,
     alt: `${category.label} au GSIPG - ${humanizeFilename(file) || `vidéo ${index + 1}`}`,
     category: category.id,
     categoryLabel: category.label,

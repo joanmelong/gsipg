@@ -48,18 +48,31 @@ const tabs = [
           data-alt={image.alt}
           aria-label={`Voir : ${image.caption}`}
         >
-          <img
-            src={image.poster ?? image.src}
-            alt={image.alt}
-            class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
-            loading="lazy"
-            width="400"
-            height="400"
-          />
-          {image.type === 'video' && (
-            <span class="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent-orange/95 text-lg text-white shadow-lg" aria-hidden="true">
-              ▶
-            </span>
+          {image.type === 'video' ? (
+            <>
+              <video
+                src={image.src}
+                poster={image.poster}
+                class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+                muted
+                playsinline
+                preload="metadata"
+                width="400"
+                height="400"
+              ></video>
+              <span class="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent-orange/95 text-lg text-white shadow-lg" aria-hidden="true">
+                ▶
+              </span>
+            </>
+          ) : (
+            <img
+              src={image.src}
+              alt={image.alt}
+              class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+              loading="lazy"
+              width="400"
+              height="400"
+            />
           )}
           <span class="absolute inset-x-0 bottom-0 bg-secondary/80 px-3 py-2 text-left text-xs text-white opacity-0 transition group-hover:opacity-100">
             {image.caption}
