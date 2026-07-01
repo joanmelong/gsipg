@@ -134,8 +134,8 @@ export const vieScolairePreview = {
 } as const;
 
 export const keyStats = [
-  { value: 98, suffix: '%', label: 'Réussite entrée en 6ème', detail: 'Concours 2024-2025' },
-  { value: 96, suffix: '%', label: 'Réussite au CEP', detail: 'Examens 2024-2025' },
+  { value: 98, suffix: '%', label: 'Réussite entrée en 6ème', detail: 'Concours 2025-2026' },
+  { value: 96, suffix: '%', label: 'Réussite au CEP', detail: 'Examens 2025-2026' },
   { value: 3, suffix: '', label: 'Sections au choix', detail: 'Francophone, Anglophone, Bilingue' },
   { value: 2, suffix: '', label: 'Enseignants par classe', detail: 'Section Bilingue Fifty-Fifty' },
 ] as const;

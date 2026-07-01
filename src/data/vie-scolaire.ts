@@ -22,9 +22,9 @@ export const vieScolaireHero = {
     },
     {
       id: 'transports',
-      title: 'Transports',
-      description: 'Car scolaire sécurisé avec tarifs adaptés selon le lieu de résidence.',
-      iconSrc: '/images/vie-scolaire/carrousel/bus.png',
+      title: 'Suivi & Communication',
+      description: 'Bulletins, réunions avec les instituteurs et carnet de liaison pour un suivi personnalisé.',
+      iconSrc: '/images/vie-scolaire/carrousel/promotion.png',
     },
     {
       id: 'inscriptions',
@@ -62,21 +62,21 @@ export const vieScolaireContentSections = [
     note:
       'Les conditions d\'inscription sont renseignées directement à la vie scolaire par le responsable de la Restauration.',
     image: {
-      src: '/images/home/curriculum-portrait.jpg',
+      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.02.04.jpeg',
       alt: 'Repas équilibré à la cantine scolaire',
     },
   },
   {
     id: 'transports',
     theme: 'green' as VieScolaireTheme,
-    title: 'Des trajets scolaires en toute sérénité',
+    title: 'Suivi pédagogique & Communication parents',
     description:
-      'Un car de transport assure le déplacement des enfants qui ne peuvent pas être accompagnés par leurs parents. Il suffit d\'inscrire l\'enfant au service de transport.',
+      'Au GSIPG, le suivi de chaque élève est une priorité. Les parents reçoivent régulièrement des bulletins de notes, des comptes rendus d\'évaluation et sont conviés aux réunions avec les instituteurs. Un carnet de liaison assure la communication quotidienne entre la famille et l\'équipe encadrante.',
     note:
-      'Les tarifs y sont renseignés à la direction et prennent en compte le lieu de résidence de l\'enfant (Yaoundé IV).',
+      'Pour toute question relative au parcours scolaire de votre enfant, l\'équipe pédagogique reste disponible auprès de la direction et de la vie scolaire.',
     image: {
-      src: '/images/home/hero-slide-2.jpg',
-      alt: 'Transport scolaire sécurisé',
+      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.29.30.jpeg',
+      alt: 'Échange entre instituteurs et parents au GSIPG',
     },
   },
   {

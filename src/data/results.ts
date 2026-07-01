@@ -11,12 +11,12 @@ export const resultsHero = {
 export const resultsIntro = resultsHero.subtitle;
 
 export const stats = [
-  { label: 'Taux de réussite 6ème', value: '98%', detail: 'Année scolaire 2024-2025' },
-  { label: 'Taux de réussite CEP', value: '96%', detail: 'Année scolaire 2024-2025' },
+  { label: 'Taux de réussite 6ème', value: '98%', detail: 'Année scolaire 2025-2026' },
+  { label: 'Taux de réussite CEP', value: '96%', detail: 'Année scolaire 2025-2026' },
   { label: 'Moyenne générale', value: '14,2/20', detail: 'Cycle primaire' },
   { label: 'Mentions Bien et Très Bien', value: '72%', detail: 'Examens CEP' },
   { label: 'Progression bilingue', value: '+35%', detail: 'Niveau anglais (tests internes)' },
-  { label: 'Satisfaction parents', value: '94%', detail: 'Enquête annuelle 2025' },
+  { label: 'Satisfaction parents', value: '94%', detail: 'Enquête annuelle 2026' },
 ] as const;
 
 export const examResults = [
@@ -26,7 +26,7 @@ export const examResults = [
 ] as const;
 
 export const conclusion =
-  "L'année 2024-2025 confirme la trajectoire du GSIPG : des fondations solides, une pédagogie innovante et des élèves confiants, prêts pour la suite de leur parcours scolaire.";
+  "L'année 2025-2026 confirme la trajectoire du GSIPG : des fondations solides, une pédagogie innovante et des élèves confiants, prêts pour la suite de leur parcours scolaire.";
 
 export const resultsConclusion = {
   title: "Bilan de l'année",
