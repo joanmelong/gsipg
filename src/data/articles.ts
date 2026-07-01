@@ -46,7 +46,7 @@ export const articles: Article[] = [
     excerpt:
       'Atelier théâtre en anglais pour la section Bilingue (Fifty-fifty). Une excellente manière de développer la confiance en soi dès la maternelle.',
     date: '2026-06-02',
-    image: '/images/gallery/IMG-20240516-WA0004-600x300.jpg',
+    image: '/images/gallery/staff-ecole/IMG-20240516-WA0004-600x300.jpg',
     imageAlt: 'Enfants de maternelle lors d\'un atelier théâtre en anglais',
     category: 'Maternelle',
     author: 'Équipe maternelle GSIPG',
@@ -97,7 +97,7 @@ export const articles: Article[] = [
     excerpt:
       'Un nouvel espace d\'expérimentation interactive pour les classes de primaire. Nos élèves explorent les sciences de manière ludique et concrète.',
     date: '2025-06-12',
-    image: '/images/gallery/IMG-20240518-WA0008-600x300.jpg',
+    image: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0001-600x300.jpg',
     imageAlt: 'Parc des sciences éducatif du GSIPG',
     category: 'Primaire',
     author: 'Coordinateur parcs éducatifs',
@@ -131,7 +131,7 @@ export const articles: Article[] = [
     excerpt:
       'Nos élèves de CE1 et CE2 brillent lors du concours inter-écoles de Yaoundé. Félicitations à tous les participants pour leur engagement et leur talent.',
     date: '2025-04-08',
-    image: '/images/gallery/IMG-20240516-WA0011-600x300.jpg',
+    image: '/images/gallery/remise-des-bulletins/IMG-20240516-WA0008-600x300.jpg',
     imageAlt: 'Élève participant au concours de lecture bilingue',
     category: 'Primaire',
     author: 'Équipe pédagogique GSIPG',
@@ -148,7 +148,7 @@ export const articles: Article[] = [
     excerpt:
       'Initiation ludique à la programmation dès la grande section. Les plus petits manipulent des robots éducatifs pour développer logique et créativité.',
     date: '2024-10-30',
-    image: '/images/gallery/IMG-20240516-WA0020-600x300.jpg',
+    image: '/images/gallery/apprentissage/IMG-20240518-WA0002-600x300.jpg',
     imageAlt: 'Enfants participant à un atelier robotique en maternelle',
     category: 'Maternelle',
     author: 'Équipe maternelle GSIPG',
@@ -165,7 +165,7 @@ export const articles: Article[] = [
     excerpt:
       'Chants, danses et pièces de théâtre bilingues devant un public conquis. Un moment magique partagé entre élèves, enseignants et familles.',
     date: '2024-12-18',
-    image: '/images/gallery/IMG-20180826-WA0028.jpg',
+    image: '/images/gallery/remise-des-bulletins/IMG-20240518-WA0007-600x300.jpg',
     imageAlt: 'Spectacle de Noël des élèves du GSIPG',
     category: 'Événements',
     author: 'Comité vie scolaire',
@@ -182,7 +182,7 @@ export const articles: Article[] = [
     excerpt:
       'Les élèves de CE1 ont exploré le parc des sciences en plein air. Une journée riche en découvertes et en apprentissages expérientiels.',
     date: '2024-11-05',
-    image: '/images/gallery/IMG-20240518-WA0010-600x300.jpg',
+    image: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0010-600x300.jpg',
     imageAlt: 'Élèves lors d\'une sortie au parc éducatif',
     category: 'Primaire',
     author: 'Équipe CE1 GSIPG',
@@ -199,7 +199,7 @@ export const articles: Article[] = [
     excerpt:
       'Course, relais et jeux collectifs : nos élèves ont célébré l\'esprit d\'équipe lors de la grande journée sportive annuelle.',
     date: '2024-03-22',
-    image: '/images/gallery/IMG-20240516-WA0009-600x300.jpg',
+    image: '/images/gallery/remise-des-bulletins/IMG-20240516-WA0009-600x300.jpg',
     imageAlt: 'Élèves participant à la journée sportive du GSIPG',
     category: 'Événements',
     author: 'Éducateur sportif GSIPG',

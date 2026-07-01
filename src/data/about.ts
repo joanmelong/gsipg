@@ -26,7 +26,7 @@ export const directorSection = {
 export const teamSection = {
   badge: 'Personnel Qualifié',
   image: {
-    src: '/images/gallery/IMG-20240516-WA0004-600x300.jpg',
+    src: '/images/gallery/staff-ecole/IMG-20240516-WA0004-600x300.jpg',
     alt: 'Équipe pédagogique et personnel du GSIPG en activité avec les élèves',
   },
   title: 'Notre équipe pédagogique',

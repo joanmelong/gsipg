@@ -89,12 +89,12 @@ export const visionContent = {
   ],
   photos: [
     {
-      src: '/images/home/vision-1.jpg',
+      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.29.27.jpeg',
       alt: 'Enfants en activités ludiques en classe',
       bg: '#EBF8FF',
     },
     {
-      src: '/images/home/vision-2.jpg',
+      src: '/images/gallery/great.jpeg',
       alt: 'Initiation au numérique en primaire',
       bg: '#71d7f7',
     },
@@ -124,11 +124,11 @@ export const vieScolairePreview = {
       icon: 'utensils',
     },
     {
-      title: 'Transports',
+      title: 'Suivi & Communication',
       summary:
-        'Un car scolaire assure le transport des enfants sécurisé, avec des tarifs adaptés selon le lieu de résidence.',
+        'Bulletins, réunions avec les instituteurs et carnet de liaison pour un suivi personnalisé de votre enfant.',
       href: '/vie-scolaire#transports',
-      icon: 'bus',
+      icon: 'clipboard',
     },
   ],
 } as const;

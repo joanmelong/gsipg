@@ -62,7 +62,7 @@ export const vieScolaireContentSections = [
     note:
       'Les conditions d\'inscription sont renseignées directement à la vie scolaire par le responsable de la Restauration.',
     image: {
-      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.02.04.jpeg',
+      src: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp%20Image%202026-06-30%20at%2009.02.04.jpeg',
       alt: 'Repas équilibré à la cantine scolaire',
     },
   },
