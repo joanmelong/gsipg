@@ -1,19 +1,26 @@
 ---
-import GalleryDomeView from '../react/GalleryDomeView';
+import GalleryCategoryExperience from '../react/GalleryCategoryExperience';
 import GalleryGrid from './GalleryGrid.astro';
-import { galleryDomeImages } from '../../data/gallery';
+import {
+  galleryCategoryDefinitions,
+  galleryCircularItems,
+  galleryMediaByCategory,
+} from '../../data/gallery';
 ---
 
-<section class="bg-neutral-bg py-6 sm:py-8" aria-label="Galerie photos interactive">
+<section class="bg-neutral-bg py-8 sm:py-10" aria-label="Galerie photos interactive">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <p class="mb-4 text-center text-sm text-neutral-text sm:text-base">
-      Faites glisser horizontalement pour explorer · Cliquez sur une photo ou une vidéo (▶) pour l&apos;agrandir
+      Faites glisser horizontalement pour explorer les catégories · Cliquez pour ouvrir le dôme correspondant
     </p>
   </div>
 
-  <div class="relative mx-auto h-[85vh] min-h-[520px] max-h-[900px] w-full px-1 sm:h-[80vh] sm:min-h-[640px] sm:px-4">
-    <GalleryDomeView client:visible images={galleryDomeImages} />
-  </div>
+  <GalleryCategoryExperience
+    client:visible
+    categories={galleryCategoryDefinitions}
+    circularItems={galleryCircularItems}
+    mediaByCategory={galleryMediaByCategory}
+  />
 
   <div id="gallery-grid-fallback" class="hidden border-t border-border">
     <GalleryGrid />

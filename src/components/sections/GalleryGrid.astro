@@ -1,5 +1,10 @@
 ---
-import { galleryCategories, galleryImages } from '../../data/gallery';
+import { galleryCategoryDefinitions, galleryImages } from '../../data/gallery';
+
+const tabs = [
+  { id: 'all', label: 'Tous' },
+  ...galleryCategoryDefinitions.map((category) => ({ id: category.id, label: category.label })),
+] as const;
 ---
 
 <div>
@@ -9,12 +14,12 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
     aria-label="Filtrer par catégorie"
   >
     {
-      galleryCategories.map((category, index) => (
+      tabs.map((category, index) => (
         <button
           type="button"
           role="tab"
           aria-selected={index === 0 ? 'true' : 'false'}
-          data-gallery-tab={category}
+          data-gallery-tab={category.id}
           class:list={[
             'rounded-full px-4 py-2 text-sm font-medium transition',
             index === 0
@@ -22,7 +27,7 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
               : 'bg-neutral-bg text-secondary hover:bg-primary/30',
           ]}
         >
-          {category}
+          {category.label}
         </button>
       ))
     }
@@ -37,18 +42,25 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
           data-gallery-item
           data-category={image.category}
           data-src={image.src}
+          data-type={image.type ?? 'image'}
+          data-poster={image.poster ?? ''}
           data-caption={image.caption}
           data-alt={image.alt}
           aria-label={`Voir : ${image.caption}`}
         >
           <img
-            src={image.src}
+            src={image.poster ?? image.src}
             alt={image.alt}
             class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
             loading="lazy"
             width="400"
             height="400"
           />
+          {image.type === 'video' && (
+            <span class="absolute left-1/2 top-1/2 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-accent-orange/95 text-lg text-white shadow-lg" aria-hidden="true">
+              ▶
+            </span>
+          )}
           <span class="absolute inset-x-0 bottom-0 bg-secondary/80 px-3 py-2 text-left text-xs text-white opacity-0 transition group-hover:opacity-100">
             {image.caption}
           </span>
@@ -62,7 +74,7 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
     data-lightbox
     role="dialog"
     aria-modal="true"
-    aria-label="Aperçu de l'image"
+    aria-label="Aperçu du média"
   >
     <button
       type="button"
@@ -75,7 +87,8 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
       </svg>
     </button>
     <figure class="max-h-[90vh] max-w-4xl">
-      <img src="" alt="" class="max-h-[80vh] w-auto rounded-lg object-contain" data-lightbox-img />
+      <img src="" alt="" class="hidden max-h-[80vh] w-auto rounded-lg object-contain" data-lightbox-img />
+      <video src="" class="hidden max-h-[80vh] w-auto rounded-lg" controls playsinline data-lightbox-video></video>
       <figcaption class="mt-4 text-center text-white" data-lightbox-caption></figcaption>
     </figure>
   </div>
@@ -87,10 +100,11 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
     const items = document.querySelectorAll('[data-gallery-item]');
     const lightbox = document.querySelector('[data-lightbox]');
     const lightboxImg = document.querySelector('[data-lightbox-img]') as HTMLImageElement | null;
+    const lightboxVideo = document.querySelector('[data-lightbox-video]') as HTMLVideoElement | null;
     const lightboxCaption = document.querySelector('[data-lightbox-caption]');
     const closeBtn = document.querySelector('[data-lightbox-close]');
 
-    if (!lightbox || !lightboxImg || !lightboxCaption) return;
+    if (!lightbox || !lightboxImg || !lightboxVideo || !lightboxCaption) return;
 
     const filterCategory = (category: string) => {
       tabs.forEach((tab) => {
@@ -104,20 +118,33 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
 
       items.forEach((item) => {
         const itemCategory = item.getAttribute('data-category');
-        const show = category === 'Tous' || itemCategory === category;
+        const show = category === 'all' || itemCategory === category;
         (item as HTMLElement).style.display = show ? '' : 'none';
       });
     };
 
     tabs.forEach((tab) => {
       tab.addEventListener('click', () => {
-        filterCategory(tab.getAttribute('data-gallery-tab') ?? 'Tous');
+        filterCategory(tab.getAttribute('data-gallery-tab') ?? 'all');
       });
     });
 
-    const openLightbox = (src: string, alt: string, caption: string) => {
-      lightboxImg.src = src;
-      lightboxImg.alt = alt;
+    const openLightbox = (src: string, alt: string, caption: string, type: string) => {
+      lightboxImg.classList.add('hidden');
+      lightboxVideo.classList.add('hidden');
+      lightboxVideo.pause();
+      lightboxVideo.src = '';
+      lightboxImg.src = '';
+
+      if (type === 'video') {
+        lightboxVideo.src = src;
+        lightboxVideo.classList.remove('hidden');
+      } else {
+        lightboxImg.src = src;
+        lightboxImg.alt = alt;
+        lightboxImg.classList.remove('hidden');
+      }
+
       lightboxCaption.textContent = caption;
       lightbox.classList.remove('hidden');
       lightbox.classList.add('flex');
@@ -128,6 +155,8 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
       lightbox.classList.add('hidden');
       lightbox.classList.remove('flex');
       lightboxImg.src = '';
+      lightboxVideo.pause();
+      lightboxVideo.src = '';
       document.body.classList.remove('overflow-hidden');
     };
 
@@ -137,6 +166,7 @@ import { galleryCategories, galleryImages } from '../../data/gallery';
           item.getAttribute('data-src') ?? '',
           item.getAttribute('data-alt') ?? '',
           item.getAttribute('data-caption') ?? '',
+          item.getAttribute('data-type') ?? 'image',
         );
       });
     });
