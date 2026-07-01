@@ -42,7 +42,7 @@ export default function GalleryCategoryExperience({
         <CircularGallery
           items={circularItems}
           bend={1}
-          textColor="#ffffff"
+          textColor="#000000"
           borderRadius={0.18}
           scrollEase={0.07}
           fontUrl=""
@@ -50,27 +50,6 @@ export default function GalleryCategoryExperience({
           scrollSpeed={2}
           onItemSelect={handleSelect}
         />
-      </div>
-
-      <div className="mx-auto mt-3 flex max-w-7xl flex-wrap justify-center gap-2 px-4 sm:px-6 lg:px-8">
-        {categories.map((category) => {
-          const isActive = category.id === selectedCategoryId;
-          return (
-            <button
-              key={category.id}
-              type="button"
-              onClick={() => handleSelect({ id: category.id, text: category.label, image: category.previewImage })}
-              className={`rounded-full px-4 py-2 text-sm font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary ${
-                isActive
-                  ? 'bg-secondary text-white'
-                  : 'bg-white text-secondary shadow-sm ring-1 ring-border hover:bg-primary/20'
-              }`}
-              aria-pressed={isActive}
-            >
-              {category.label}
-            </button>
-          );
-        })}
       </div>
 
       <div ref={domeRef} className="scroll-mt-24">

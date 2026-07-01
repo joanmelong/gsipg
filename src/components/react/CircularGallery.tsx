@@ -457,7 +457,7 @@ class App {
   boundOnWheel!: (e: Event) => void;
   boundOnTouchDown!: (e: MouseEvent | TouchEvent) => void;
   boundOnTouchMove!: (e: MouseEvent | TouchEvent) => void;
-  boundOnTouchUp!: () => void;
+  boundOnTouchUp!: (e: MouseEvent | TouchEvent) => void;
   boundOnKeyDown!: (e: KeyboardEvent) => void;
 
   constructor(
@@ -560,11 +560,11 @@ class App {
     this.scroll.target = (this.scroll.position ?? 0) + distance;
   }
 
-  onTouchUp() {
+  onTouchUp(e: MouseEvent | TouchEvent) {
     if (!this.isDown) return;
     this.isDown = false;
     this.onCheck();
-    if (!this.moved) this.selectCenteredItem();
+    if (!this.moved) this.selectItemFromEvent(e);
   }
 
   onWheel(e: Event) {
@@ -614,6 +614,33 @@ class App {
       return mediaDistance < bestDistance ? media : best;
     });
     this.onItemSelect(centered.item);
+  }
+
+  selectItemFromEvent(e: MouseEvent | TouchEvent) {
+    if (!this.onItemSelect || !this.medias.length) return;
+
+    const clientX =
+      'changedTouches' in e && e.changedTouches.length > 0
+        ? e.changedTouches[0].clientX
+        : 'clientX' in e
+          ? e.clientX
+          : null;
+
+    if (clientX == null) {
+      this.selectCenteredItem();
+      return;
+    }
+
+    const rect = this.container.getBoundingClientRect();
+    const clickRatio = rect.width > 0 ? (clientX - rect.left) / rect.width : 0.5;
+    const targetX = (clickRatio - 0.5) * this.viewport.width;
+
+    const clicked = this.medias.reduce((best, media) => {
+      const bestDistance = Math.abs(best.plane.position.x - targetX);
+      const mediaDistance = Math.abs(media.plane.position.x - targetX);
+      return mediaDistance < bestDistance ? media : best;
+    });
+    this.onItemSelect(clicked.item);
   }
 
   onResize() {
