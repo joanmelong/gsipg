@@ -535,7 +535,7 @@ export default function DomeGallery({
       overlay.style.borderRadius = openedImageBorderRadius;
       overlay.style.overflow = 'hidden';
       overlay.style.pointerEvents = 'auto';
-      overlay.style.background = '#0f0f0f';
+      overlay.style.background = 'transparent';
       overlay.style.boxShadow = '0 10px 30px rgba(0,0,0,.35)';
 
       const rawSrc = parent.dataset.src || '';
@@ -1311,8 +1311,9 @@ export default function DomeGallery({
               ref={scrimRef}
               className="scrim pointer-events-none absolute inset-0 z-10 opacity-0 transition-opacity duration-500"
               style={{
-                background: 'rgba(0, 0, 0, 0.4)',
-                backdropFilter: 'blur(3px)',
+                background: 'transparent',
+                backdropFilter: 'blur(10px)',
+                WebkitBackdropFilter: 'blur(10px)',
               }}
             />
             <div
