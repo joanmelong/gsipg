@@ -3,15 +3,103 @@ import Container from '../ui/Container.astro';
 import { galleryHero } from '../../data/gallery';
 ---
 
-<section class="bg-white py-10 sm:py-12 lg:py-14" aria-label="Introduction galerie">
-  <Container>
-    <div class="mx-auto max-w-5xl text-center">
-      <h1 class="font-subheading text-6xl font-bold normal-case leading-tight tracking-normal text-secondary sm:text-7xl lg:text-[5.5rem]">
-        {galleryHero.title}
-      </h1>
-      <p class="mx-auto mt-5 max-w-3xl text-base leading-relaxed text-secondary/85 sm:mt-6 sm:text-lg">
-        {galleryHero.subtitle}
-      </p>
+<section
+  class="relative overflow-hidden bg-secondary py-14 sm:py-16 lg:py-20"
+  aria-label="Introduction galerie"
+>
+  <!-- Motif de rectangles positionnés principalement à gauche -->
+  <div class="pointer-events-none absolute inset-0" aria-hidden="true">
+    <!-- Rectangle complet répété (même taille partout) -->
+    <div class="absolute inset-0 opacity-40">
+      <!-- Rangée 1 (en haut) -->
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 8%; left: 5%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 5%; left: 18%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 10%; left: 31%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 7%; left: 44%; width: 110px; height: auto;" />
+      
+      <!-- Rangée 2 -->
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 28%; left: 3%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 25%; left: 16%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 30%; left: 29%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 27%; left: 42%; width: 110px; height: auto;" />
+      
+      <!-- Rangée 3 -->
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 48%; left: 5%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 45%; left: 18%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 50%; left: 31%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 47%; left: 44%; width: 110px; height: auto;" />
+      
+      <!-- Rangée 4 (en bas) -->
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 68%; left: 3%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 65%; left: 16%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 70%; left: 29%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 67%; left: 42%; width: 110px; height: auto;" />
+      
+      <!-- Quelques rectangles à droite (moins nombreux) -->
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 15%; right: 20%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 40%; right: 25%; width: 110px; height: auto;" />
+      <img src="/images/galleryhero/Rectangle 32.svg" alt="" class="absolute" style="top: 65%; right: 18%; width: 110px; height: auto;" />
+    </div>
+    
+    <!-- Substrat pour les bords (rectangles coupés) -->
+    <img src="/images/galleryhero/Subtract.svg" alt="" class="absolute opacity-30" style="top: 12%; left: -40px; width: 120px;" />
+    <img src="/images/galleryhero/Subtract (1).svg" alt="" class="absolute opacity-30" style="top: 48%; left: -45px; width: 125px;" />
+    <img src="/images/galleryhero/Subtract (2).svg" alt="" class="absolute opacity-30" style="bottom: 18%; left: -38px; width: 120px;" />
+  </div>
+
+  <Container class="relative z-10">
+    <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
+
+      <!-- Texte à gauche -->
+      <div class="max-w-lg">
+        <h1 class="font-subheading text-3xl font-bold normal-case leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
+          {galleryHero.title}
+        </h1>
+        <p class="mt-6 text-base font-semibold leading-relaxed text-white/90 sm:text-lg">
+          {galleryHero.subtitle}
+        </p>
+      </div>
+
+      <!-- 3 photos à droite -->
+      <div class="relative mx-auto w-full max-w-md lg:max-w-none" style="height: 280px; sm:height: 320px; lg:height: 340px;">
+        <!-- Photo 1 : en haut à gauche -->
+        <div
+          class="absolute overflow-hidden rounded-3xl shadow-xl ring-2 ring-white/30"
+          style="width: 45%; height: 52%; top: 0; left: 0;"
+        >
+          <img
+            src="/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.46 (1).jpeg"
+            alt="Activité GSIPG"
+            class="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <!-- Photo 2 : en haut à droite -->
+        <div
+          class="absolute overflow-hidden rounded-3xl shadow-xl ring-2 ring-white/30"
+          style="width: 45%; height: 52%; top: 0; right: 0;"
+        >
+          <img
+            src="/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.55.30.jpeg"
+            alt="Activité GSIPG"
+            class="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <!-- Photo 3 : en bas au centre -->
+        <div
+          class="absolute overflow-hidden rounded-3xl shadow-xl ring-2 ring-white/30"
+          style="width: 45%; height: 42%; bottom: 0; left: 50%; transform: translateX(-50%);"
+        >
+          <img
+            src="/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.55.jpeg"
+            alt="Activité GSIPG"
+            class="h-full w-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+
     </div>
   </Container>
 </section>

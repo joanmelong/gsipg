@@ -3,23 +3,30 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Container from '../../components/ui/Container.astro';
 import Section from '../../components/ui/Section.astro';
 import Button from '../../components/ui/Button.astro';
-import Breadcrumb from '../../components/ui/Breadcrumb.astro';
 import CtaSection from '../../components/sections/CtaSection.astro';
-import { parcs, parcsHero, parcsCta } from '../../data/parcs';
-
-const breadcrumbItems = [
-  { label: 'Accueil', href: '/' },
-  { label: 'Parcs éducatifs', href: '/parcs' },
-];
+import { loisirsThemes, parcsHero, parcsCta } from '../../data/parcs';
 ---
 
 <BaseLayout
-  title="Parcs éducatifs"
-  description="Découvrez les parcs d'attractions éducatifs du GSIPG à Yaoundé : sciences, aventure, créativité et nature au service de l'apprentissage."
+  title="Loisirs & Activités"
+  description="Découvrez les activités culturelles, sportives, numériques et citoyennes proposées aux élèves du GSIPG La Petite Gloria à Yaoundé."
 >
-  <section class="relative overflow-hidden bg-secondary py-16 sm:py-20 lg:py-24" aria-label="Introduction parcs">
+
+  <!-- ═══ HERO ═══ -->
+  <section class="relative overflow-hidden bg-secondary py-16 sm:py-20 lg:py-24" aria-label="Loisirs et activités">
+    <!-- Motif points -->
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.07]"
+      style="background-image: radial-gradient(circle, #ffffff 1.5px, transparent 1.5px); background-size: 28px 28px;"
+      aria-hidden="true"
+    ></div>
+    <!-- Motif diagonales -->
+    <div
+      class="pointer-events-none absolute inset-0 opacity-[0.04]"
+      style="background: repeating-linear-gradient(-45deg, transparent, transparent 40px, #ffffff 40px, #ffffff 41px);"
+      aria-hidden="true"
+    ></div>
     <Container class="relative">
-      <Breadcrumb items={breadcrumbItems} class="mb-6 text-white/80 [&_a]:text-white/90 [&_a:hover]:text-white" />
       <div class="grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
         <div class="max-w-xl">
           <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
@@ -36,7 +43,7 @@ const breadcrumbItems = [
           <img
             src={parcsHero.image.src}
             alt={parcsHero.image.alt}
-            class="w-full max-w-lg rounded-3xl shadow-2xl ring-1 ring-white/20"
+            class="w-full max-w-lg rounded-3xl shadow-2xl ring-1 ring-white/20 object-cover"
             loading="eager"
             width="600"
             height="400"
@@ -46,41 +53,64 @@ const breadcrumbItems = [
     </Container>
   </section>
 
-  <Section ariaLabel="Nos parcs éducatifs">
+  <!-- ═══ INTRO ═══ -->
+  <Section background="neutral" ariaLabel="Notre philosophie des loisirs">
     <Container>
-      <div class="grid grid-cols-1 gap-10 lg:gap-14">
+      <div class="mx-auto max-w-3xl text-center">
+        <p class="text-xs font-semibold uppercase tracking-[0.25em] text-secondary">Notre philosophie</p>
+        <h2 class="mt-4 font-subheading text-2xl font-bold normal-case text-neutral-dark sm:text-3xl">
+          Apprendre, jouer, grandir
+        </h2>
+        <p class="mt-5 text-base leading-relaxed text-neutral-text">
+          À La Petite Gloria, nous croyons fermement que l'épanouissement de l'enfant passe autant par le jeu,
+          la créativité et la vie en collectivité que par les apprentissages formels. C'est pourquoi nous proposons
+          un programme d'activités riche et varié, structuré autour de quatre grandes familles, pour que chaque
+          élève trouve sa passion et développe ses talents.
+        </p>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- ═══ 4 BLOCS THÉMATIQUES ═══ -->
+  <Section ariaLabel="Nos activités par thème">
+    <Container>
+      <div class="grid grid-cols-1 gap-14 lg:gap-20">
         {
-          parcs.map((parc, index) => (
+          loisirsThemes.map((theme, index) => (
             <article
-              id={parc.id}
-              class="scroll-mt-28 grid grid-cols-1 items-center gap-8 overflow-hidden rounded-3xl bg-neutral-bg p-6 sm:p-8 lg:grid-cols-2 lg:gap-12"
+              id={theme.id}
+              class="scroll-mt-28 grid grid-cols-1 items-center gap-8 lg:grid-cols-2 lg:gap-14"
             >
+              <!-- Image (alternée gauche/droite) -->
               <div class:list={[index % 2 === 1 && 'lg:order-2']}>
                 <img
-                  src={parc.image}
-                  alt={parc.imageAlt}
+                  src={theme.image}
+                  alt={theme.imageAlt}
                   class="aspect-[4/3] w-full rounded-2xl object-cover shadow-lg"
                   loading="lazy"
                   width="600"
                   height="450"
                 />
               </div>
+
+              <!-- Contenu -->
               <div class:list={[index % 2 === 1 && 'lg:order-1']}>
-                <p class="text-xs font-semibold uppercase tracking-wide text-secondary">{parc.ageRange}</p>
-                <h2 class="mt-2 font-subheading text-2xl font-bold normal-case text-secondary">{parc.title}</h2>
-                <p class="mt-4 text-neutral-text">{parc.description}</p>
-                <ul class="mt-5 flex flex-wrap gap-2">
-                  {parc.benefits.map((benefit) => (
-                    <li class="rounded-full bg-white px-3 py-1 text-xs font-medium text-secondary shadow-sm ring-1 ring-border">
-                      {benefit}
+                <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary">
+                  {theme.tag}
+                </p>
+                <h2 class="mt-3 font-subheading text-2xl font-bold normal-case text-neutral-dark sm:text-3xl">
+                  {theme.title}
+                </h2>
+                <p class="mt-4 leading-relaxed text-neutral-text">
+                  {theme.description}
+                </p>
+                <ul class="mt-6 flex flex-wrap gap-2">
+                  {theme.activities.map((activity) => (
+                    <li class="rounded-full bg-neutral-bg px-3 py-1 text-xs font-medium text-secondary ring-1 ring-border">
+                      {activity}
                     </li>
                   ))}
                 </ul>
-                <div class="mt-6">
-                  <Button href="/galerie" variant="secondary" size="sm">
-                    Voir en images
-                  </Button>
-                </div>
               </div>
             </article>
           ))
@@ -89,10 +119,54 @@ const breadcrumbItems = [
     </Container>
   </Section>
 
+  <!-- ═══ APERÇU GALERIE ═══ -->
+  <Section background="neutral" ariaLabel="Nos activités en images">
+    <Container>
+      <div class="mb-10 text-center">
+        <h2 class="font-subheading text-2xl font-bold normal-case text-neutral-dark sm:text-3xl">
+          Nos activités en images
+        </h2>
+        <p class="mx-auto mt-4 max-w-xl text-neutral-text">
+          Un aperçu de la vie festive et créative au GSIPG.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {[
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.55.30.jpeg',
+          '/images/gallery/activites-post-et-peri-scolaires/danse1.png',
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.44.56.jpeg',
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.55.jpeg',
+          '/images/gallery/activites-post-et-peri-scolaires/balafons1.png',
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.46 (1).jpeg',
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-25 at 11.30.50 (1).jpeg',
+          '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.56.jpeg',
+        ].map((src, i) => (
+          <div class="overflow-hidden rounded-xl aspect-square">
+            <img
+              src={src}
+              alt={`Activité au GSIPG ${i + 1}`}
+              class="h-full w-full object-cover transition duration-500 hover:scale-105"
+              loading="lazy"
+              width="300"
+              height="300"
+            />
+          </div>
+        ))}
+      </div>
+      <div class="mt-8 text-center">
+        <Button href="/galerie" variant="secondary">
+          Voir toute la galerie
+        </Button>
+      </div>
+    </Container>
+  </Section>
+
+  <!-- ═══ CTA ═══ -->
   <CtaSection
     title={parcsCta.title}
     description={parcsCta.description}
     buttonLabel={parcsCta.buttonLabel}
     buttonHref={parcsCta.buttonHref}
   />
+
 </BaseLayout>

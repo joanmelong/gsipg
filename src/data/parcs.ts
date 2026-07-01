@@ -1,61 +1,98 @@
 export const parcsHero = {
-  tag: 'Parcs éducatifs',
-  title: 'Apprendre en s\'amusant',
+  tag: 'Loisirs & Activités',
+  title: 'Une école où l\'on apprend autrement',
   subtitle:
-    'Les parcs d\'attractions éducatifs du GSIPG ne sont pas de simples espaces de loisirs : ce sont des laboratoires à ciel ouvert où chaque activité est pensée pour développer la curiosité, la logique et l\'esprit d\'équipe.',
+    'Au-delà des programmes scolaires, La Petite Gloria offre à chaque élève un éventail d\'activités riches et variées pour s\'épanouir, créer, bouger et découvrir le monde.',
   image: {
     src: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0001-600x300.jpg',
-    alt: 'Enfants explorant le parc des sciences du GSIPG',
+    alt: 'Élèves du GSIPG en activités',
   },
 } as const;
 
-export const parcs = [
+export interface LoisirsTheme {
+  id: string;
+  tag: string;
+  title: string;
+  description: string;
+  activities: string[];
+  image: string;
+  imageAlt: string;
+}
+
+export const loisirsThemes: LoisirsTheme[] = [
   {
-    id: 'sciences',
-    title: 'Parc des sciences',
+    id: 'vie-culturelle',
+    tag: 'Culture & Fête',
+    title: 'Vie culturelle & festive',
     description:
-      'Expérimentations interactives en physique, chimie et biologie. Les élèves manipulent, observent et tirent des conclusions dans un cadre sécurisé et stimulant.',
-    benefits: ['Esprit scientifique', 'Observation', 'Travail en équipe'],
-    image: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0001-600x300.jpg',
-    imageAlt: 'Atelier scientifique au parc des sciences GSIPG',
-    ageRange: 'Primaire (CE1 – CM2)',
+      'L\'année scolaire est rythmée par des temps forts culturels qui célèbrent la diversité, le bilinguisme et le patrimoine camerounais. Ces événements forgent l\'identité des élèves tout en les ouvrant au monde.',
+    activities: [
+      'Kermesses à thème',
+      'Semaine de la jeunesse',
+      'Semaine du bilinguisme (français/anglais)',
+      'Semaine de la culture nationale',
+      'Danses traditionnelles',
+      'Expression en langues nationales',
+      'Réalisation de mets traditionnels',
+      'Initiation aux medzang',
+      'Apprentissage des jeux traditionnels',
+    ],
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.55.30.jpeg',
+    imageAlt: 'Élèves du GSIPG lors de la journée culturelle',
   },
   {
-    id: 'aventure',
-    title: 'Parc d\'aventure',
+    id: 'sport-plein-air',
+    tag: 'Sport & Nature',
+    title: 'Sport, plein air & découverte',
     description:
-      'Parcours sportifs, tyroliennes adaptées et défis d\'agilité pour renforcer la confiance en soi, la coordination et le respect des consignes de sécurité.',
-    benefits: ['Motricité', 'Confiance', 'Dépassement de soi'],
-    image: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0010-600x300.jpg',
-    imageAlt: 'Parcours d\'aventure éducatif du GSIPG',
-    ageRange: 'Maternelle & Primaire',
+      'Le corps et le mouvement sont au cœur de notre projet éducatif. Des activités sportives variées aux sorties en plein air, chaque élève est encouragé à se dépasser, à coopérer et à respecter l\'environnement.',
+    activities: [
+      'Activités sportives en tout genre',
+      'Création et entretien du jardin scolaire',
+      'Excursions scolaires',
+      'Jeux collectifs et esprit d\'équipe',
+    ],
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.55.jpeg',
+    imageAlt: 'Élèves du GSIPG lors d\'une sortie scolaire',
   },
   {
-    id: 'creativite',
-    title: 'Espace créativité',
+    id: 'numerique-savoir',
+    tag: 'Numérique & Savoir',
+    title: 'Numérique, technologie & lecture',
     description:
-      'Ateliers arts plastiques, musique, théâtre et robotique. Un espace dédié à l\'expression artistique et à la création libre, en lien avec les projets de classe.',
-    benefits: ['Créativité', 'Expression', 'Imagination'],
-    image: '/images/gallery/staff-ecole/IMG-20240516-WA0004-600x300.jpg',
-    imageAlt: 'Atelier créatif au GSIPG',
-    ageRange: 'Tous niveaux',
+      'La Petite Gloria investit dans des équipements modernes pour préparer les élèves au monde de demain. Informatique, outils interactifs et bibliothèque sont autant de portes ouvertes sur la connaissance.',
+    activities: [
+      'Salle informatique avec de nombreux ordinateurs',
+      'Salle digitale et interactive avec vidéoprojecteur',
+      'Bibliothèque riche et conviviale',
+      'Initiation à la passion de la lecture',
+    ],
+    image: '/images/gallery/apprentissage/IMG-20240518-WA0002-600x300.jpg',
+    imageAlt: 'Élèves en atelier numérique au GSIPG',
   },
   {
-    id: 'nature',
-    title: 'Jardin pédagogique',
+    id: 'citoyennete-pratique',
+    tag: 'Citoyenneté & Vie pratique',
+    title: 'Citoyenneté, autonomie & vie pratique',
     description:
-      'Découverte du vivant : plantation, observation des insectes, cycle des saisons. Les enfants apprennent le respect de l\'environnement par l\'action.',
-    benefits: ['Écologie', 'Patience', 'Responsabilité'],
-    image: '/images/home/vision-1.jpg',
-    imageAlt: 'Jardin pédagogique du GSIPG',
-    ageRange: 'Maternelle & Primaire',
+      'Former des citoyens responsables, autonomes et engagés : c\'est l\'ambition de nos activités de vie pratique et citoyenne. De l\'approche Montessori au gouvernement scolaire, chaque élève apprend à prendre sa place dans la société.',
+    activities: [
+      'Initiation aux tâches domestiques (ménage, pliage, lessive, propreté)',
+      'Approche Montessori et apprentissage par le jeu',
+      'Initiation au débat contradictoire',
+      'Initiation au journalisme',
+      'Campagne électorale et vote du gouvernement scolaire',
+      'Pratiques citoyennes',
+    ],
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.44.56.jpeg',
+    imageAlt: 'Élèves du GSIPG en activité citoyenne',
   },
-] as const;
+];
 
 export const parcsCta = {
-  title: 'Visitez nos parcs éducatifs',
+  title: 'Venez découvrir La Petite Gloria',
   description:
-    'Découvrez nos espaces lors d\'une journée portes ouvertes ou planifiez une visite personnalisée avec notre équipe admissions.',
-  buttonLabel: 'Planifier une visite',
-  buttonHref: '/admissions',
+    'Planifiez une visite de l\'établissement et rencontrez notre équipe. Les inscriptions pour la prochaine rentrée sont ouvertes.',
+  buttonLabel: 'Prendre rendez-vous',
+  buttonHref: '/qui-sommes-nous#contact',
 } as const;
