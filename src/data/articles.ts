@@ -20,58 +20,77 @@ export interface Article {
   author: string;
   /** Paragraphes du corps de l'article */
   body: string[];
+  /** Photos additionnelles affichées en bas de l'article */
+  photos?: string[];
+  /** Note affichée sous les photos (ex: lien vers la galerie) */
+  galleryNote?: string;
 }
 
 export const articles: Article[] = [
   {
-    slug: 'numerique-cm2',
-    title: 'Initiation au numérique en CM2',
+    slug: 'decoration-noel',
+    title: 'Décoration de l\'école à l\'occasion de la fête de Noël',
     excerpt:
-      'Introduction progressive du numérique au primaire : nos élèves de CM2 s\'initient aujourd\'hui au code avec enthousiasme !',
-    date: '2026-06-15',
-    image: '/images/home/vision-2.jpg',
-    imageAlt: 'Élèves de CM2 lors d\'un atelier de programmation au GSIPG',
+      'La Petite Gloria se pare de ses plus beaux atours pour célébrer Noël ! Élèves et encadrants ont uni leurs talents pour transformer l\'école en un véritable décor de fête.',
+    date: '2025-12-03',
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-25 at 11.30.50 (1).jpeg',
+    imageAlt: 'Décoration de Noël à l\'école La Petite Gloria',
+    category: 'Événements',
+    author: 'Équipe éducative GSIPG',
+    body: [
+      'À l\'approche des fêtes de fin d\'année, toute la communauté du Groupe Scolaire International La Petite Gloria s\'est mobilisée pour décorer l\'établissement. Guirlandes colorées, sapins ornés, étoiles suspendues et messages de vœux ont envahi les couloirs et les salles de classe, créant une atmosphère chaleureuse et festive.',
+      'Cette activité, organisée par les instituteurs en collaboration avec les élèves, a bien plus qu\'une vocation décorative. Elle s\'inscrit dans notre démarche pédagogique : développer la créativité, la coopération et le sens de l\'esthétique chez les enfants. Chaque classe a eu la responsabilité de décorer un espace de l\'école, permettant à chaque élève de s\'exprimer librement.',
+      '« Voir les enfants aussi impliqués et fiers de leur travail, c\'est exactement ce que nous cherchons à cultiver ici », confie une institutrice du cycle primaire. « La fête de Noël est un moment magique que nous aimons partager avec toute la famille de l\'école. »',
+      'Les familles sont invitées à découvrir ces décorations lors de la cérémonie de fin d\'année prévue à la mi-décembre. Un spectacle de chants et de saynètes bilingues viendra clôturer cette belle période de l\'année scolaire.',
+    ],
+    photos: [
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-25 at 11.30.50 (1).jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-25 at 11.30.50.jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-25 at 11.30.48.jpeg',
+    ],
+  },
+  {
+    slug: 'balais-et-defile-de-mode',
+    title: 'Balais et défilé de mode',
+    excerpt:
+      'Les élèves de La Petite Gloria ont enfilé leurs plus beaux costumes pour un défilé de mode haut en couleurs, mêlant créativité, élégance et bonne humeur.',
+    date: '2026-02-11',
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.56.jpeg',
+    imageAlt: 'Élèves du GSIPG lors du défilé de mode',
+    category: 'Événements',
+    author: 'Équipe éducative GSIPG',
+    body: [
+      'Dans le cadre des activités périscolaires, le GSIPG a organisé un balais et défilé de mode qui a fait sensation. Habillés de tenues soigneusement préparées, les élèves ont défilé avec fierté et assurance devant leurs camarades, leurs instituteurs et leurs familles réunies pour l\'occasion.',
+      'Au-delà du spectacle, cette activité poursuit des objectifs pédagogiques concrets : renforcer la confiance en soi, développer l\'expression corporelle, apprendre à se présenter devant un public et valoriser la créativité de chaque enfant. Chaque élève a pu briller à sa façon, dans une ambiance bienveillante et festive.',
+      '« Voir nos élèves marcher avec autant d\'assurance et de sourire, c\'est exactement ce que nous cherchons à cultiver », confie un membre de l\'équipe éducative. « Ces moments hors classe sont aussi formateurs que les heures en salle. »',
+      'Cet événement a rappelé combien la vie scolaire au GSIPG est riche et diversifiée. Félicitations à tous les élèves pour leur participation et leur enthousiasme !',
+    ],
+    photos: [
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.44.56.jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.44.57.jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.44.58 (1).jpeg',
+    ],
+    galleryNote: 'Retrouvez la suite dans notre galerie',
+  },
+  {
+    slug: 'projet-scolaire-sante',
+    title: 'Projet scolaire : à la découverte du monde médical',
+    excerpt:
+      'Dans le cadre de leur projet scolaire, les élèves ont fabriqué des seringues en carton pour explorer le monde de la santé et des soins de manière ludique et créative.',
+    date: '2025-11-14',
+    image: '/images/gallery/projets-scolaires/WhatsApp Image 2026-06-30 at 09.29.36.jpeg',
+    imageAlt: 'Élèves du GSIPG fabriquant des seringues en carton lors d\'un projet scolaire',
     category: 'Primaire',
     author: 'Équipe pédagogique GSIPG',
     body: [
-      'Cette semaine, les élèves de CM2 ont franchi une nouvelle étape dans leur parcours scolaire : l\'initiation au numérique et à la programmation. Dans une salle équipée de tablettes et de kits robotiques, ils ont découvert les bases du code de manière ludique et collaborative.',
-      'Sous la guidance de leurs enseignants, les enfants ont appris à donner des instructions simples à un robot éducatif, à résoudre des puzzles logiques et à comprendre comment une série d\'étapes peut produire un résultat concret. Cette approche s\'inscrit pleinement dans notre vision : intégrer progressivement le numérique comme outil d\'apprentissage, et non comme simple divertissement.',
-      '« Nos élèves sont curieux et motivés », témoigne Mme Nguema, responsable du cycle primaire. « Le numérique leur permet de développer leur esprit logique tout en s\'amusant. C\'est exactement l\'esprit du GSIPG : apprendre en expérimentant. »',
-      'Les familles pourront découvrir les réalisations des élèves lors de la prochaine exposition de fin de trimestre. D\'ici là, les séances se poursuivent chaque mercredi après-midi, avec des projets de plus en plus ambitieux.',
+      'Dans le cadre de la Journée mondiale de la santé, les élèves du GSIPG ont réalisé un projet manuel autour du monde médical. Guidés par leurs instituteurs, ils ont fabriqué des seringues en carton, reproduisant ainsi des outils utilisés par les professionnels de santé.',
+      'Cette activité, à la fois ludique et éducative, avait pour objectif de démystifier le matériel médical souvent source d\'appréhension chez les jeunes enfants. En manipulant eux-mêmes ces répliques en carton, les élèves ont pu poser des questions, comprendre le rôle des soignants et dépasser leurs peurs en toute sérénité.',
+      '« Quand un enfant fabrique lui-même un objet qui lui fait peur, il reprend le contrôle », explique un instituteur porteur du projet. « Plusieurs élèves ont dit qu\'ils n\'auraient plus aussi peur des piqûres après ça. C\'est exactement l\'effet recherché. »',
+      'Ce type de projet interdisciplinaire mêle arts plastiques, éveil scientifique et éducation à la santé. Il illustre parfaitement la pédagogie du GSIPG : apprendre en faisant, en questionnant et en créant.',
     ],
-  },
-  {
-    slug: 'theatre-bilingue-maternelle',
-    title: 'Atelier théâtre en anglais',
-    excerpt:
-      'Atelier théâtre en anglais pour la section Bilingue (Fifty-fifty). Une excellente manière de développer la confiance en soi dès la maternelle.',
-    date: '2026-06-02',
-    image: '/images/gallery/staff-ecole/IMG-20240516-WA0004-600x300.jpg',
-    imageAlt: 'Enfants de maternelle lors d\'un atelier théâtre en anglais',
-    category: 'Maternelle',
-    author: 'Équipe maternelle GSIPG',
-    body: [
-      'Les plus jeunes élèves de la section Bilingue Fifty-Fifty ont vécu une expérience inoubliable lors de notre atelier théâtre en anglais. Pendant une semaine, les classes de grande section ont exploré le monde du spectacle : mime, expression corporelle, répétitions et, enfin, représentation devant leurs camarades.',
-      'L\'objectif pédagogique était clair : renforcer l\'aisance à l\'oral en anglais dans un contexte joyeux et bienveillant. Les enfants ont mémorisé de courtes scènes, appris des chansons et développé une confiance précieuse pour la suite de leur scolarité bilingue.',
-      'Les parents présents à la représentation ont été touchés par l\'assurance des élèves et la qualité de leur prononciation. « Mon fils ose enfin parler anglais à la maison », confie une maman de GS1. « Cet atelier a été un vrai déclic. »',
-      'Le théâtre fera partie de notre programmation parascolaire à la rentrée prochaine. Les inscriptions seront ouvertes dès le mois de juillet.',
-    ],
-  },
-  {
-    slug: 'semaine-nutrition',
-    title: 'Semaine de la nutrition',
-    excerpt:
-      'Semaine de la nutrition à la restauration scolaire. Nos chefs proposent des menus équilibrés et vitaminés dans le respect strict des règles d\'hygiène.',
-    date: '2026-05-25',
-    image: '/images/home/vision-1.jpg',
-    imageAlt: 'Enfants du GSIPG lors d\'un atelier sur l\'alimentation équilibrée',
-    category: 'Événements',
-    author: 'Service restauration GSIPG',
-    body: [
-      'Du 19 au 23 mai, le GSIPG a célébré la Semaine de la Nutrition à la restauration scolaire. Un moment fort pour sensibiliser les élèves — et leurs familles — à l\'importance d\'une alimentation variée, locale et équilibrée.',
-      'Chaque jour, un thème différent a été exploré en classe : les fruits et légumes de saison, l\'hydratation, les protéines et les céréales, le petit-déjeuner équilibré. Les menus de la cantine ont été adaptés en conséquence, avec des produits frais sélectionnés auprès de fournisseurs locaux.',
-      'Les élèves de maternelle ont participé à un atelier « découverte des couleurs dans mon assiette », tandis que les classes de primaire ont réalisé un projet affiché dans le hall de restauration. Les règles d\'hygiène alimentaire ont également été rappelées à tous les niveaux.',
-      '« Manger équilibré, c\'est apprendre mieux », rappelle notre diététicienne référente. La restauration scolaire du GSIPG reste un pilier de notre projet éducatif : bien nourrir le corps pour nourrir l\'esprit.',
+    photos: [
+      '/images/gallery/projets-scolaires/WhatsApp Image 2026-06-30 at 09.29.38.jpeg',
+      '/images/gallery/projets-scolaires/WhatsApp Image 2026-06-30 at 09.30.09.jpeg',
     ],
   },
   {
@@ -92,54 +111,65 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: 'parc-sciences',
-    title: 'Inauguration du parc des sciences',
+    slug: 'inauguration-manege-gonflable',
+    title: 'Inauguration du manège gonflable',
     excerpt:
-      'Un nouvel espace d\'expérimentation interactive pour les classes de primaire. Nos élèves explorent les sciences de manière ludique et concrète.',
-    date: '2025-06-12',
-    image: '/images/gallery/activites-post-et-peri-scolaires/IMG-20240518-WA0001-600x300.jpg',
-    imageAlt: 'Parc des sciences éducatif du GSIPG',
-    category: 'Primaire',
-    author: 'Coordinateur parcs éducatifs',
-    body: [
-      'Le GSIPG a inauguré officiellement son parc des sciences, un espace unique à Yaoundé dédié à l\'expérimentation et à la découverte scientifique. Conçu pour les élèves du primaire, ce parc propose des ateliers interactifs sur la physique, la biologie et les sciences de la Terre.',
-      'Les enfants peuvent manipuler des instruments, observer des réactions chimiques sécurisées, explorer le cycle de l\'eau ou encore découvrir les bases de l\'astronomie. Chaque zone du parc est pensée pour correspondre aux objectifs du programme scolaire, tout en stimulant la curiosité naturelle des élèves.',
-      '« Ce n\'est pas un musée, c\'est un laboratoire de plein air », explique le coordinateur des parcs éducatifs. « Les enfants apprennent en touchant, en observant et en questionnant. C\'est la pédagogie par l\'expérience que nous défendons au GSIPG. »',
-      'Le parc est accessible aux élèves inscrits durant les heures de classe et lors des activités parascolaires. Les familles pourront le découvrir lors des prochaines journées portes ouvertes.',
-    ],
-  },
-  {
-    slug: 'journee-portes-ouvertes',
-    title: 'Journée portes ouvertes',
-    excerpt:
-      'Retour en images sur une journée riche en rencontres et découvertes. Plus de 200 familles ont visité nos espaces pédagogiques et nos parcs éducatifs.',
-    date: '2025-05-20',
-    image: '/images/home/hero-slide-2.jpg',
-    imageAlt: 'Familles visitant le GSIPG lors des portes ouvertes',
+      'Un nouveau manège gonflable fait son entrée au GSIPG ! Une attraction attendue qui enrichit encore davantage les moments de récréation et d\'activités physiques des élèves.',
+    date: '2025-04-15',
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.46 (1).jpeg',
+    imageAlt: 'Inauguration du manège gonflable au GSIPG',
     category: 'Événements',
-    author: 'Service admissions GSIPG',
+    author: 'Direction GSIPG',
     body: [
-      'Plus de 200 familles ont franchi les portes du GSIPG lors de notre journée portes ouvertes annuelle. Un succès qui confirme l\'attractivité de notre offre éducative à Yaoundé : sections francophone, anglophone et bilingue Fifty-Fifty, de la crèche au primaire.',
-      'Les visiteurs ont pu visiter les salles de classe, rencontrer l\'équipe pédagogique, découvrir nos parcs éducatifs et assister à des démonstrations d\'activités par les élèves. Des sessions d\'information sur les modalités d\'inscription et les frais de scolarité ont été organisées tout au long de la journée.',
-      '« Nous avons été impressionnés par le cadre, la propreté et l\'enthousiasme des enseignants », témoigne un couple de parents en visite. « Notre enfant a adoré le parc des sciences. Nous allons déposer une demande d\'inscription. »',
-      'Pour les familles n\'ayant pas pu participer, des visites individuelles sont possibles sur rendez-vous. Contactez notre service admissions au (+237) 699 91 85 62 ou via le formulaire en ligne.',
+      'C\'est avec une joie immense que le Groupe Scolaire International La Petite Gloria a inauguré son tout nouveau manège gonflable. Accueilli par des cris de joie et des applaudissements des élèves, cet équipement ludique vient enrichir les espaces de jeux et d\'activités physiques de l\'établissement.',
+      'Pensé pour favoriser le développement moteur, la coordination et le plaisir du jeu, le manège gonflable est accessible à tous les niveaux — de la maternelle au primaire — dans le respect des règles de sécurité mises en place par l\'équipe encadrante.',
+      '« Nous souhaitons offrir à nos élèves un cadre où l\'apprentissage rime avec plaisir », déclare la directrice. « Ce type d\'équipement contribue au bien-être des enfants et à leur épanouissement global, en dehors des heures de classe. »',
+      'Cette inauguration s\'inscrit dans la dynamique d\'amélioration continue des infrastructures du GSIPG. D\'autres équipements sont prévus dans les prochains mois pour continuer d\'enrichir la vie scolaire de nos élèves.',
+    ],
+    photos: [
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.43 (1).jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.46.jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.58.39 (1).jpeg',
     ],
   },
   {
-    slug: 'concours-lecture',
-    title: 'Concours de lecture bilingue',
+    slug: 'sortie-scolaire',
+    title: 'Sortie scolaire : découverte et apprentissage hors les murs',
     excerpt:
-      'Nos élèves de CE1 et CE2 brillent lors du concours inter-écoles de Yaoundé. Félicitations à tous les participants pour leur engagement et leur talent.',
-    date: '2025-04-08',
-    image: '/images/gallery/remise-des-bulletins/IMG-20240516-WA0008-600x300.jpg',
-    imageAlt: 'Élève participant au concours de lecture bilingue',
-    category: 'Primaire',
-    author: 'Équipe pédagogique GSIPG',
+      'Nos élèves ont quitté les salles de classe pour une journée de découverte en plein air. Une sortie riche en émotions, en observations et en souvenirs inoubliables.',
+    date: '2025-05-20',
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.55.jpeg',
+    imageAlt: 'Élèves du GSIPG lors d\'une sortie scolaire',
+    category: 'Événements',
+    author: 'Équipe éducative GSIPG',
     body: [
-      'Les élèves du GSIPG ont brillé lors du concours de lecture bilingue inter-écoles de Yaoundé, organisé par le réseau des établissements partenaires. Trois de nos représentants ont figuré sur le podium, dont deux lauréats en catégorie CE1 et CE2.',
-      'Pendant plusieurs semaines, les candidats ont préparé leurs textes en français et en anglais, travaillant sur l\'expression orale, l\'intonation et la compréhension. Cette préparation rigoureuse a porté ses fruits : fluidité, assurance et plaisir de lire devant un jury exigeant.',
-      '« La lecture est le fondement de toute réussite scolaire », rappelle notre enseignante référente langues. « En section bilingue, maîtriser les deux langues à l\'oral est un atout considérable pour la suite du parcours. »',
-      'Félicitations à tous les participants et à leurs enseignants pour ce beau résultat. Le GSIPG est fier de ses jeunes lecteurs !',
+      'Dans le cadre des activités pédagogiques hors classe, les élèves du GSIPG ont participé à une sortie scolaire soigneusement préparée par l\'équipe enseignante. Objectif : confronter les apprentissages du quotidien au monde réel, stimuler la curiosité et renforcer les liens entre camarades.',
+      'Encadrés par leurs instituteurs et des accompagnateurs, les enfants ont exploré leur environnement avec enthousiasme, posant des questions, observant, dessinant et échangeant entre eux. Chaque étape de la journée avait été pensée pour s\'inscrire dans les objectifs pédagogiques du trimestre.',
+      '« Sortir de l\'école, c\'est aussi entrer dans une autre salle de classe — celle du monde », explique un instituteur organisateur. « Les enfants apprennent différemment dehors : ils sont plus attentifs, plus curieux et plus autonomes. »',
+      'Cette sortie a également été l\'occasion de renforcer la cohésion du groupe, la responsabilité individuelle et le respect des règles de vie collective. Une belle journée qui restera gravée dans les mémoires, et dont les apprentissages continueront de résonner en classe dans les semaines à venir.',
+    ],
+  },
+  {
+    slug: 'journee-culturelle',
+    title: 'Journée culturelle au GSIPG',
+    excerpt:
+      'Chants, danses traditionnelles et instruments de musique : les élèves de La Petite Gloria ont célébré la richesse des cultures camerounaises lors d\'une journée haute en couleurs.',
+    date: '2025-04-08',
+    image: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.55.30.jpeg',
+    imageAlt: 'Élèves du GSIPG lors de la journée culturelle',
+    category: 'Événements',
+    author: 'Équipe éducative GSIPG',
+    body: [
+      'La journée culturelle du GSIPG a été l\'occasion pour les élèves de célébrer la diversité et la richesse du patrimoine camerounais. Habillés en tenues traditionnelles, les enfants ont présenté des danses, des chants et des démonstrations d\'instruments de musique traditionnels devant leurs camarades et leurs familles.',
+      'Au cœur de l\'événement : le balafon, instrument emblématique de l\'Afrique centrale, que certains élèves ont eu la chance de découvrir et de jouer pour la première fois. Cette initiation musicale a suscité curiosité et enthousiasme chez tous les participants, petits et grands.',
+      '« Cette journée nous permet de rappeler à nos élèves d\'où ils viennent, de valoriser leur identité culturelle tout en s\'ouvrant à la diversité », explique un membre de l\'équipe pédagogique. « L\'éducation interculturelle fait partie intégrante de notre projet d\'établissement. »',
+      'Parents et familles ont répondu présents en grand nombre pour partager ce moment de fierté et de convivialité. La journée culturelle s\'est conclue dans une ambiance festive, avec des échanges chaleureux entre générations autour des traditions locales.',
+    ],
+    photos: [
+      '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 08.55.31.jpeg',
+      '/images/gallery/activites-post-et-peri-scolaires/balafons1.png',
+      '/images/gallery/activites-post-et-peri-scolaires/balafons2.png',
+      '/images/gallery/activites-post-et-peri-scolaires/danse1.png',
     ],
   },
   {
