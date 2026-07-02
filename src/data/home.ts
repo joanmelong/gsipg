@@ -89,12 +89,12 @@ export const visionContent = {
   ],
   photos: [
     {
-      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.29.27.jpeg',
+      src: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.29.27.jpeg',
       alt: 'Enfants en activités ludiques en classe',
       bg: '#EBF8FF',
     },
     {
-      src: '/images/gallery/great.jpeg',
+      src: '/images/gallery/apprentissage/great.jpeg',
       alt: 'Initiation au numérique en primaire',
       bg: '#71d7f7',
     },

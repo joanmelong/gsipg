@@ -49,7 +49,7 @@ export const vieScolaireContentSections = [
     note:
       'Des temps de récréation de 15 min sont prévus et la pause déjeuner dure 1h à partir de midi.',
     image: {
-      src: '/images/home/vision-1.jpg',
+      src: '/images/gallery/staff-ecole/WhatsApp Image 2026-06-25 at 11.30.44 (1).jpeg',
       alt: 'Enfants en activité scolaire',
     },
   },
@@ -75,7 +75,7 @@ export const vieScolaireContentSections = [
     note:
       'Pour toute question relative au parcours scolaire de votre enfant, l\'équipe pédagogique reste disponible auprès de la direction et de la vie scolaire.',
     image: {
-      src: '/images/gallery/WhatsApp Image 2026-06-30 at 09.29.30.jpeg',
+      src: '/images/gallery/staff-ecole/WhatsApp Image 2026-06-30 at 09.29.30.jpeg',
       alt: 'Échange entre instituteurs et parents au GSIPG',
     },
   },
