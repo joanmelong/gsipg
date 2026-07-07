@@ -2,7 +2,7 @@ export const vieScolaireHero = {
   tag: 'Vie scolaire',
   title: 'Le quotidien de votre enfant à La Petite Gloria',
   subtitle:
-    'Horaires, restauration, transports et inscriptions : toutes les informations pratiques pour organiser sereinement la scolarité de votre enfant à Yaoundé.',
+    'Horaires, restauration et inscriptions : toutes les informations pratiques pour organiser sereinement la scolarité de votre enfant à Yaoundé.',
   portrait: {
     src: '/images/vie-scolaire/children.png',
     alt: 'Enfants de La Petite Gloria',
@@ -43,11 +43,11 @@ export const vieScolaireContentSections = [
     theme: 'white' as VieScolaireTheme,
     title: 'Les Horaires & Le Rythme Scolaire',
     badges: [
-      { label: 'Maternelle', value: '7h30 – 13h30' },
-      { label: 'Primaire', value: '7h30 – 15h30' },
+      { label: 'Maternelle', value: '7h30 – 12h (mer. & ven.)' },
+      { label: 'Primaire', value: '7h30 – 15h (lun., mar., jeu.)' },
     ],
     note:
-      'Des temps de récréation de 15 min sont prévus et la pause déjeuner dure 1h à partir de midi.',
+      'Le primaire termine à 13h le mercredi et le vendredi. La maternelle termine à midi ces mêmes jours. Deux récréations de 30 min sont prévues dans la journée.',
     image: {
       src: '/images/gallery/staff-ecole/WhatsApp Image 2026-06-25 at 11.30.44 (1).jpeg',
       alt: 'Enfants en activité scolaire',

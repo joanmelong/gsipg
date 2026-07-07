@@ -2,14 +2,14 @@ export const siteConfig = {
   name: 'Groupe Scolaire International La Petite Gloria',
   shortName: 'GSIPG',
   description:
-    'École internationale bilingue à Yaoundé combinant excellence académique et parcs d\'attractions éducatifs.',
+    'École internationale bilingue à Yaoundé combinant excellence académique et apprentissage innovant.',
   url: 'https://gsipg.com',
   locale: 'fr_CM',
   contact: {
     phone: '+237 6 99 91 85 62',
     email: 'contact@gsipg.com',
     address: 'Yaoundé, Cameroun',
-    hours: 'Lun – Ven : 7h30 – 17h00',
+    hours: 'Lun – Ven : 7h00 – 16h00',
   },
 } as const;
 
@@ -25,7 +25,7 @@ export const mainNav = [
 
 export const footerQuickLinks = [
   { label: 'Qui sommes-nous', href: '/qui-sommes-nous' },
-  { label: 'Parcs éducatifs', href: '/parcs' },
+  { label: 'Loisirs', href: '/parcs' },
   { label: 'Nos niveaux', href: '/niveaux' },
   { label: 'Actualités', href: '/actualites' },
   { label: 'Contact', href: '/qui-sommes-nous#contact' },

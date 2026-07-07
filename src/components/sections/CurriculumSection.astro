@@ -73,12 +73,17 @@ import { curricula, curriculumPortrait, curriculumSection } from '../../data/hom
         </ul>
       </div>
 
-      <!-- Colonne droite : portrait sur fond Group 5.svg -->
+      <!-- Colonne droite : photo -->
       <div class="relative mx-auto w-full max-w-md lg:max-w-none">
-        <div
-          class="relative aspect-[4/5] bg-contain bg-center bg-no-repeat"
-          style={`background-image: url('${curriculumSection.frameBgImage}')`}
-        >
+        <div class="overflow-hidden rounded-3xl shadow-xl ring-2 ring-white/20">
+          <img
+            src="/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.04.jpeg"
+            alt="Élèves du GSIPG en activité"
+            class="aspect-[4/5] w-full object-cover"
+            loading="lazy"
+            width="600"
+            height="750"
+          />
         </div>
       </div>
     </div>

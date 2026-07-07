@@ -9,11 +9,11 @@ export const aboutHero = {
 } as const;
 
 export const directorSection = {
-  name: 'Dr. Aminata Bello',
+  name: 'Mme Kamgain Filomette',
   role: 'Directrice pédagogique',
   portrait: {
     src: '/images/about/directrice.png',
-    alt: 'Portrait de Dr. Aminata Bello, directrice du GSIPG',
+    alt: 'Portrait de Mme Kamgain Filomette, directrice du GSIPG',
   },
   schoolDescription:
     "Fondé à Yaoundé (Messamendongo), le Groupe Scolaire International La Petite Gloria est né d'une vision audacieuse : offrir une éducation internationale d'excellence en sections francophone, anglophone et bilingue Fifty-Fifty, de la crèche au primaire.",
@@ -54,8 +54,7 @@ export const aboutContact = {
   officeLabel: 'Notre établissement',
   officeIconSrc: '/images/contact_us/pin.png',
   hours: [
-    { days: 'Lundi – Vendredi', time: '8h à 17h' },
-    { days: 'Samedi', time: '10h à 15h' },
+    { days: 'Lundi – Vendredi', time: '7h à 16h' },
   ],
   address: 'Messamendongo, Yaoundé IV, Cameroun',
   form: {
@@ -69,13 +68,13 @@ export const aboutContact = {
   mapsDirectionsUrl:
     'https://www.google.com/maps/dir/?api=1&destination=Messamendongo+Yaound%C3%A9+IV,+Cameroun',
   mapsEmbedUrl:
-    'https://maps.google.com/maps?q=Messamendongo+Yaound%C3%A9+IV,+Cameroun&hl=fr&z=15&output=embed',
+    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.5!2d11.5!3d3.85!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x108bcf0000000001%3A0x1!2sMessamendongo%2C+Yaound%C3%A9+IV%2C+Cameroun!5e0!3m2!1sfr!2scm!4v1700000000000!5m2!1sfr!2scm',
 } as const;
 
 export const mission = {
   history: directorSection.schoolDescription,
   mission:
-    "Notre mission est d'accompagner chaque enfant vers la réussite scolaire et l'épanouissement personnel, en combinant un enseignement rigoureux et des parcs d'attractions éducatifs uniques au Cameroun.",
+    "Notre mission est d'accompagner chaque enfant vers la réussite scolaire et l'épanouissement personnel, en combinant un enseignement rigoureux et des méthodes pédagogiques innovantes.",
 } as const;
 
 export const values = [
@@ -106,9 +105,9 @@ export const team = [
   },
   {
     name: 'Marc Ondoa',
-    role: 'Coordinateur parcs éducatifs',
+    role: 'Coordinateur activités périscolaires',
     image: '/images/team/team-2.svg',
-    alt: 'Portrait de Marc Ondoa, coordinateur des parcs éducatifs',
+    alt: 'Portrait de Marc Ondoa, coordinateur des activités périscolaires',
   },
   {
     name: 'Claire Nguema',

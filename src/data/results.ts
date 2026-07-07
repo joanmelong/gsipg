@@ -37,6 +37,6 @@ export const resultsConclusion = {
   },
   button: {
     label: 'Inscrire mon enfant',
-    href: '/admissions',
+    href: '/vie-scolaire#inscriptions',
   },
 } as const;

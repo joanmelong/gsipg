@@ -62,7 +62,7 @@ export const curricula = [
 ] as const;
 
 export const curriculumPortrait = {
-  src: '/images/home/curriculum-portrait.jpg',
+  src: '/images/gallery/activites-post-et-peri-scolaires/WhatsApp Image 2026-06-30 at 09.00.04.jpeg',
   alt: 'Enseignante accompagnant un élève en classe',
 } as const;
 
@@ -112,7 +112,7 @@ export const vieScolairePreview = {
     {
       title: 'Horaires & Rythme',
       summary:
-        'Maternelle (7h30 – 13h30) | Primaire (7h30 – 15h30). Temps de récréation de 15 min et pause déjeuner d\'1h à midi.',
+        'Primaire : 7h30–15h (lun., mar., jeu.) et 13h (mer. & ven.). Maternelle : 7h30–12h (mer. & ven.). Deux récréations de 30 min.',
       href: '/vie-scolaire#horaires',
       icon: 'clock',
     },
@@ -155,7 +155,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Mon enfant adore aller à l'école ! Les parcs éducatifs et les sorties pédagogiques rendent l'apprentissage vivant et motivant.",
+      "Mon enfant adore aller à l'école ! Les activités périscolaires et les sorties pédagogiques rendent l'apprentissage vivant et motivant.",
     author: 'Sarah Etoa',
     role: 'Parent — Section Anglophone, Class 4',
   },
@@ -172,7 +172,7 @@ export const homeCta = {
   description:
     'Inscriptions ouvertes pour la rentrée 2025-2026. Places limitées — planifiez votre visite dès maintenant.',
   buttonLabel: 'Demander une inscription',
-  buttonHref: '/admissions',
+  buttonHref: '/vie-scolaire#inscriptions',
 } as const;
 
 /** @deprecated Utiliser vieScolairePreview.cards */
