@@ -11,18 +11,16 @@ export const resultsHero = {
 export const resultsIntro = resultsHero.subtitle;
 
 export const stats = [
-  { label: 'Taux de réussite 6ème', value: '98%', detail: 'Année scolaire 2025-2026' },
-  { label: 'Taux de réussite CEP', value: '96%', detail: 'Année scolaire 2025-2026' },
-  { label: 'Moyenne générale', value: '14,2/20', detail: 'Cycle primaire' },
-  { label: 'Mentions Bien et Très Bien', value: '72%', detail: 'Examens CEP' },
-  { label: 'Progression bilingue', value: '+35%', detail: 'Niveau anglais (tests internes)' },
-  { label: 'Satisfaction parents', value: '94%', detail: 'Enquête annuelle 2026' },
+  { label: 'Common Entrance & FSLC', value: '100%', detail: 'Année scolaire 2025-2026' },
+  { label: 'Taux de réussite CEP', value: '100%', detail: 'Année scolaire 2025-2026' },
+  { label: 'Concours entrée en 6ème', value: '90%', detail: 'Année scolaire 2025-2026' },
 ] as const;
 
 export const examResults = [
-  { level: 'CM2 — CEP', admitted: 48, total: 50, rate: '96%' },
-  { level: '6ème — Entrée secondaire', admitted: 45, total: 46, rate: '98%' },
-  { level: 'CEPE — Mention Bien+', admitted: 34, total: 48, rate: '71%' },
+  { level: 'Common Entrance', rate: '100%' },
+  { level: 'FSLC', rate: '100%' },
+  { level: 'CEP', rate: '100%' },
+  { level: 'Concours d\'entrée en 6ème', rate: '90%' },
 ] as const;
 
 export const conclusion =

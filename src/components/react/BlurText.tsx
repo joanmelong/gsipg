@@ -14,7 +14,8 @@ export default function BlurText({
   delay = 40,
   as: Tag = 'h1',
 }: BlurTextProps) {
-  const [visibleCount, setVisibleCount] = useState(text.length);
+  const words = text.split(' ');
+  const [visibleCount, setVisibleCount] = useState(words.length);
   const [animate, setAnimate] = useState(false);
 
   useEffect(() => {
@@ -27,8 +28,8 @@ export default function BlurText({
     const id = window.setInterval(() => {
       i += 1;
       setVisibleCount(i);
-      if (i >= text.length) window.clearInterval(id);
-    }, delay);
+      if (i >= words.length) window.clearInterval(id);
+    }, delay * 3); // délai légèrement plus long car on anime par mot
 
     return () => window.clearInterval(id);
   }, [text, delay]);
@@ -43,9 +44,9 @@ export default function BlurText({
 
   return (
     <Tag className={className} aria-label={text}>
-      {text.split('').map((char, index) => (
+      {words.map((word, index) => (
         <span
-          key={`${char}-${index}`}
+          key={`${word}-${index}`}
           aria-hidden="true"
           style={{
             display: 'inline-block',
@@ -53,10 +54,10 @@ export default function BlurText({
             filter: index < visibleCount ? 'blur(0)' : 'blur(8px)',
             transform: index < visibleCount ? 'translateY(0)' : 'translateY(6px)',
             transition: 'opacity 0.35s ease, filter 0.35s ease, transform 0.35s ease',
-            whiteSpace: char === ' ' ? 'pre' : undefined,
+            marginRight: index < words.length - 1 ? '0.25em' : undefined,
           }}
         >
-          {char === ' ' ? '\u00A0' : char}
+          {word}
         </span>
       ))}
     </Tag>

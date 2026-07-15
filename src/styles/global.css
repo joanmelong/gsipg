@@ -41,14 +41,23 @@
 
   h1 {
     @apply font-heading font-normal uppercase tracking-wide text-primary text-2xl md:text-4xl lg:text-5xl leading-tight;
+    hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: normal;
   }
 
   h2 {
     @apply font-heading font-normal uppercase tracking-wide text-secondary text-xl md:text-3xl leading-snug;
+    hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: normal;
   }
 
   h3 {
     @apply font-heading font-normal uppercase tracking-wide text-secondary text-base md:text-2xl leading-normal;
+    hyphens: none;
+    word-break: keep-all;
+    overflow-wrap: normal;
   }
 
   a:focus-visible,

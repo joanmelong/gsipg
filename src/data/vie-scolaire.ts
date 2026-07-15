@@ -86,7 +86,6 @@ export const vieScolaireContentSections = [
     highlight: 'Les inscriptions démarrent la deuxième semaine du mois de juillet.',
     description:
       'Tous les renseignements se font à la direction de l\'école. Les frais prennent en compte les frais d\'inscription et les frais de scolarité.',
-    bonus: 'Une tenue scolaire est offerte pour chaque enfant à son inscription.',
     image: {
       src: '/images/home/hero-slide-1.jpg',
       alt: 'Élève prêt pour la rentrée',

@@ -4,6 +4,8 @@ import Container from '../../components/ui/Container.astro';
 import Section from '../../components/ui/Section.astro';
 import Button from '../../components/ui/Button.astro';
 import CtaSection from '../../components/sections/CtaSection.astro';
+import BlurText from '../../components/react/BlurText';
+import FadeIn from '../../components/react/FadeIn';
 import { loisirsThemes, parcsHero, parcsCta } from '../../data/parcs';
 ---
 
@@ -32,12 +34,15 @@ import { loisirsThemes, parcsHero, parcsCta } from '../../data/parcs';
           <p class="text-xs font-semibold uppercase tracking-[0.25em] text-primary">
             {parcsHero.tag}
           </p>
-          <h1 class="mt-4 font-subheading text-3xl font-bold normal-case leading-tight text-white sm:text-4xl lg:text-[2.75rem]">
-            {parcsHero.title}
-          </h1>
-          <p class="mt-5 text-base leading-relaxed text-white/85">
-            {parcsHero.subtitle}
-          </p>
+          <BlurText
+            client:visible
+            text={parcsHero.title}
+            as="h1"
+            className="mt-4 font-subheading text-3xl font-bold normal-case leading-tight text-white sm:text-4xl lg:text-[2.75rem]"
+          />
+          <FadeIn client:visible delay={200} className="mt-5 text-base leading-relaxed text-white/85">
+            <p>{parcsHero.subtitle}</p>
+          </FadeIn>
         </div>
         <div class="flex justify-center lg:justify-end">
           <img

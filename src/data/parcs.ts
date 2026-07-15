@@ -67,7 +67,7 @@ export const loisirsThemes: LoisirsTheme[] = [
       'Bibliothèque riche et conviviale',
       'Initiation à la passion de la lecture',
     ],
-    image: '/images/gallery/apprentissage/IMG-20240518-WA0002-600x300.jpg',
+    image: '/images/gallery/Group 18.png',
     imageAlt: 'Élèves en atelier numérique au GSIPG',
   },
   {

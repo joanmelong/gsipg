@@ -50,8 +50,8 @@ export const articles: Article[] = [
     ],
   },
   {
-    slug: 'balais-et-defile-de-mode',
-    title: 'Balais et défilé de mode',
+    slug: 'ballet-et-defile-de-mode',
+    title: 'Ballet et défilé de mode',
     excerpt:
       'Les élèves de La Petite Gloria ont enfilé leurs plus beaux costumes pour un défilé de mode haut en couleurs, mêlant créativité, élégance et bonne humeur.',
     date: '2026-02-11',
@@ -60,7 +60,7 @@ export const articles: Article[] = [
     category: 'Événements',
     author: 'Équipe éducative GSIPG',
     body: [
-      'Dans le cadre des activités périscolaires, le GSIPG a organisé un balais et défilé de mode qui a fait sensation. Habillés de tenues soigneusement préparées, les élèves ont défilé avec fierté et assurance devant leurs camarades, leurs instituteurs et leurs familles réunies pour l\'occasion.',
+      'Dans le cadre des activités périscolaires, le GSIPG a organisé un ballet et défilé de mode qui a fait sensation. Habillés de tenues soigneusement préparées, les élèves ont défilé avec fierté et assurance devant leurs camarades, leurs instituteurs et leurs familles réunies pour l\'occasion.',
       'Au-delà du spectacle, cette activité poursuit des objectifs pédagogiques concrets : renforcer la confiance en soi, développer l\'expression corporelle, apprendre à se présenter devant un public et valoriser la créativité de chaque enfant. Chaque élève a pu briller à sa façon, dans une ambiance bienveillante et festive.',
       '« Voir nos élèves marcher avec autant d\'assurance et de sourire, c\'est exactement ce que nous cherchons à cultiver », confie un membre de l\'équipe éducative. « Ces moments hors classe sont aussi formateurs que les heures en salle. »',
       'Cet événement a rappelé combien la vie scolaire au GSIPG est riche et diversifiée. Félicitations à tous les élèves pour leur participation et leur enthousiasme !',
